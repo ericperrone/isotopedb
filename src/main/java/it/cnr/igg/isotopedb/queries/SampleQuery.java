@@ -28,7 +28,7 @@ public class SampleQuery extends Query {
 	 * cc.value from sample_index si left join chem_component cc on(cc.sample_id =
 	 * si.sample_id) order by si.sample_id ;
 	 */
-	private String queryAll = "select distinct si.sample_id, se.field, se.value, cc.\"element\", cc.value as cvalue "
+	private String queryAll = "select distinct si.sample_id, se.field, se.value, cc.\"element\", cc.value as cvalue, cc.isotope "
 			+ "from sample_index si " + "left join sample_element se on(se.sample_id = si.sample_id) "
 			+ "left join chem_component cc on(cc.sample_id = si.sample_id) "
 			+ "where se.value is not null and cc.value is not null "
@@ -124,8 +124,10 @@ public class SampleQuery extends Query {
 		ComponentBean cb = new ComponentBean();
 		String component = rs.getString("element");
 		Double value = rs.getDouble("cvalue");
+		Boolean isotope = rs.getBoolean("isotope");
 		cb.setComponent(component);
 		cb.setValue(value);
+		cb.setIsIsotope(isotope);
 		return cb;
 	}
 
