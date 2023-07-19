@@ -30,7 +30,9 @@ public class SampleQuery extends Query {
 	 */
 	private String queryAll = "select distinct si.sample_id, se.field, se.value, cc.\"element\", cc.value as cvalue "
 			+ "from sample_index si " + "left join sample_element se on(se.sample_id = si.sample_id) "
-			+ "left join chem_component cc on(cc.sample_id = si.sample_id) " + "order by si.sample_id";
+			+ "left join chem_component cc on(cc.sample_id = si.sample_id) "
+			+ "where se.value is not null and cc.value is not null "
+			+ "order by si.sample_id";
 
 	private String queryElements = "select distinct si.sample_id, cc.\"element\", cc.value from sample_index si "
 			+ "left join chem_component cc on(cc.sample_id = si.sample_id) order by si.sample_id";
