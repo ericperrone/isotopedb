@@ -35,10 +35,10 @@ public class SampleQuery extends Query {
 			+ "order by si.sample_id";
 
 	private String queryElements = "select distinct si.sample_id, cc.\"element\", cc.value from sample_index si "
-			+ "left join chem_component cc on(cc.sample_id = si.sample_id) order by si.sample_id";
+			+ "left join chem_component cc on(cc.sample_id = si.sample_id) where cc.value is not null order by si.sample_id";
 
 	private String queryFields = "select distinct si.sample_id, se.field, se.value from sample_index si left "
-			+ "join sample_element se on(se.sample_id = si.sample_id) order by si.sample_id";
+			+ "join sample_element se on(se.sample_id = si.sample_id) where se.value is not null order by si.sample_id";
 
 	public SampleQuery() {
 		super();
