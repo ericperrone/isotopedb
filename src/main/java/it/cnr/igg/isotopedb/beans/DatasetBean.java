@@ -17,6 +17,10 @@ public class DatasetBean extends TheBean {
 
 	public DatasetBean() {
 		super();
+		this.id = -1L;
+		this.fileName = null;
+		this.metadata = null;
+		this.processed = false;
 	}
 
 	public Long getId() {
