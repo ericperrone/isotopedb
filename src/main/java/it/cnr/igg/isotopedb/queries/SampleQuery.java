@@ -57,9 +57,10 @@ public class SampleQuery extends Query {
 //			String queryData = "select sample_id, type, \"name\", svalue, nvalue from sample_attribute where type in ('F', 'I', 'C') ";
 //			queryData += "order by sample_id";
 			
-			String queryData = "select si.sample_id, sa.type, sa.name, sa.svalue, sa.nvalue, d.id as dataset_id "
-					+ "from sample_index si left join dataset d on (si.dataset_id = d.id), sample_attribute sa "
+			String queryData = "select si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue "
+					+ "from sample_index si, sample_attribute sa "
 					+ "where type in ('F', 'I', 'C') "
+					+ "and sa.sample_id = si.sample_id "
 					+ "order by si.sample_id";
 
 			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
