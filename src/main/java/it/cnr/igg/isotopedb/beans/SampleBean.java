@@ -5,19 +5,28 @@ import com.google.gson.Gson;
 
 public class SampleBean extends TheBean {
 	private Long id;
-//	private String name;
-//	private String location;
-//	private String rockType;
-//	private String age;
-//	private float longMin, longMax;
-//	private float latMin, latMax;
-//	private String reference;
-//	private String meta;
 	private List<ComponentBean> components;
 	private List<SampleFieldBean> fields;
+	private Long datasetId;
 	
 	public SampleBean() {
 		super();
+		id = -1L;
+		datasetId = -1L;
+		components = null;
+		fields = null;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setDatasetId(Long datasetId) {
+		this.datasetId = datasetId;
+	}
+
+	public Long getDatasetId() {
+		return datasetId;
 	}
 	
 	public Long getId() {

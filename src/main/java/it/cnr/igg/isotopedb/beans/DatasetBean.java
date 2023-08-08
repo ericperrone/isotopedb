@@ -5,8 +5,6 @@ public class DatasetBean extends TheBean {
 	private String fileName, metadata;
 	private boolean processed;
 	
-	
-	
 	public DatasetBean(Long id, String fileName, String metadata, boolean processed) {
 		super();
 		this.id = id;

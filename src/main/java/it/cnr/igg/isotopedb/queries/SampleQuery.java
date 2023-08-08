@@ -54,8 +54,13 @@ public class SampleQuery extends Query {
 		ResultSet rs = null;
 		try {
 			Connection con = cm.createConnection();
-			String queryData = "select sample_id, type, \"name\", svalue, nvalue from sample_attribute where type in ('F', 'I', 'C') ";
-			queryData += "order by sample_id";
+//			String queryData = "select sample_id, type, \"name\", svalue, nvalue from sample_attribute where type in ('F', 'I', 'C') ";
+//			queryData += "order by sample_id";
+			
+			String queryData = "select si.sample_id, sa.type, sa.name, sa.svalue, sa.nvalue, d.id as dataset_id "
+					+ "from sample_index si left join dataset d on (si.dataset_id = d.id), sample_attribute sa "
+					+ "where type in ('F', 'I', 'C') "
+					+ "order by si.sample_id";
 
 			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
 
@@ -65,6 +70,9 @@ public class SampleQuery extends Query {
 				Long id = rs.getLong("sample_id");
 				if (index.get(id) == null) {
 					SampleBean bean = new SampleBean();
+					Long datasetId = rs.getLong("dataset_id");
+					if (datasetId > 0)
+						bean.setDatasetId(datasetId);
 					bean.setFields(new ArrayList<SampleFieldBean>());
 					bean.setComponents(new ArrayList<ComponentBean>());
 					index.put(id, bean);
@@ -104,7 +112,7 @@ public class SampleQuery extends Query {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = null;
-		String insertSample = "insert into sample_index (ts) values(now());";
+		String insertSample = "insert into sample_index (ts, dataset_id) values(now(), ?);";
 		String getSampleId = "SELECT currval(pg_get_serial_sequence(\'sample_index\',\'sample_id\')) as sample_id";
 		String insertField = "insert into sample_attribute (sample_id, type, name, svalue) values (?, ?, ?, ?)";
 		String insertChem = "insert into sample_attribute (sample_id, type, name, nvalue) values (?, ?, ?, ?)";
@@ -114,6 +122,7 @@ public class SampleQuery extends Query {
 			for (SampleBean sb : samples) {
 				// step 1: insert master record
 				ps = con.prepareStatement(insertSample);
+				ps.setLong(1, sb.getDatasetId() >= 0 ? sb.getDatasetId() : null);
 				ps.execute();
 				ps.close();
 				ps = null;
