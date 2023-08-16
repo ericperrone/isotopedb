@@ -13,12 +13,31 @@ public class DatasetQuery extends Query {
 	public DatasetQuery() {
 		super();
 	}
+	
+	public void deleteDataset(Long id) throws Exception, DbException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		String delete = "delete from dataset where id = ?";
+		try {
+			con = cm.createConnection();
+			ps = con.prepareStatement(delete);
+			ps.setLong(1, id);
+			ps.execute();
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			if (ps != null) {
+				ps.close();
+			}
+			cm.closeConnection();
+		}
+	}
 
 	public DatasetBean insertDataset(DatasetBean bean) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = null;
-		String insert = "insert into dataset (file_name, metadata, processed) values (?,?,?)";
+		String insert = "insert into dataset (file_name, metadata, processed, link, authors, year) values (?,?,?,?,?,?)";
 		String getId = "SELECT currval(pg_get_serial_sequence(\'dataset\',\'id\')) as id";
 		try {
 			con = cm.createConnection();
@@ -27,6 +46,9 @@ public class DatasetQuery extends Query {
 			ps.setString(1, bean.getFileName());
 			ps.setString(2, bean.getMetadata());
 			ps.setBoolean(3, false);
+			ps.setString(4, bean.getLink());
+			ps.setString(5, bean.getAuthors());
+			ps.setInt(6, bean.getYear());
 			ps.execute();
 			ps.close();
 			ps = null;
@@ -127,7 +149,10 @@ public class DatasetQuery extends Query {
 			while (rs.next()) {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"),
 						rs.getString("file_name"),
-						rs.getString("metadata"),
+						rs.getString("metadata"),						
+						rs.getString("authors"),
+						rs.getString("link"),
+						rs.getInt("year"),
 						rs.getBoolean("processed"));
 				beans.add(bean);
 			}

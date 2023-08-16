@@ -20,26 +20,6 @@ import it.cnr.igg.isotopedb.beans.SampleFieldBean;
 import it.cnr.igg.isotopedb.beans.ComponentBean;
 
 public class SampleQuery extends Query {
-	/*
-	 * query per i campi select distinct si.sample_id, se.field, se.value from
-	 * sample_index si left join sample_element se on(se.sample_id = si.sample_id)
-	 * order by si.sample_id ;
-	 * 
-	 * query per elementi chimici select distinct si.sample_id, cc."element",
-	 * cc.value from sample_index si left join chem_component cc on(cc.sample_id =
-	 * si.sample_id) order by si.sample_id ;
-	 */
-	private String queryAll = "select distinct si.sample_id, se.field, se.value, cc.\"element\", cc.value as cvalue, cc.isotope "
-			+ "from sample_index si " + "left join sample_element se on(se.sample_id = si.sample_id) "
-			+ "left join chem_component cc on(cc.sample_id = si.sample_id) "
-			+ "where se.value is not null and cc.value is not null ";
-
-	private String queryElements = "select \"element\", value as cvalue, isotope from chem_component where value is not null ";
-
-	private String queryFields = "select field, value from sample_element where value is not null ";
-
-	private String orderBy = "order by si.sample_id";
-	
 	public final String TYPE_FIELD = "F";
 	public final String TYPE_ISOTOPE = "I";
 	public final String TYPE_CHEM = "C";
@@ -213,60 +193,6 @@ public class SampleQuery extends Query {
 		return sfb;
 	}
 
-	public ArrayList<SampleBean> getSampleList(List<QueryFilter> filter) throws Exception, DbException {
-		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			Connection con = cm.createConnection();
-			ArrayList<Long> index = createIndex(con, filter);
-			for (Long id : index) {
-				SampleBean bean = new SampleBean();
-				bean.setFields(new ArrayList<SampleFieldBean>());
-				bean.setComponents(new ArrayList<ComponentBean>());
-
-				String qf = queryFields + " and sample_id = ?";
-				ps = con.prepareStatement(qf);
-				ps.setLong(1, id);
-				rs = ps.executeQuery();
-
-				while (rs.next())
-					bean.getFields().add(rsToSampleFieldBean(rs));
-
-				rs.close();
-				rs = null;
-				ps.close();
-				ps = null;
-
-				String qc = queryElements + " and sample_id = ?";
-				ps = con.prepareStatement(qc);
-				ps.setLong(1, id);
-				rs = ps.executeQuery();
-
-				while (rs.next())
-					bean.getComponents().add(rsTocomponentBean(rs));
-
-				rs.close();
-				rs = null;
-				ps.close();
-				ps = null;
-
-				beans.add(bean);
-			}
-			return beans;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new DbException(ex);
-		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
-			cm.closeConnection();
-		}
-	}
 
 	private ArrayList<Long> createIndex(Connection con, List<QueryFilter> filters) throws Exception {
 		String queryBase = "select sample_id from (";
@@ -342,73 +268,6 @@ public class SampleQuery extends Query {
 			if (ps != null)
 				ps.close();
 		}
-	}
-
-	public ArrayList<SampleBean> getSamples(List<QueryFilter> filter) throws Exception, DbException {
-		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			Connection con = cm.createConnection();
-			ps = manageFilter(filter, con);
-			rs = ps.executeQuery();
-			HashMap<Long, SampleBean> sampleIndex = new HashMap<Long, SampleBean>();
-			while (rs.next()) {
-				Long id = rs.getLong("sample_id");
-				if (sampleIndex.get(id) == null) {
-					sampleIndex.put(id, new SampleBean());
-					sampleIndex.get(id).setFields(new ArrayList<SampleFieldBean>());
-					sampleIndex.get(id).setComponents(new ArrayList<ComponentBean>());
-				}
-				boolean already = false;
-				List<SampleFieldBean> flist = sampleIndex.get(id).getFields();
-				SampleFieldBean sfb = rsToSampleFieldBean(rs);
-				for (SampleFieldBean item : flist) {
-					if (item.compareTo(sfb) == true) {
-						already = true;
-						break;
-					}
-				}
-				if (already == false)
-					sampleIndex.get(id).getFields().add(sfb);
-
-				ComponentBean cb = rsTocomponentBean(rs);
-				List<ComponentBean> list = sampleIndex.get(id).getComponents();
-				already = false;
-				for (ComponentBean item : list) {
-					if (item.compareTo(cb) == true) {
-						already = true;
-						break;
-					}
-				}
-				if (already == false)
-					sampleIndex.get(id).getComponents().add(cb);
-			}
-			Set<Long> set = sampleIndex.keySet();
-			Iterator<Long> it = set.iterator();
-			while (it.hasNext())
-				beans.add(sampleIndex.get(it.next()));
-			return beans;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new DbException(ex);
-		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
-			cm.closeConnection();
-		}
-	}
-
-	private PreparedStatement manageFilter(List<QueryFilter> filter, Connection con) throws SQLException {
-		PreparedStatement ps = con.prepareStatement(queryAll);
-		if (filter != null && filter.size() >= 0) {
-			// to do ...
-		}
-		return ps;
 	}
 
 	private SampleFieldBean rsToSampleFieldBean(ResultSet rs) throws SQLException {
