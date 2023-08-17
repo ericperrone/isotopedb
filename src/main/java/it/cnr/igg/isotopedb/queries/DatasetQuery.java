@@ -114,14 +114,36 @@ public class DatasetQuery extends Query {
 			query += " and id = ?";
 		} 
 		if (filter.getFileName() != null) {
-			query += " and file_name like ?";
+			query += " and lower(file_name) like ?";
 		}
 		if (filter.getMetadata() != null) {
 			query += " and metadata like ?";
 		}
+		if (filter.getLink() != null) {
+			query += " and lower(link) like ?";
+		}
 		if (processedFilter == true) {
 			query += " and processed = ?";
 		}
+		if (filter.getAuthors() != null) {
+			String[] authors = filter.getAuthors().split(",");
+			query += " and lower(authors) similar to '%(";
+			for (int i = 0; i < authors.length - 2; i++) {
+				query += "(" + authors[i].toLowerCase().trim() + ")|";
+			}
+			query += "(" + authors[authors.length - 1].toLowerCase().trim() + ")";
+			query += ")%'";
+		}
+		if (filter.getMetadata() != null) {
+			String[] keywords = filter.getMetadata().split(" ");
+			query += " and lower(metadata) similar to '%(";
+			for (int i = 0; i < keywords.length - 2; i++) {
+				query += "(" + keywords[i].toLowerCase().trim() + ")|";
+			}
+			query += "(" + keywords[keywords.length - 1].toLowerCase().trim() + ")";
+			query += ")%'";
+		}
+
 		
 		ArrayList<DatasetBean> beans = new ArrayList<DatasetBean>();
 		try {
@@ -133,16 +155,16 @@ public class DatasetQuery extends Query {
 				position++;
 			} 
 			if (filter.getFileName() != null) {
-				ps.setString(position, "%" + filter.getFileName() + "%");
+				ps.setString(position, "%" + filter.getFileName().toLowerCase() + "%");
 				position++;
 			}
 			if (filter.getMetadata() != null) {
-				ps.setString(position, "%" + filter.getMetadata() + "%");
+				ps.setString(position, "%" + filter.getLink().toLowerCase() + "%");
 				position++;
 			}
 			if (processedFilter == true) {
 				ps.setBoolean(position, filter.isProcessed());
-			}
+			}		
 			
 			rs = ps.executeQuery();
 			
