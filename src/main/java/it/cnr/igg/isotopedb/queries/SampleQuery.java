@@ -18,6 +18,7 @@ import it.cnr.igg.isotopedb.tools.QueryFilter;
 import it.cnr.igg.isotopedb.beans.SampleBean;
 import it.cnr.igg.isotopedb.beans.SampleFieldBean;
 import it.cnr.igg.isotopedb.beans.ComponentBean;
+import it.cnr.igg.isotopedb.beans.DatasetBean;
 
 public class SampleQuery extends Query {
 	public final String TYPE_FIELD = "F";
@@ -28,20 +29,24 @@ public class SampleQuery extends Query {
 		super();
 	}
 
-	public ArrayList<SampleBean> querySamples(List<QueryFilter> filter) throws Exception, DbException {
+	public ArrayList<SampleBean> querySamples(QueryFilter filter, Connection con) throws Exception, DbException {
 		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			Connection con = cm.createConnection();
-//			String queryData = "select sample_id, type, \"name\", svalue, nvalue from sample_attribute where type in ('F', 'I', 'C') ";
-//			queryData += "order by sample_id";
-			
 			String queryData = "select si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue "
 					+ "from sample_index si, sample_attribute sa "
 					+ "where type in ('F', 'I', 'C') "
-					+ "and sa.sample_id = si.sample_id "
-					+ "order by si.sample_id";
+					+ "and sa.sample_id = si.sample_id ";
+			if (filter.datasets.size() > 0) {
+				queryData += " and si.dataset_id in (";
+				for (DatasetBean db : filter.datasets) {
+					queryData += db.getId() + ",";
+				}
+				queryData = queryData.substring(0, queryData.length() - 1);
+				queryData +=")";
+			}
+			queryData += " order by si.sample_id";
 
 			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
 
@@ -85,6 +90,17 @@ public class SampleQuery extends Query {
 			if (ps != null) {
 				ps.close();
 			}
+		}
+	}
+	
+	public ArrayList<SampleBean> querySamples(QueryFilter filter) throws Exception, DbException {
+		try {
+			Connection con = cm.createConnection();		
+			return querySamples(filter, con);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
 			cm.closeConnection();
 		}
 	}
@@ -194,81 +210,81 @@ public class SampleQuery extends Query {
 	}
 
 
-	private ArrayList<Long> createIndex(Connection con, List<QueryFilter> filters) throws Exception {
-		String queryBase = "select sample_id from (";
-		String queryField = "select distinct sample_id from sample_element where 1=1 ";
-		String queryChem = "select distinct sample_id from sample_element where 1=1 ";
-		ArrayList<Object> values = new ArrayList<Object>();
-		if (filters != null) {
-			for (QueryFilter qf : filters) {
-				if (qf.type == QueryFilter.DataType.FIELD) {
-					queryField += " and lower(field) like ?";
-					values.add(("%" + qf.queryItem + "%").toLowerCase());
-					switch (qf.operator) {
-					case EQ:
-					default:
-						queryField += " and lower(value) like ?";
-						values.add(("%" + qf.val + "%").toLowerCase());
-						break;
-					// inserire tutti gli altri casi
-					}
-				} else if (qf.type == QueryFilter.DataType.ISOTOPE) {
-					queryChem += "and isotope=true and lower(field) like ?";
-					values.add(("%" + qf.queryItem + "%").toLowerCase());
-					switch (qf.operator) {
-					case EQ:
-					default:
-						queryChem += " and value = ";
-						values.add((Double) qf.val);
-						break;
-					// inserire tutti gli altri casi
-					}
-
-				} else {
-					queryChem += " and lower(field) like ?";
-					values.add(("%" + qf.queryItem + "%").toLowerCase());
-					switch (qf.operator) {
-					case EQ:
-					default:
-						queryChem += " and value = ";
-						values.add((Double) qf.val);
-						break;
-					// inserire tutti gli altri casi
-					}
-				}
-			}
-		}
-		queryBase += queryField + " and sample_id in (";
-		queryBase += queryChem + ")) as index ";
-		queryBase += "order by sample_id";
-
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			ps = con.prepareStatement(queryBase);
-			for (int i = 0; i < values.size(); i++) {
-				Object v = values.get(i);
-				if (v instanceof Double)
-					ps.setDouble(i + 1, (Double) v);
-				else
-					ps.setString(i + 1, "" + v);
-			}
-			rs = ps.executeQuery();
-			ArrayList<Long> index = new ArrayList<Long>();
-			while (rs.next()) {
-				index.add(rs.getLong(1));
-			}
-			return index;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (rs != null)
-				rs.close();
-			if (ps != null)
-				ps.close();
-		}
-	}
+//	private ArrayList<Long> createIndex(Connection con, List<QueryFilter> filters) throws Exception {
+//		String queryBase = "select sample_id from (";
+//		String queryField = "select distinct sample_id from sample_element where 1=1 ";
+//		String queryChem = "select distinct sample_id from sample_element where 1=1 ";
+//		ArrayList<Object> values = new ArrayList<Object>();
+//		if (filters != null) {
+//			for (QueryFilter qf : filters) {
+//				if (qf.type == QueryFilter.DataType.FIELD) {
+//					queryField += " and lower(field) like ?";
+//					values.add(("%" + qf.queryItem + "%").toLowerCase());
+//					switch (qf.operator) {
+//					case EQ:
+//					default:
+//						queryField += " and lower(value) like ?";
+//						values.add(("%" + qf.val + "%").toLowerCase());
+//						break;
+//					// inserire tutti gli altri casi
+//					}
+//				} else if (qf.type == QueryFilter.DataType.ISOTOPE) {
+//					queryChem += "and isotope=true and lower(field) like ?";
+//					values.add(("%" + qf.queryItem + "%").toLowerCase());
+//					switch (qf.operator) {
+//					case EQ:
+//					default:
+//						queryChem += " and value = ";
+//						values.add((Double) qf.val);
+//						break;
+//					// inserire tutti gli altri casi
+//					}
+//
+//				} else {
+//					queryChem += " and lower(field) like ?";
+//					values.add(("%" + qf.queryItem + "%").toLowerCase());
+//					switch (qf.operator) {
+//					case EQ:
+//					default:
+//						queryChem += " and value = ";
+//						values.add((Double) qf.val);
+//						break;
+//					// inserire tutti gli altri casi
+//					}
+//				}
+//			}
+//		}
+//		queryBase += queryField + " and sample_id in (";
+//		queryBase += queryChem + ")) as index ";
+//		queryBase += "order by sample_id";
+//
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		try {
+//			ps = con.prepareStatement(queryBase);
+//			for (int i = 0; i < values.size(); i++) {
+//				Object v = values.get(i);
+//				if (v instanceof Double)
+//					ps.setDouble(i + 1, (Double) v);
+//				else
+//					ps.setString(i + 1, "" + v);
+//			}
+//			rs = ps.executeQuery();
+//			ArrayList<Long> index = new ArrayList<Long>();
+//			while (rs.next()) {
+//				index.add(rs.getLong(1));
+//			}
+//			return index;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw e;
+//		} finally {
+//			if (rs != null)
+//				rs.close();
+//			if (ps != null)
+//				ps.close();
+//		}
+//	}
 
 	private SampleFieldBean rsToSampleFieldBean(ResultSet rs) throws SQLException {
 		SampleFieldBean sfb = new SampleFieldBean();
@@ -290,83 +306,83 @@ public class SampleQuery extends Query {
 		return cb;
 	}
 
-	public void insert(ArrayList<SampleBean> samples) throws Exception, DbException {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		Connection con = null;
-		String insertSample = "insert into sample_index (ts) values(now());";
-		String getSampleId = "SELECT currval(pg_get_serial_sequence(\'sample_index\',\'sample_id\')) as sample_id";
-		String insertField = "insert into sample_element (sample_id, field, value) values (?, ?, ?)";
-		String insertChem = "insert into chem_component (sample_id, element, value, isotope) values (?, ?, ?, ?)";
-		try {
-			con = cm.createConnection();
-			con.setAutoCommit(false); // start transaction
-			for (SampleBean sb : samples) {
-				// step 1: insert master record
-				ps = con.prepareStatement(insertSample);
-				ps.execute();
-				ps.close();
-				ps = null;
-
-				// step 2: get master record id
-				ps = con.prepareStatement(getSampleId);
-				rs = ps.executeQuery();
-				if (!rs.next())
-					throw new DbException("Invalid sequence value");
-				Long sampleId = rs.getLong("sample_id");
-				rs.close();
-				rs = null;
-				ps.close();
-				ps = null;
-
-				// step 3: insert sample fields
-				List<SampleFieldBean> fields = sb.getFields();
-				for (SampleFieldBean sfb : fields) {
-					String value = sfb.getFieldValue();
-					if (value != null && value.length() > 0) {
-						ps = con.prepareStatement(insertField);
-						ps.setLong(1, sampleId);
-						ps.setString(2, sfb.getFieldName());
-						ps.setString(3, value);
-						ps.execute();
-						ps.close();
-						ps = null;
-					}
-				}
-
-				// step 4: insert chemical components
-				List<ComponentBean> components = sb.getComponents();
-				for (ComponentBean cb : components) {
-					Double value = cb.getValue();
-					if (value != null && value != 0L) {
-						ps = con.prepareStatement(insertChem);
-						ps.setLong(1, sampleId);
-						ps.setString(2, cb.getComponent());
-						ps.setDouble(3, value);
-						ps.setBoolean(4, cb.getIsIsotope());
-						ps.execute();
-						ps.close();
-						ps = null;
-					}
-				}
-			}
-			con.commit();
-		} catch (Exception ex) {
-			if (con != null)
-				con.rollback();
-			ex.printStackTrace();
-			throw new DbException(ex);
-		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
-			con.setAutoCommit(true); // end transaction
-			cm.closeConnection();
-		}
-	}
+//	public void insert(ArrayList<SampleBean> samples) throws Exception, DbException {
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		Connection con = null;
+//		String insertSample = "insert into sample_index (ts) values(now());";
+//		String getSampleId = "SELECT currval(pg_get_serial_sequence(\'sample_index\',\'sample_id\')) as sample_id";
+//		String insertField = "insert into sample_element (sample_id, field, value) values (?, ?, ?)";
+//		String insertChem = "insert into chem_component (sample_id, element, value, isotope) values (?, ?, ?, ?)";
+//		try {
+//			con = cm.createConnection();
+//			con.setAutoCommit(false); // start transaction
+//			for (SampleBean sb : samples) {
+//				// step 1: insert master record
+//				ps = con.prepareStatement(insertSample);
+//				ps.execute();
+//				ps.close();
+//				ps = null;
+//
+//				// step 2: get master record id
+//				ps = con.prepareStatement(getSampleId);
+//				rs = ps.executeQuery();
+//				if (!rs.next())
+//					throw new DbException("Invalid sequence value");
+//				Long sampleId = rs.getLong("sample_id");
+//				rs.close();
+//				rs = null;
+//				ps.close();
+//				ps = null;
+//
+//				// step 3: insert sample fields
+//				List<SampleFieldBean> fields = sb.getFields();
+//				for (SampleFieldBean sfb : fields) {
+//					String value = sfb.getFieldValue();
+//					if (value != null && value.length() > 0) {
+//						ps = con.prepareStatement(insertField);
+//						ps.setLong(1, sampleId);
+//						ps.setString(2, sfb.getFieldName());
+//						ps.setString(3, value);
+//						ps.execute();
+//						ps.close();
+//						ps = null;
+//					}
+//				}
+//
+//				// step 4: insert chemical components
+//				List<ComponentBean> components = sb.getComponents();
+//				for (ComponentBean cb : components) {
+//					Double value = cb.getValue();
+//					if (value != null && value != 0L) {
+//						ps = con.prepareStatement(insertChem);
+//						ps.setLong(1, sampleId);
+//						ps.setString(2, cb.getComponent());
+//						ps.setDouble(3, value);
+//						ps.setBoolean(4, cb.getIsIsotope());
+//						ps.execute();
+//						ps.close();
+//						ps = null;
+//					}
+//				}
+//			}
+//			con.commit();
+//		} catch (Exception ex) {
+//			if (con != null)
+//				con.rollback();
+//			ex.printStackTrace();
+//			throw new DbException(ex);
+//		} finally {
+//			if (rs != null) {
+//				rs.close();
+//			}
+//			if (ps != null) {
+//				ps.close();
+//			}
+//			con.setAutoCommit(true); // end transaction
+//			cm.closeConnection();
+//		}
+//	}
 
 //	public SampleBean insert(String jsonIn) throws Exception, DbException {
 //		PreparedStatement ps = null;

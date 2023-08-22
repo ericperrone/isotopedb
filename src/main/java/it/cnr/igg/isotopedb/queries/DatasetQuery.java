@@ -7,13 +7,14 @@ import java.util.ArrayList;
 
 import it.cnr.igg.isotopedb.beans.DatasetBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
+import it.cnr.igg.isotopedb.tools.QueryFilter;
 
 public class DatasetQuery extends Query {
 
 	public DatasetQuery() {
 		super();
 	}
-	
+
 	public void deleteDataset(Long id) throws Exception, DbException {
 		PreparedStatement ps = null;
 		Connection con = null;
@@ -52,7 +53,7 @@ public class DatasetQuery extends Query {
 			ps.execute();
 			ps.close();
 			ps = null;
-			
+
 			ps = con.prepareStatement(getId);
 			rs = ps.executeQuery();
 			if (!rs.next())
@@ -60,7 +61,7 @@ public class DatasetQuery extends Query {
 			Long datasetId = rs.getLong("id");
 
 			con.commit();
-			
+
 			bean.setId(datasetId);
 			return bean;
 		} catch (Exception ex) {
@@ -78,7 +79,7 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
-	
+
 	public void updateProcessed(DatasetBean bean) throws Exception, DbException {
 		PreparedStatement ps = null;
 		Connection con = null;
@@ -87,7 +88,7 @@ public class DatasetQuery extends Query {
 			con = cm.createConnection();
 			con.setAutoCommit(false); // start transaction
 			ps = con.prepareStatement(update);
-	
+
 			ps.setBoolean(1, bean.isProcessed());
 			ps.setLong(2, bean.getId());
 
@@ -104,15 +105,97 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
-	
-	public ArrayList<DatasetBean> getDatasets(DatasetBean filter, boolean processedFilter) throws Exception, DbException {
+
+	public ArrayList<DatasetBean> queryDatasets(QueryFilter queryFilter, Connection con) throws Exception, DbException {
+		ArrayList<DatasetBean> beans = new ArrayList<DatasetBean>();
+		if (queryFilter.authors != null || queryFilter.keywords != null || queryFilter.ref != null
+				|| queryFilter.year > 0) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			String query = "select * from dataset where processed=true";
+
+			if (queryFilter.authors != null) {
+				query += " and lower(authors) similar to '%(";
+				for (String auth : queryFilter.authors) {
+					query += "(" + auth.toLowerCase() + ")|";
+				}
+				query = query.substring(0, query.length() - 1);
+				query += ")%'";
+			}
+
+			if (queryFilter.keywords != null) {
+				query += " and lower(metadata) similar to '%(";
+				for (String key : queryFilter.keywords) {
+					query += "(" + key.toLowerCase() + ")|";
+				}
+				query = query.substring(0, query.length() - 1);
+				query += ")%'";
+			}
+
+			if (queryFilter.ref != null) {
+				query += " and lower(link) like ?";
+			}
+
+			if (queryFilter.year > 0) {
+				query += " and year = ?";
+			}
+			try {
+				con = cm.createConnection();
+				ps = con.prepareStatement(query);
+				int position = 1;
+				if (queryFilter.ref != null) {
+					ps.setString(position, "%" + queryFilter.ref.toLowerCase() + "%");
+					position++;
+				}
+				if (queryFilter.year > 0) {
+					ps.setInt(position, queryFilter.year);
+					position++;
+				}
+
+				rs = ps.executeQuery();
+
+				while (rs.next()) {
+					DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
+							rs.getString("metadata"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+							rs.getBoolean("processed"));
+					beans.add(bean);
+				}
+			} catch (Exception ex) {
+				throw new DbException(ex);
+			} finally {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			}
+		}
+		return beans;
+
+	}
+
+	public ArrayList<DatasetBean> queryDatasets(QueryFilter queryFilter) throws Exception, DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return queryDatasets(queryFilter, con);
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			cm.closeConnection();
+		}
+	}
+
+	public ArrayList<DatasetBean> getDatasets(DatasetBean filter, boolean processedFilter)
+			throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = null;
 		String query = "select * from dataset where 1=1";
 		if (filter.getId() > 0) {
 			query += " and id = ?";
-		} 
+		}
 		if (filter.getFileName() != null) {
 			query += " and lower(file_name) like ?";
 		}
@@ -144,7 +227,6 @@ public class DatasetQuery extends Query {
 			query += ")%'";
 		}
 
-		
 		ArrayList<DatasetBean> beans = new ArrayList<DatasetBean>();
 		try {
 			con = cm.createConnection();
@@ -153,7 +235,7 @@ public class DatasetQuery extends Query {
 			if (filter.getId() > 0) {
 				ps.setLong(position, filter.getId());
 				position++;
-			} 
+			}
 			if (filter.getFileName() != null) {
 				ps.setString(position, "%" + filter.getFileName().toLowerCase() + "%");
 				position++;
@@ -164,26 +246,21 @@ public class DatasetQuery extends Query {
 			}
 			if (processedFilter == true) {
 				ps.setBoolean(position, filter.isProcessed());
-			}		
-			
+			}
+
 			rs = ps.executeQuery();
-			
+
 			while (rs.next()) {
-				DatasetBean bean = new DatasetBean(rs.getLong("id"),
-						rs.getString("file_name"),
-						rs.getString("metadata"),						
-						rs.getString("authors"),
-						rs.getString("link"),
-						rs.getInt("year"),
+				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
+						rs.getString("metadata"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
 						rs.getBoolean("processed"));
 				beans.add(bean);
 			}
-			
+
 			return beans;
 		} catch (Exception ex) {
 			throw new DbException(ex);
-		}
-		finally {
+		} finally {
 			if (rs != null) {
 				rs.close();
 			}
@@ -192,7 +269,7 @@ public class DatasetQuery extends Query {
 			}
 			cm.closeConnection();
 		}
-		
+
 	}
 
 }

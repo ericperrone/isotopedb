@@ -1,5 +1,9 @@
 package it.cnr.igg.isotopedb.tools;
 
+import java.util.List;
+
+import it.cnr.igg.isotopedb.beans.DatasetBean;
+
 //enum DataType {
 //	FIELD,
 //	CHEMICAL,
@@ -28,11 +32,12 @@ public class QueryFilter {
 	public enum FilterRelations {
 		AND, OR, NONE
 	}
-	public DataType type;
-	public String queryItem;
-	public FilterOperator operator;
-	public Object val;
-	public FilterRelations relation;
+
+	public String[] authors;
+	public String[] keywords;
+	public String ref;
+	public int year;
+	public List<DatasetBean> datasets;
 	
 	public QueryFilter() {
 	}
