@@ -52,6 +52,41 @@ public class AuthorQuery extends Query {
 		}
 	}
 	
+	public AuthorBean getAuthor(String surname, String name) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {			
+			String select = "select * from authors where lower(surname) = ? and lower(name) = ?";
+			con = cm.createConnection();
+			ps = con.prepareStatement(select);
+			ps.setString(1, surname.toLowerCase());
+			ps.setString(2, name.toLowerCase());
+			rs = ps.executeQuery();
+			AuthorBean bean = new AuthorBean(-1L, "null", "null");
+			if (rs.next()) {
+				bean.setId(rs.getLong("id"));
+				bean.setSurname(rs.getString("surname"));
+				bean.setName(rs.getString("name"));
+			}
+			return bean;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (con != null) {
+				con.setAutoCommit(true);
+				cm.closeConnection();
+			}
+		}
+	}
+	
 	public ArrayList<AuthorBean> getAuthors(AuthorBean filter) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -100,8 +135,6 @@ public class AuthorQuery extends Query {
 				cm.closeConnection();
 			}
 		}
-
-		
 	}
 
 }
