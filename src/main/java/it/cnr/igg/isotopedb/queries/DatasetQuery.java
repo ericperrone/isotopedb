@@ -59,9 +59,10 @@ public class DatasetQuery extends Query {
 			if (!rs.next())
 				throw new DbException("Invalid sequence value");
 			Long datasetId = rs.getLong("id");
-
+			
+			setAuthors(datasetId, bean.getAuthors(), con);
+			
 			con.commit();
-
 			bean.setId(datasetId);
 			return bean;
 		} catch (Exception ex) {
@@ -79,7 +80,50 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
-
+	
+	private void setAuthors(Long datasetId, String authors, Connection con) throws Exception {
+		if (authors == null)
+			return;
+		String[] auths = authors.split(";");
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		for (int i = 0; i < auths.length; i++) {
+			String insert = "insert into dataset_authors (dataset_id, author_id) values (?, ?)";
+			String query = "select id from authors where lower(surname) = ? and lower(name) = ?";
+			String[] a = auths[i].split(",");
+			String surname = a[0].toLowerCase().trim();
+			String name = a[1].toLowerCase().trim();
+			Long authorId = -1L;
+			try {
+				ps = con.prepareStatement(query);
+				ps.setString(1, surname);
+				ps.setString(2, name);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					authorId = rs.getLong("id");
+				}
+				rs.close();
+				ps.close();
+				if (authorId == -1L)
+					throw new DbException("Author not found: " + surname + " " + name);
+				ps = con.prepareStatement(insert);
+				ps.setLong(1, datasetId);
+				ps.setLong(2,  authorId);
+				ps.execute();
+				ps.close();
+			} catch (Exception x) {
+				x.printStackTrace();
+				throw x;
+			} finally {
+				if (rs != null)
+					rs.close();
+				if (ps != null) 
+					rs.close();
+			}
+			
+		}
+	}
+	
 	public void updateProcessed(DatasetBean bean) throws Exception, DbException {
 		PreparedStatement ps = null;
 		Connection con = null;
@@ -115,12 +159,23 @@ public class DatasetQuery extends Query {
 			String query = "select * from dataset where processed=true";
 
 			if (queryFilter.authors != null) {
-				query += " and lower(authors) similar to '%(";
+				query += " and id in (select dataset_id from dataset_authors where author_id in (select id from authors where (";
 				for (String auth : queryFilter.authors) {
-					query += "(" + auth.toLowerCase() + ")|";
+					String[] a = auth.split(",");
+					String surname = a[0].toLowerCase().trim();
+					String name = a[1].toLowerCase().trim();
+					query += "(lower(surname) like '%" + surname + "%' and lower(name) like '%" + name + "%') or "; 
 				}
-				query = query.substring(0, query.length() - 1);
-				query += ")%'";
+				
+				query = query.substring(0, query.length() - 4);
+				query += ")))";
+				
+//				query += " and lower(authors) similar to '%(";
+//				for (String auth : queryFilter.authors) {
+//					query += "(" + auth.toLowerCase() + ")|";
+//				}
+//				query = query.substring(0, query.length() - 1);
+//				query += ")%'";
 			}
 
 			if (queryFilter.keywords != null) {
