@@ -34,7 +34,7 @@ public class SampleQuery extends Query {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String queryData = "select si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue "
+			String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue "
 					+ "from sample_index si, sample_attribute sa "
 					+ "where type in ('F', 'I', 'C') "
 					+ "and sa.sample_id = si.sample_id ";
@@ -48,6 +48,7 @@ public class SampleQuery extends Query {
 			}
 			queryData += " order by si.sample_id";
 
+			System.out.println(queryData);
 			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
 
 			ps = con.prepareStatement(queryData);
