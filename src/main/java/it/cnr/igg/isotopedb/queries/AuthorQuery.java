@@ -102,6 +102,7 @@ public class AuthorQuery extends Query {
 					select += " and lower(name) like ?";
 				}
 			}
+			select += " order by surname, name";
 			con = cm.createConnection();
 			ps = con.prepareStatement(select);
 			if (filter != null) {
