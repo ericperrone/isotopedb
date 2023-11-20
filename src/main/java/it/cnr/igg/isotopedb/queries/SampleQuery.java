@@ -19,6 +19,7 @@ import it.cnr.igg.isotopedb.beans.SampleBean;
 import it.cnr.igg.isotopedb.beans.SampleFieldBean;
 import it.cnr.igg.isotopedb.beans.ComponentBean;
 import it.cnr.igg.isotopedb.beans.DatasetBean;
+import it.cnr.igg.isotopedb.beans.ElementBean;
 
 public class SampleQuery extends Query {
 	public final String TYPE_FIELD = "F";
@@ -115,6 +116,9 @@ public class SampleQuery extends Query {
 		String insertField = "insert into sample_attribute (sample_id, type, name, svalue) values (?, ?, ?, ?)";
 		String insertChem = "insert into sample_attribute (sample_id, type, name, nvalue) values (?, ?, ?, ?)";
 		try {
+			ElementQuery eq = new ElementQuery();
+			HashMap<String, ElementBean> hm = new HashMap<String, ElementBean>();
+			
 			con = cm.createConnection();
 			con.setAutoCommit(false); // start transaction
 			for (SampleBean sb : samples) {
@@ -165,9 +169,17 @@ public class SampleQuery extends Query {
 						ps.execute();
 						ps.close();
 						ps = null;
+						if (!hm.containsKey(cb.getComponent().toLowerCase())) {
+							hm.put(cb.getComponent().toLowerCase(), toElementBean(cb));
+						}
 					}
 				}
 			}
+			ArrayList<ElementBean> ls = new ArrayList<ElementBean>(); 
+			for (ElementBean em : hm.values()) {
+				ls.add(em);
+			}
+			eq.testElements(ls, con);
 			con.commit();
 		} catch (Exception ex) {
 			if (con != null)
@@ -186,6 +198,14 @@ public class SampleQuery extends Query {
 		}
 	}
 
+	
+	private ElementBean toElementBean(ComponentBean bean) {
+		ElementBean cBean = new ElementBean();
+		cBean.setIsotope(bean.getIsIsotope());
+		cBean.setElement(bean.getComponent());
+		return cBean;
+	}
+	
 	
 	private SampleFieldBean setField(ResultSet rs) throws Exception {
 		SampleFieldBean sfb = new SampleFieldBean();
