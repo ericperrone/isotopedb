@@ -166,10 +166,16 @@ public class SampleQuery extends Query {
 						String name = sfb.getFieldName().toLowerCase();
 						if (name.contains("latitude")) {
 							value = value.replaceAll(",", ".");
+							if (value.indexOf("°") > 0) {
+								value = parseGps(value);
+							}
 							coord[0] = Double.valueOf(value);
 						}
 						if (name.contains("longitude")) {
 							value = value.replaceAll(",", ".");
+							if (value.indexOf("°") > 0) {
+								value = parseGps(value);
+							}
 							coord[1] = Double.valueOf(value);
 						}
 						if (coord[0] != null && coord[1] != null) {
@@ -224,6 +230,61 @@ public class SampleQuery extends Query {
 			con.setAutoCommit(true); // end transaction
 			cm.closeConnection();
 		}
+	}
+	
+	public String[] toEpsg4326(String lat, String lon) {
+		String[] epsg4326 = {lat, lon};
+		if (lat.indexOf("°") > 0 && lon.indexOf("°") > 0) {
+			epsg4326 = gps2Epsg4326(lat, lon);
+		}
+		return epsg4326;
+	}
+	
+	private String[] gps2Epsg4326(String lat, String lon) {
+		String[] epsg4326 = {"", ""};
+		lat = removeSpaces(lat);
+		lon = removeSpaces(lon);
+		epsg4326[0] = parseGps(lat);
+		epsg4326[1] = parseGps(lon);
+		return epsg4326;
+	}
+	
+	private String parseGps(String s) {
+		String gradi = s.substring(0, s.indexOf("°"));
+		String primi = s.substring(s.indexOf("°") + 1, s.indexOf("'"));
+		String secondi = s.substring(s.indexOf("'") + 1, s.indexOf("''"));
+		Double g = Double.valueOf(gradi);
+		Double p = Double.valueOf(primi);
+		Double sc = Double.valueOf(secondi);
+		Double gr = g + p/60d + sc/3600d;
+		return "" + gr;
+	}
+	
+	private String removeSpaces(String s) {
+		s = s.trim();
+		String ss[] = s.split(" ");
+		s = "";
+		for (String i: ss) {
+			s += i;
+		}
+		return s;
+	}
+	
+	public static void main(String[] args) {
+		String lat = "45° 28' 12'' N";
+		String lon = "9° 10' 12'' E";
+		//38°45'18''N
+		
+		SampleQuery sq = new SampleQuery();
+		String[] coord = sq.toEpsg4326(lat, lon);
+		System.out.println(coord[0]);
+		System.out.println(coord[1]);
+		
+		lat = "38°45'18''N";
+		lon = "34°36'44''E";
+		coord = sq.toEpsg4326(lat, lon);
+		System.out.println(coord[0]);
+		System.out.println(coord[1]);		
 	}
 
 	private ElementBean toElementBean(ComponentBean bean) {
