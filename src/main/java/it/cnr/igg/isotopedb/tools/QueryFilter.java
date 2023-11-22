@@ -3,6 +3,7 @@ package it.cnr.igg.isotopedb.tools;
 import java.util.List;
 
 import it.cnr.igg.isotopedb.beans.DatasetBean;
+import it.cnr.igg.isotopedb.tools.GeoCoord;
 
 //enum DataType {
 //	FIELD,
@@ -38,6 +39,7 @@ public class QueryFilter {
 	public String ref;
 	public int year;
 	public List<DatasetBean> datasets;
+	public GeoCoord geoCoord;
 	
 	public QueryFilter() {
 	}
