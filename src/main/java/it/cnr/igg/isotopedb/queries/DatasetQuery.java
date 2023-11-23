@@ -18,9 +18,13 @@ public class DatasetQuery extends Query {
 	public void deleteDataset(Long id) throws Exception, DbException {
 		PreparedStatement ps = null;
 		Connection con = null;
+		String deleteRef = "delete from dataset_authors where dataset_id = ?";
 		String delete = "delete from dataset where id = ?";
 		try {
 			con = cm.createConnection();
+			ps = con.prepareStatement(deleteRef);
+			ps.setLong(1, id);
+			ps.execute();
 			ps = con.prepareStatement(delete);
 			ps.setLong(1, id);
 			ps.execute();
