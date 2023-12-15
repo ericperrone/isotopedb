@@ -39,14 +39,29 @@ public class DatasetQuery extends Query {
 	}
 
 	public DatasetBean insertDataset(DatasetBean bean) throws Exception, DbException {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
 		Connection con = null;
-		String insert = "insert into dataset (file_name, metadata, processed, link, authors, year) values (?,?,?,?,?,?)";
-		String getId = "SELECT currval(pg_get_serial_sequence(\'dataset\',\'id\')) as id";
 		try {
 			con = cm.createConnection();
 			con.setAutoCommit(false); // start transaction
+			bean = insertDataset(bean, con);
+			con.commit();
+			return bean;
+		} catch (Exception ex) {
+			if (con != null)
+				con.rollback();
+			throw new DbException(ex);
+		} finally {
+			con.setAutoCommit(true); // end transaction
+			cm.closeConnection();
+		}
+	}
+	
+	public DatasetBean insertDataset(DatasetBean bean, Connection con) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String insert = "insert into dataset (file_name, metadata, processed, link, authors, year) values (?,?,?,?,?,?)";
+		String getId = "SELECT currval(pg_get_serial_sequence(\'dataset\',\'id\')) as id";
+		try {
 			ps = con.prepareStatement(insert);
 			ps.setString(1, bean.getFileName());
 			ps.setString(2, bean.getMetadata());
@@ -63,10 +78,9 @@ public class DatasetQuery extends Query {
 			if (!rs.next())
 				throw new DbException("Invalid sequence value");
 			Long datasetId = rs.getLong("id");
-			
+
 			setAuthors(datasetId, bean.getAuthors(), con);
-			
-			con.commit();
+
 			bean.setId(datasetId);
 			return bean;
 		} catch (Exception ex) {
@@ -80,11 +94,10 @@ public class DatasetQuery extends Query {
 			if (ps != null) {
 				ps.close();
 			}
-			con.setAutoCommit(true); // end transaction
-			cm.closeConnection();
 		}
+		
 	}
-	
+
 	private void setAuthors(Long datasetId, String authors, Connection con) throws Exception {
 		if (authors == null)
 			return;
@@ -112,7 +125,7 @@ public class DatasetQuery extends Query {
 					throw new DbException("Author not found: " + surname + " " + name);
 				ps = con.prepareStatement(insert);
 				ps.setLong(1, datasetId);
-				ps.setLong(2,  authorId);
+				ps.setLong(2, authorId);
 				ps.execute();
 				ps.close();
 			} catch (Exception x) {
@@ -121,13 +134,13 @@ public class DatasetQuery extends Query {
 			} finally {
 				if (rs != null)
 					rs.close();
-				if (ps != null) 
+				if (ps != null)
 					rs.close();
 			}
-			
+
 		}
 	}
-	
+
 	public void updateProcessed(DatasetBean bean) throws Exception, DbException {
 		PreparedStatement ps = null;
 		Connection con = null;
@@ -154,6 +167,36 @@ public class DatasetQuery extends Query {
 		}
 	}
 
+	public DatasetBean findByDOI(String DOI, Connection con) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select * from dataset where link=?";
+		try {
+			con = cm.createConnection();
+			ps = con.prepareStatement(query);
+			ps.setString(1, DOI);
+			int position = 1;
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
+						rs.getString("metadata"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+						rs.getBoolean("processed"));
+				return bean;
+			}
+			return null;
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
+
 	public ArrayList<DatasetBean> queryDatasets(QueryFilter queryFilter, Connection con) throws Exception, DbException {
 		ArrayList<DatasetBean> beans = new ArrayList<DatasetBean>();
 		if (queryFilter.authors != null || queryFilter.keywords != null || queryFilter.ref != null
@@ -168,12 +211,12 @@ public class DatasetQuery extends Query {
 					String[] a = auth.split(",");
 					String surname = a[0].toLowerCase().trim();
 					String name = a[1].toLowerCase().trim();
-					query += "(lower(surname) like '%" + surname + "%' and lower(name) like '%" + name + "%') or "; 
+					query += "(lower(surname) like '%" + surname + "%' and lower(name) like '%" + name + "%') or ";
 				}
-				
+
 				query = query.substring(0, query.length() - 4);
 				query += ")))";
-				
+
 //				query += " and lower(authors) similar to '%(";
 //				for (String auth : queryFilter.authors) {
 //					query += "(" + auth.toLowerCase() + ")|";

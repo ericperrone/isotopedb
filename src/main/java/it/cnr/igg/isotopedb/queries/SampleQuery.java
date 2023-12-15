@@ -18,6 +18,7 @@ import it.cnr.igg.isotopedb.tools.QueryFilter;
 
 import it.cnr.igg.isotopedb.beans.SampleBean;
 import it.cnr.igg.isotopedb.beans.SampleFieldBean;
+import it.cnr.igg.isotopedb.beans.AuthorBean;
 import it.cnr.igg.isotopedb.beans.ComponentBean;
 import it.cnr.igg.isotopedb.beans.DatasetBean;
 import it.cnr.igg.isotopedb.beans.ElementBean;
@@ -26,9 +27,88 @@ public class SampleQuery extends Query {
 	public final String TYPE_FIELD = "F";
 	public final String TYPE_ISOTOPE = "I";
 	public final String TYPE_CHEM = "C";
+	public final String GEOROC_TAG = "GEOROC_ID";
 
 	public SampleQuery() {
 		super();
+	}
+
+	public void insertExternalSample(ArrayList<AuthorBean> authors, DatasetBean dataset, SampleBean sample)
+			throws Exception, DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			con.setAutoCommit(false); // start transaction
+
+			//
+			// [1] try to insert missing authors
+			//
+			AuthorQuery authorQuery = new AuthorQuery();
+			for (AuthorBean authorBean : authors) {
+				AuthorBean check = authorQuery.getAuthor(authorBean.getName(), authorBean.getSurname(), con);
+				if (check.getId() == -1L) {
+					authorBean = authorQuery.insert(authorBean, con);
+				}
+			}
+			//
+			// [2] try to insert the dataset
+			//
+			DatasetQuery datasetQuery = new DatasetQuery();
+			DatasetBean datasetBean = datasetQuery.findByDOI(dataset.getLink(), con);
+			if (datasetBean == null) {
+				datasetBean = datasetQuery.insertDataset(datasetBean, con);
+			}
+			//
+			// [3] try to insert the sample
+			//
+			String sampleExternalId = "";
+			List<SampleFieldBean> fields = sample.getFields();
+			for (SampleFieldBean sfb : fields) {
+				if (sfb.getFieldName().equalsIgnoreCase(GEOROC_TAG)) {
+					sampleExternalId = sfb.getFieldValue();
+				}
+			}
+
+			if (!checkSampleByExternalID("GEOROC_ID", sampleExternalId, con)) {
+				ArrayList<SampleBean> samples = new ArrayList<SampleBean>();
+				samples.add(sample);
+				insertSamples(samples, con);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			con.setAutoCommit(true);
+			cm.closeConnection();
+		}
+	}
+
+	private boolean checkSampleByExternalID(String tagname, String id, Connection con) throws Exception {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = "select count(*) as counter from sample_attribute "
+					+ "where type = 'F' and upper(\"name\") = ? and svalue = ?";
+			ps = con.prepareStatement(query);
+			ps.setString(1, tagname);
+			ps.setString(2, id);
+			rs = ps.executeQuery();
+			rs.next();
+			int result = rs.getInt(1);
+			return (result > 0);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+
 	}
 
 	public ArrayList<SampleBean> querySamples(QueryFilter filter, Connection con) throws Exception, DbException {
@@ -37,10 +117,8 @@ public class SampleQuery extends Query {
 		ResultSet rs = null;
 		try {
 			String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude "
-					+ "from sample_index si, sample_attribute sa "
-					+ "left join coord c on c.sample_id = sa.sample_id "
-					+ "where type in ('F', 'I', 'C') "
-					+ "and sa.sample_id = si.sample_id ";
+					+ "from sample_index si, sample_attribute sa " + "left join coord c on c.sample_id = sa.sample_id "
+					+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
 			if (filter.datasets.size() > 0) {
 				queryData += " and si.dataset_id in (";
 				for (DatasetBean db : filter.datasets) {
@@ -50,8 +128,10 @@ public class SampleQuery extends Query {
 				queryData += ")";
 			}
 			if (filter.geoCoord != null) {
-				queryData += " and latitude >= " + filter.geoCoord.minLat + " and latitude <= " + filter.geoCoord.maxLat;
-				queryData += " and longitude >= " + filter.geoCoord.minLong + " and longitude <= " + filter.geoCoord.maxLong;
+				queryData += " and latitude >= " + filter.geoCoord.minLat + " and latitude <= "
+						+ filter.geoCoord.maxLat;
+				queryData += " and longitude >= " + filter.geoCoord.minLong + " and longitude <= "
+						+ filter.geoCoord.maxLong;
 			}
 			queryData += " order by si.sample_id";
 
@@ -113,10 +193,9 @@ public class SampleQuery extends Query {
 		}
 	}
 
-	public void insertSamples(ArrayList<SampleBean> samples) throws Exception, DbException {
+	public void insertSamples(ArrayList<SampleBean> samples, Connection con) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Connection con = null;
 		String insertSample = "insert into sample_index (ts, dataset_id) values(now(), ?);";
 		String getSampleId = "SELECT currval(pg_get_serial_sequence(\'sample_index\',\'sample_id\')) as sample_id";
 		String insertField = "insert into sample_attribute (sample_id, type, name, svalue) values (?, ?, ?, ?)";
@@ -126,8 +205,6 @@ public class SampleQuery extends Query {
 			ElementQuery eq = new ElementQuery();
 			HashMap<String, ElementBean> hm = new HashMap<String, ElementBean>();
 
-			con = cm.createConnection();
-			con.setAutoCommit(false); // start transaction
 			for (SampleBean sb : samples) {
 				// step 1: insert master record
 				ps = con.prepareStatement(insertSample);
@@ -214,10 +291,7 @@ public class SampleQuery extends Query {
 				ls.add(em);
 			}
 			eq.testElements(ls, con);
-			con.commit();
 		} catch (Exception ex) {
-			if (con != null)
-				con.rollback();
 			ex.printStackTrace();
 			throw new DbException(ex);
 		} finally {
@@ -227,28 +301,44 @@ public class SampleQuery extends Query {
 			if (ps != null) {
 				ps.close();
 			}
+		}
+	}
+
+	public void insertSamples(ArrayList<SampleBean> samples) throws Exception, DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			con.setAutoCommit(false); // start transaction
+			insertSamples(samples, con);
+			con.commit();
+		} catch (Exception ex) {
+			if (con != null)
+				con.rollback();
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
 			con.setAutoCommit(true); // end transaction
 			cm.closeConnection();
 		}
 	}
-	
+
 	public String[] toEpsg4326(String lat, String lon) {
-		String[] epsg4326 = {lat, lon};
+		String[] epsg4326 = { lat, lon };
 		if (lat.indexOf("°") > 0 && lon.indexOf("°") > 0) {
 			epsg4326 = gps2Epsg4326(lat, lon);
 		}
 		return epsg4326;
 	}
-	
+
 	private String[] gps2Epsg4326(String lat, String lon) {
-		String[] epsg4326 = {"", ""};
+		String[] epsg4326 = { "", "" };
 		lat = removeSpaces(lat);
 		lon = removeSpaces(lon);
 		epsg4326[0] = parseGps(lat);
 		epsg4326[1] = parseGps(lon);
 		return epsg4326;
 	}
-	
+
 	private String parseGps(String s) {
 		String gradi = s.substring(0, s.indexOf("°"));
 		String primi = s.substring(s.indexOf("°") + 1, s.indexOf("'"));
@@ -256,35 +346,35 @@ public class SampleQuery extends Query {
 		Double g = Double.valueOf(gradi);
 		Double p = Double.valueOf(primi);
 		Double sc = Double.valueOf(secondi);
-		Double gr = g + p/60d + sc/3600d;
+		Double gr = g + p / 60d + sc / 3600d;
 		return "" + gr;
 	}
-	
+
 	private String removeSpaces(String s) {
 		s = s.trim();
 		String ss[] = s.split(" ");
 		s = "";
-		for (String i: ss) {
+		for (String i : ss) {
 			s += i;
 		}
 		return s;
 	}
-	
+
 	public static void main(String[] args) {
 		String lat = "45° 28' 12'' N";
 		String lon = "9° 10' 12'' E";
-		//38°45'18''N
-		
+		// 38°45'18''N
+
 		SampleQuery sq = new SampleQuery();
 		String[] coord = sq.toEpsg4326(lat, lon);
 		System.out.println(coord[0]);
 		System.out.println(coord[1]);
-		
+
 		lat = "38°45'18''N";
 		lon = "34°36'44''E";
 		coord = sq.toEpsg4326(lat, lon);
 		System.out.println(coord[0]);
-		System.out.println(coord[1]);		
+		System.out.println(coord[1]);
 	}
 
 	private ElementBean toElementBean(ComponentBean bean) {

@@ -7,6 +7,19 @@ public class DatasetBean extends TheBean {
 	private int year;
 	private boolean processed;
 	
+	public DatasetBean(String fileName, String metadata,
+			String authors, String link,
+			int year,
+			boolean processed) {
+		super();
+		this.fileName = fileName;
+		this.metadata = metadata;
+		this.processed = processed;
+		this.authors = authors;
+		this.link = link;
+		this.year = year;
+	}
+	
 	public DatasetBean(Long id, String fileName, String metadata,
 			String authors, String link,
 			int year,
