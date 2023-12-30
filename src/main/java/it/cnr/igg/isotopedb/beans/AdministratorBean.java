@@ -13,14 +13,16 @@ public class AdministratorBean extends TheBean {
 		this.account = account;
 		this.password = password;
 		this.email = email;
+		this.active = true;
 	}
 	
-	public AdministratorBean(Long id, String account, String email) {
+	public AdministratorBean(Long id, String account, String email, boolean active) {
 		super();
 		this.id = id;
 		this.account = account;
 		this.password = password;
 		this.email = email;
+		this.active = active;
 	}
 
 	public AdministratorBean(Long id, String account, String password, String key, boolean active, String email) {
