@@ -203,7 +203,7 @@ public class DatasetQuery extends Query {
 				|| queryFilter.year > 0) {
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			String query = "select * from dataset where processed=true";
+			String query = "select * from dataset where 1=1 "; // processed=true";
 
 			if (queryFilter.authors != null) {
 				query += " and id in (select dataset_id from dataset_authors where author_id in (select id from authors where (";

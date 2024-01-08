@@ -33,7 +33,7 @@ public class SampleQuery extends Query {
 		super();
 	}
 
-	public void insertExternalSample(ArrayList<AuthorBean> authors, DatasetBean dataset, SampleBean sample)
+	public int insertExternalSample(ArrayList<AuthorBean> authors, DatasetBean dataset, SampleBean sample)
 			throws Exception, DbException {
 		Connection con = null;
 		try {
@@ -45,7 +45,7 @@ public class SampleQuery extends Query {
 			//
 			AuthorQuery authorQuery = new AuthorQuery();
 			for (AuthorBean authorBean : authors) {
-				AuthorBean check = authorQuery.getAuthor(authorBean.getName(), authorBean.getSurname(), con);
+				AuthorBean check = authorQuery.getAuthor(authorBean.getSurname(), authorBean.getName(), con);
 				if (check.getId() == -1L) {
 					authorBean = authorQuery.insert(authorBean, con);
 				}
@@ -56,7 +56,7 @@ public class SampleQuery extends Query {
 			DatasetQuery datasetQuery = new DatasetQuery();
 			DatasetBean datasetBean = datasetQuery.findByDOI(dataset.getLink(), con);
 			if (datasetBean == null) {
-				datasetBean = datasetQuery.insertDataset(datasetBean, con);
+				datasetBean = datasetQuery.insertDataset(dataset, con);
 			}
 			//
 			// [3] try to insert the sample
@@ -71,10 +71,12 @@ public class SampleQuery extends Query {
 
 			if (!checkSampleByExternalID("GEOROC_ID", sampleExternalId, con)) {
 				ArrayList<SampleBean> samples = new ArrayList<SampleBean>();
+				sample.setDatasetId(datasetBean.getId());
 				samples.add(sample);
 				insertSamples(samples, con);
+				return 1;
 			}
-
+			return 0;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new DbException(ex);
