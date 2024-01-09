@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 import it.cnr.igg.isotopedb.beans.AdministratorBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
@@ -56,12 +57,27 @@ public class AdministratorQuery extends Query {
 			}
 		}
 	}
-
-	public boolean changePassword(String account, String password) throws DbException, Exception {
+	
+	public void disable(String account) throws DbException, Exception {
 		Connection con = null;
 		try {
 			con = cm.createConnection();
-			return changePassword(account, password, con);
+			disable(account, true, con);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (con != null) {
+				cm.closeConnection();
+			}
+		}
+	}
+	
+	public void enable(String account) throws DbException, Exception {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			disable(account, false, con);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new DbException(ex);
@@ -72,10 +88,59 @@ public class AdministratorQuery extends Query {
 		}
 	}
 
-	public boolean changePassword(String account, String password, Connection con) throws DbException, Exception {
-		String update = "update administrators set password = ? where account = ?";
+	public void disable(String account, boolean disable, Connection con) throws DbException, Exception {
+		String update;
+		if (disable == true)
+			update = "update administrators set expiration = now() where account = ?";
+		else
+			update = "update administrators set expiration = null where account = ?";
+		
 		PreparedStatement ps = null;
 		try {
+			ps = con.prepareStatement(update);
+			ps.setString(1, account);
+			ps.execute();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			if (ps != null) {
+				ps.close();
+			}
+		}		
+	}
+
+	public boolean changePassword(String account, String oldPassword, String password) throws DbException, Exception {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return changePassword(account, oldPassword, password, con);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (con != null) {
+				cm.closeConnection();
+			}
+		}
+	}
+	
+	public boolean changePassword(String account, String oldPassword, String password, Connection con) throws DbException, Exception {
+		String check = "select password from administrators where account = ?";
+		String update = "update administrators set password = ? where account = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement(check);
+			ps.setString(1, account);
+			rs = ps.executeQuery();
+			if (!rs.next())
+				throw new DbException("Unknown user: " + account);
+			String storedPassword = rs.getString("password");
+			String np = generatePassword(oldPassword);
+			if (!storedPassword.equals(generatePassword(oldPassword)))
+				throw new DbException("Old password is incorrect");
+			ps.close();
 			ps = con.prepareStatement(update);
 			ps.setString(1, generatePassword(password));
 			ps.setString(2, account);
@@ -84,12 +149,15 @@ public class AdministratorQuery extends Query {
 			ex.printStackTrace();
 			throw new DbException(ex.getMessage());
 		} finally {
+			if (rs != null) {
+				rs.close();
+			}
 			if (ps != null) {
 				ps.close();
 			}
 		}
 	}
-
+	
 	public String login(AdministratorBean bean) throws DbException, Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -117,7 +185,7 @@ public class AdministratorQuery extends Query {
 			}
 		}
 	}
-	
+
 	public AdministratorBean checkKey(String key) throws DbException, Exception {
 		Connection con = null;
 		try {
@@ -130,10 +198,10 @@ public class AdministratorQuery extends Query {
 			if (con != null) {
 				cm.closeConnection();
 			}
-		}		
+		}
 	}
-	
-	public AdministratorBean checkKey(String key, Connection con) throws DbException, Exception  {
+
+	public AdministratorBean checkKey(String key, Connection con) throws DbException, Exception {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String query = "select * from administrators where key = ?";
@@ -142,9 +210,7 @@ public class AdministratorQuery extends Query {
 			ps.setString(1, key);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				return new AdministratorBean(rs.getLong("id"), 
-						rs.getString("account"), 
-						rs.getString("email"), 
+				return new AdministratorBean(rs.getLong("id"), rs.getString("account"), rs.getString("email"),
 						rs.getTimestamp("expiration") == null);
 			}
 			throw new DbException("User not authorized or not logged in");
@@ -160,7 +226,7 @@ public class AdministratorQuery extends Query {
 			}
 		}
 	}
-	
+
 	public String getPassword(String account) throws DbException, Exception {
 		Connection con = null;
 		try {
@@ -173,22 +239,71 @@ public class AdministratorQuery extends Query {
 			if (con != null) {
 				cm.closeConnection();
 			}
-		}		
+		}
 	}
-	
+
 	public String getPassword(String account, Connection con) throws DbException, Exception {
-		String select = "select password from administrators where lower(account) = ?";
+		String select = "select password from administrators where lower(account) = ? and expiration is null";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			ps = con.prepareStatement(select);
 			ps.setString(1, account.toLowerCase());
 			rs = ps.executeQuery();
-			if (rs.next()) {			
+			if (rs.next()) {
 				return rs.getString("password");
 			} else {
 				throw new DbException("User " + account + " not found.");
 			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
+
+	public ArrayList<AdministratorBean> getAdministrators(String account) throws DbException, Exception {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getAdministrators(account, con);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (con != null) {
+				cm.closeConnection();
+			}
+		}
+	}
+
+	public ArrayList<AdministratorBean> getAdministrators(String account, Connection con)
+			throws DbException, Exception {
+		String select = "select id, account, email, expiration from administrators where 1=1";
+		if (account != null) {
+			select += " and lower(account) like ?";
+		}
+		select += " order by id";
+		ArrayList<AdministratorBean> list = new ArrayList<AdministratorBean>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement(select);
+			if (account != null)
+				ps.setString(1, "%" + account.toLowerCase() + "%");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				boolean active = rs.getTimestamp(4) == null;
+				list.add(new AdministratorBean(Long.valueOf(rs.getLong("id")), rs.getString("account"),
+						rs.getString("email"), active));
+			}
+			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new DbException(ex.getMessage());
@@ -218,12 +333,17 @@ public class AdministratorQuery extends Query {
 	}
 
 	public AdministratorBean getAdministrator(String account, Connection con) throws DbException, Exception {
-		String select = "select id, account, email, expiration from administrators where lower(account) = ?";
+		String select = "select id, account, email, expiration from administrators where 1=1 ";
+		if (account != null) {
+			select += "and lower(account) = ?";
+		}
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			ps = con.prepareStatement(select);
-			ps.setString(1, account.toLowerCase());
+			if (account != null)
+				ps.setString(1, account.toLowerCase());
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				boolean active = rs.getTimestamp(4) == null;
