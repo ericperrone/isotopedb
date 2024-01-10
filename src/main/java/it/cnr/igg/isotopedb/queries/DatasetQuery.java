@@ -37,6 +37,43 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
+	
+	public ArrayList<String> getLinks() throws Exception, DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getLinks(con);
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			cm.closeConnection();
+		}
+	}		
+	
+	public ArrayList<String> getLinks(Connection con) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select distinct link from dataset order by link";
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString(1));
+			}
+			return list;
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+		
+	}
 
 	public DatasetBean insertDataset(DatasetBean bean) throws Exception, DbException {
 		Connection con = null;
