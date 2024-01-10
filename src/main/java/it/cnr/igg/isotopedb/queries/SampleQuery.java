@@ -57,7 +57,7 @@ public class SampleQuery extends Query {
 			DatasetBean datasetBean = datasetQuery.findByDOI(dataset.getLink(), con);
 			if (datasetBean == null) {
 				dataset.setProcessed(true);
-				datasetBean = datasetQuery.insertDataset(dataset, con);
+				datasetBean = datasetQuery.insertDataset(dataset, true, con);
 			}
 			//
 			// [3] try to insert the sample

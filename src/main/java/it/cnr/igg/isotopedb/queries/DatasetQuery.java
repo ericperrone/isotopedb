@@ -43,7 +43,7 @@ public class DatasetQuery extends Query {
 		try {
 			con = cm.createConnection();
 			con.setAutoCommit(false); // start transaction
-			bean = insertDataset(bean, con);
+			bean = insertDataset(bean, false, con);
 			con.commit();
 			return bean;
 		} catch (Exception ex) {
@@ -56,7 +56,7 @@ public class DatasetQuery extends Query {
 		}
 	}
 	
-	public DatasetBean insertDataset(DatasetBean bean, Connection con) throws Exception, DbException {
+	public DatasetBean insertDataset(DatasetBean bean, boolean processed, Connection con) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String insert = "insert into dataset (file_name, metadata, processed, link, authors, year) values (?,?,?,?,?,?)";
@@ -65,7 +65,7 @@ public class DatasetQuery extends Query {
 			ps = con.prepareStatement(insert);
 			ps.setString(1, bean.getFileName());
 			ps.setString(2, bean.getMetadata());
-			ps.setBoolean(3, false);
+			ps.setBoolean(3, processed);
 			ps.setString(4, bean.getLink());
 			ps.setString(5, bean.getAuthors());
 			ps.setInt(6, bean.getYear());
