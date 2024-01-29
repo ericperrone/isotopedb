@@ -4,7 +4,7 @@ public class DatasetBean extends TheBean {
 	private Long id;
 	private String fileName, metadata;
 	private String authors, link;
-	private int year;
+	private Integer year;
 	private boolean processed;
 	
 	public DatasetBean(String fileName, String metadata,
@@ -97,7 +97,7 @@ public class DatasetBean extends TheBean {
 		this.link = link;
 	}
 
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 }
