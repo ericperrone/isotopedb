@@ -224,6 +224,8 @@ public class SampleQuery extends Query {
 						bean.setDatasetId(datasetId);
 					bean.setFields(new ArrayList<SampleFieldBean>());
 					bean.setComponents(new ArrayList<ComponentBean>());
+					SampleFieldBean sfb = new SampleFieldBean("ITINERIS_ID", "" + id);
+					bean.getFields().add(sfb);
 					index.put(id, bean);
 				}
 				String type = rs.getString("type");
