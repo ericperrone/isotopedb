@@ -111,7 +111,79 @@ public class SampleQuery extends Query {
 				ps.close();
 			}
 		}
+	}
 
+	public ArrayList<SampleBean> querySamplesById(ArrayList<Integer> ids) throws Exception, DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return querySamplesById(ids, con);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			cm.closeConnection();
+		}
+	}
+
+	public ArrayList<SampleBean> querySamplesById(ArrayList<Integer> ids, Connection con)
+			throws Exception, DbException {
+		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String select1 = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue " +
+			"from sample_index si, sample_attribute sa " +	
+			"where sa.type in ('I', 'C') and sa.sample_id = si.sample_id and si.sample_id in (";
+		String select2 = ") order by si.sample_id";
+			
+		try {
+			String content = "";
+			for (Integer id : ids) {
+				content += id + ",";
+			}
+			content = content.substring(0, content.length() - 1);
+			String select = select1 + content + select2;
+			System.out.println(select);
+			
+			ps = con.prepareStatement(select);
+			rs = ps.executeQuery();
+			
+			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
+			
+			while(rs.next()) {
+				Long sampleId = rs.getLong("sample_id");
+				SampleBean bean;
+				if (index.containsKey(sampleId)) {
+					bean = index.get(sampleId);
+				} else {
+					bean = new SampleBean();
+					bean.setId(sampleId);
+					bean.setComponents(new ArrayList<ComponentBean>());
+					index.put(sampleId, bean);
+				}
+				ComponentBean cBean = new ComponentBean();
+				cBean.setComponent(rs.getString("name"));
+				String type = rs.getString("type");
+				cBean.setIsIsotope(type.compareTo("I") == 0);
+				cBean.setValue(rs.getDouble("nvalue"));
+				bean.getComponents().add(cBean);
+			}
+			
+			index.forEach((id, bean) -> beans.add(bean));
+			
+			return beans;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
 	}
 
 	public ArrayList<SampleBean> querySamples(QueryFilter filter, Connection con) throws Exception, DbException {
