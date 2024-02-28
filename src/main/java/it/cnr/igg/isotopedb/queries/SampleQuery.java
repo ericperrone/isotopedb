@@ -131,12 +131,12 @@ public class SampleQuery extends Query {
 		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
-		String select1 = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue " +
-			"from sample_index si, sample_attribute sa " +	
-			"where sa.type in ('I', 'C') and sa.sample_id = si.sample_id and si.sample_id in (";
+
+		String select1 = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue "
+				+ "from sample_index si, sample_attribute sa "
+				+ "where sa.type in ('I', 'C') and sa.sample_id = si.sample_id and si.sample_id in (";
 		String select2 = ") order by si.sample_id";
-			
+
 		try {
 			String content = "";
 			for (Integer id : ids) {
@@ -145,13 +145,13 @@ public class SampleQuery extends Query {
 			content = content.substring(0, content.length() - 1);
 			String select = select1 + content + select2;
 			System.out.println(select);
-			
+
 			ps = con.prepareStatement(select);
 			rs = ps.executeQuery();
-			
+
 			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				Long sampleId = rs.getLong("sample_id");
 				SampleBean bean;
 				if (index.containsKey(sampleId)) {
@@ -169,9 +169,9 @@ public class SampleQuery extends Query {
 				cBean.setValue(rs.getDouble("nvalue"));
 				bean.getComponents().add(cBean);
 			}
-			
+
 			index.forEach((id, bean) -> beans.add(bean));
-			
+
 			return beans;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -192,8 +192,8 @@ public class SampleQuery extends Query {
 		ResultSet rs = null;
 		try {
 			String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
-					+ "s.name as synonym "
-					+ "from sample_index si, sample_attribute sa " + "left join coord c on c.sample_id = sa.sample_id "
+					+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
+					+ "left join coord c on c.sample_id = sa.sample_id "
 					+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\(.*\\)', '') "
 					+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
 			if (filter.datasets.size() > 0) {
@@ -473,7 +473,10 @@ public class SampleQuery extends Query {
 	private ComponentBean setIsotope(ResultSet rs) throws Exception {
 		ComponentBean sfb = new ComponentBean();
 		String name = rs.getString("name");
-		String um = "" + name.substring(name.indexOf(" ("));
+		String um = "";
+		int i = name.indexOf(" (");
+		if (i > -1)
+			um += name.substring(i);
 		String synonym = rs.getString("synonym");
 		if (synonym == null)
 			sfb.setComponent(name);
@@ -487,7 +490,10 @@ public class SampleQuery extends Query {
 	private ComponentBean setChem(ResultSet rs) throws Exception {
 		ComponentBean sfb = new ComponentBean();
 		String name = rs.getString("name");
-		String um = "" + name.substring(name.indexOf(" ("));
+		String um = "";
+		int i = name.indexOf(" (");
+		if (i > -1)
+			um += name.substring(i);
 		String synonym = rs.getString("synonym");
 		if (synonym == null)
 			sfb.setComponent(name);
