@@ -191,8 +191,10 @@ public class SampleQuery extends Query {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude "
+			String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
+					+ "s.name as synonym "
 					+ "from sample_index si, sample_attribute sa " + "left join coord c on c.sample_id = sa.sample_id "
+					+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\(.*\\)', '') "
 					+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
 			if (filter.datasets.size() > 0) {
 				queryData += " and si.dataset_id in (";
@@ -470,7 +472,13 @@ public class SampleQuery extends Query {
 
 	private ComponentBean setIsotope(ResultSet rs) throws Exception {
 		ComponentBean sfb = new ComponentBean();
-		sfb.setComponent(rs.getString("name"));
+		String name = rs.getString("name");
+		String um = "" + name.substring(name.indexOf(" ("));
+		String synonym = rs.getString("synonym");
+		if (synonym == null)
+			sfb.setComponent(name);
+		else
+			sfb.setComponent(synonym + um);
 		sfb.setValue(rs.getDouble("nvalue"));
 		sfb.setIsIsotope(true);
 		return sfb;
@@ -478,7 +486,13 @@ public class SampleQuery extends Query {
 
 	private ComponentBean setChem(ResultSet rs) throws Exception {
 		ComponentBean sfb = new ComponentBean();
-		sfb.setComponent(rs.getString("name"));
+		String name = rs.getString("name");
+		String um = "" + name.substring(name.indexOf(" ("));
+		String synonym = rs.getString("synonym");
+		if (synonym == null)
+			sfb.setComponent(name);
+		else
+			sfb.setComponent(synonym + um);
 		sfb.setValue(rs.getDouble("nvalue"));
 		sfb.setIsIsotope(false);
 		return sfb;
