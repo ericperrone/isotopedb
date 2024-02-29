@@ -1,7 +1,6 @@
 package it.cnr.igg.isotopedb.beans;
 
 import java.util.List;
-import com.google.gson.Gson;
 
 public class SampleBean extends TheBean {
 	private Long id;
@@ -48,5 +47,4 @@ public class SampleBean extends TheBean {
 	public void setFields(List<SampleFieldBean> fields) {
 		this.fields = fields;
 	}
-	
 }
