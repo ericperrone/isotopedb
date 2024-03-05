@@ -25,7 +25,7 @@ public class SpiderQuery extends Query {
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				norms.add(new SpiderBean(rs.getString("method"), rs.getString("norm")));
+				norms.add(new SpiderBean(rs.getString("method"), rs.getString("norm"), rs.getString("ord")));
 			}
 			return norms;
 		} catch (Exception ex) {
