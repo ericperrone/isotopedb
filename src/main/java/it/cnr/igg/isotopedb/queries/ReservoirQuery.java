@@ -13,6 +13,45 @@ public class ReservoirQuery extends Query {
 	public ReservoirQuery() {
 		super();
 	}
+	
+	public ArrayList<String> getRerservoirList() throws Exception, DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getReservoirList(con);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (con != null) {
+				cm.closeConnection();
+			}
+		}
+	}
+	
+	public ArrayList<String> getReservoirList(Connection con) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			String select = "select distinct reservoir from reservoir";
+			ps = con.prepareStatement(select);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("reservoir"));
+			}
+			return list;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (ps != null) 
+				ps.close();
+		}
+	}
+
 
 	public ArrayList<ReservoirBean> getReservoir(String filter) throws Exception, DbException {
 		Connection con = null;
