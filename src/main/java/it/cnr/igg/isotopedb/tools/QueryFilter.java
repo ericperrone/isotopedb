@@ -1,8 +1,10 @@
 package it.cnr.igg.isotopedb.tools;
 
-import java.util.List;
+import java.util.ArrayList;
 
+import it.cnr.igg.isotopedb.beans.AuthorBean;
 import it.cnr.igg.isotopedb.beans.DatasetBean;
+import it.cnr.igg.isotopedb.exceptions.DbException;
 import it.cnr.igg.isotopedb.tools.GeoCoord;
 
 //enum DataType {
@@ -20,28 +22,61 @@ import it.cnr.igg.isotopedb.tools.GeoCoord;
 //}
 
 public class QueryFilter {
-	public enum DataType {
-		FIELD,
-		CHEMICAL,
-		ISOTOPE
-	}
-
-	public enum FilterOperator {
-		LT, LTE, GT, GTE, BETWEEN, EQ, NEQ
-	}
-
-	public enum FilterRelations {
-		AND, OR, NONE
-	}
-
-	public String[] authors;
-	public String[] keywords;
-	public String ref;
+	public String operator;
+	public ArrayList<String> authors;
+	public ArrayList<String> keywords;
+	public String reference;
+	public GeoCoord coordinates;
+	public ArrayList<DatasetBean> datasets;
 	public int year;
-	public List<DatasetBean> datasets;
-	public GeoCoord geoCoord;
+	public static final String AND = "AND";
+	public static final String OR = "OR";
 	
 	public QueryFilter() {
+		authors = null;
+		keywords = null;
+		reference = null;
+		coordinates = null;
 	}
-
+	
+	private void setOperator(String operator) throws DbException {
+		if (operator.toUpperCase().equals(QueryFilter.AND) || 
+			operator.toUpperCase().equals(QueryFilter.OR)) {
+			this.operator = operator;
+		} else {
+			throw new DbException("Invalid logical operator: " + operator);
+		}
+	}
+	
+	public void setAuthors(String operator, ArrayList<String> authors) throws DbException {
+		setOperator(operator);
+		this.authors = authors;
+		keywords = null;
+		reference = null;
+		coordinates = null;		
+	}
+	
+	public void setKeywords(String operator, ArrayList<String> keywords) throws DbException {
+		setOperator(operator);
+		authors = null;
+		this.keywords = keywords;
+		reference = null;
+		coordinates = null;		
+	}
+	
+	public void setReference(String operator, String reference) throws DbException {
+		setOperator(operator);
+		authors = null;
+		keywords = null;
+		this.reference = reference;
+		coordinates = null;		
+	}
+	
+	public void setReCoordinates(String operator, GeoCoord coordinates) throws DbException {
+		setOperator(operator);
+		authors = null;
+		keywords = null;
+		reference = null;
+		this.coordinates = coordinates;		
+	}
 }

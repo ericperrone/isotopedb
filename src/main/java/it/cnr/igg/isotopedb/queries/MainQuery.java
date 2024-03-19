@@ -12,6 +12,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import it.cnr.igg.isotopedb.exceptions.DbException;
+import it.cnr.igg.isotopedb.exceptions.NoDatasetFoundException;
 import it.cnr.igg.isotopedb.tools.QueryFilter;
 
 import it.cnr.igg.isotopedb.beans.SampleBean;
@@ -25,6 +26,30 @@ public class MainQuery extends Query {
 
 	public MainQuery() {
 		super();
+	}
+	
+	public ArrayList<SampleBean> query(ArrayList<QueryFilter> filters) throws Exception, DbException  {
+		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			QueryFilter queryFilter = new QueryFilter();
+			queryFilter.datasets = (new DatasetQuery()).findDatasets(filters, con);
+			filters = dropDatasetFilters(filters);
+			filters.add(queryFilter);
+			beans = (new SampleQuery()).querySampleInfo(filters, con);
+//			return beans;
+		} catch (NoDatasetFoundException e) {
+			System.out.println(e.getMessage());
+			filters = dropDatasetFilters(filters);
+			beans = (new SampleQuery()).querySampleInfo(filters, con);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		} finally {
+			cm.closeConnection();
+		}
+		return beans;
 	}
 	
 	public ArrayList<SampleBean> query(QueryFilter queryFilter) throws Exception, DbException  {
@@ -43,4 +68,13 @@ public class MainQuery extends Query {
 		}
 	}
 
+	private ArrayList<QueryFilter> dropDatasetFilters(ArrayList<QueryFilter> filters) {
+		ArrayList<QueryFilter> nfilters = new ArrayList<QueryFilter>();
+		for (QueryFilter f : filters) {
+			if (f.authors != null || f.keywords != null || f.reference != null) 
+				continue;
+			nfilters.add(f);
+		}
+		return nfilters;
+	}
 }

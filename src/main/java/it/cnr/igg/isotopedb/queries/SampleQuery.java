@@ -180,6 +180,83 @@ public class SampleQuery extends Query {
 		}
 	}
 
+//	public ArrayList<SampleBean> queryInfo(ArrayList<QueryFilter> filters, Connection con) throws Exception, DbException {
+//		
+//	}
+	public ArrayList<SampleBean> querySampleInfo(ArrayList<QueryFilter> filters, Connection con)
+			throws Exception, DbException {
+		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
+		if (filters.size() < 1) {
+			return beans;
+		}
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
+				+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
+				+ "left join coord c on c.sample_id = sa.sample_id "
+				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\(.*\\)', '') "
+				+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
+		for (QueryFilter f : filters) {
+			if ((f.datasets != null) && f.datasets.size() > 0) {
+				queryData += " and si.dataset_id in (";
+				for (DatasetBean db : f.datasets) {
+					queryData += db.getId() + ",";
+				}
+				queryData = queryData.substring(0, queryData.length() - 1);
+				queryData += ")";
+			}
+		}
+		queryData += " order by si.sample_id";
+
+		try {
+			System.out.println(queryData);
+			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
+
+			ps = con.prepareStatement(queryData);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Long id = rs.getLong("sample_id");
+				if (index.get(id) == null) {
+					SampleBean bean = new SampleBean();
+					Long datasetId = rs.getLong("dataset_id");
+					if (datasetId > 0)
+						bean.setDatasetId(datasetId);
+					bean.setFields(new ArrayList<SampleFieldBean>());
+					bean.setComponents(new ArrayList<ComponentBean>());
+					SampleFieldBean sfb = new SampleFieldBean("ITINERIS_ID", "" + id);
+					bean.getFields().add(sfb);
+					index.put(id, bean);
+				}
+				String type = rs.getString("type");
+				switch (type) {
+				case TYPE_FIELD:
+					index.get(id).getFields().add(setField(rs));
+					break;
+				case TYPE_ISOTOPE:
+					index.get(id).getComponents().add(setIsotope(rs));
+					break;
+				case TYPE_CHEM:
+					index.get(id).getComponents().add(setChem(rs));
+					break;
+				}
+			}
+
+			index.forEach((id, bean) -> beans.add(bean));
+
+			return beans;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
+
 	public ArrayList<SampleBean> querySamples(QueryFilter filter, Connection con) throws Exception, DbException {
 		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
 		PreparedStatement ps = null;
@@ -198,11 +275,11 @@ public class SampleQuery extends Query {
 				queryData = queryData.substring(0, queryData.length() - 1);
 				queryData += ")";
 			}
-			if (filter.geoCoord != null) {
-				queryData += " and latitude >= " + filter.geoCoord.minLat + " and latitude <= "
-						+ filter.geoCoord.maxLat;
-				queryData += " and longitude >= " + filter.geoCoord.minLong + " and longitude <= "
-						+ filter.geoCoord.maxLong;
+			if (filter.coordinates != null) {
+				queryData += " and latitude >= " + filter.coordinates.minLat + " and latitude <= "
+						+ filter.coordinates.maxLat;
+				queryData += " and longitude >= " + filter.coordinates.minLong + " and longitude <= "
+						+ filter.coordinates.maxLong;
 			}
 			queryData += " order by si.sample_id";
 
