@@ -323,7 +323,7 @@ public class DatasetQuery extends Query {
 	}
 
 	private String manageReference(QueryFilter f) {
-		String query = f.operator + " lower(link) like '%" + f.reference + "%' ";
+		String query = f.operator + " lower(link) like '%" + f.reference.toLowerCase() + "%' ";
 		return query;
 	}
 
