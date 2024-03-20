@@ -72,7 +72,7 @@ public class QueryFilter {
 		coordinates = null;		
 	}
 	
-	public void setReCoordinates(String operator, GeoCoord coordinates) throws DbException {
+	public void setCoordinates(String operator, GeoCoord coordinates) throws DbException {
 		setOperator(operator);
 		authors = null;
 		keywords = null;

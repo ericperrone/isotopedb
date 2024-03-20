@@ -205,6 +205,13 @@ public class SampleQuery extends Query {
 				queryData = queryData.substring(0, queryData.length() - 1);
 				queryData += ")";
 			}
+			if (f.coordinates != null) {
+				queryData += " " + f.operator;
+				queryData += " (latitude >= " + f.coordinates.minLat + " and latitude <= "
+						+ f.coordinates.maxLat;
+				queryData += " and longitude >= " + f.coordinates.minLong + " and longitude <= "
+						+ f.coordinates.maxLong + ")";				
+			}
 		}
 		queryData += " order by si.sample_id";
 
