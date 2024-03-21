@@ -138,7 +138,7 @@ public class DatasetQuery extends Query {
 	}
 
 	private void setAuthors(Long datasetId, String authors, Connection con) throws Exception {
-		if (authors == null)
+		if (authors == null || authors.length() < 1)
 			return;
 		String[] auths = authors.split(";");
 		PreparedStatement ps = null;
