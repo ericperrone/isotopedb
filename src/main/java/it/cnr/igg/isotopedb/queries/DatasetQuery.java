@@ -38,6 +38,42 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
+	
+	public ArrayList<Integer> getYears(Connection con) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select distinct year from dataset order by year";
+		try {
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getInt(1));
+			}
+			return list;
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}	
+	
+	public ArrayList<Integer> getYears() throws Exception, DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getYears(con);
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			cm.closeConnection();
+		}
+	}
 
 	public ArrayList<String> getLinks() throws Exception, DbException {
 		Connection con = null;
@@ -73,7 +109,6 @@ public class DatasetQuery extends Query {
 				ps.close();
 			}
 		}
-
 	}
 
 	public DatasetBean insertDataset(DatasetBean bean) throws Exception, DbException {
@@ -134,7 +169,6 @@ public class DatasetQuery extends Query {
 				ps.close();
 			}
 		}
-
 	}
 
 	private void setAuthors(Long datasetId, String authors, Connection con) throws Exception {
@@ -176,7 +210,6 @@ public class DatasetQuery extends Query {
 				if (ps != null)
 					rs.close();
 			}
-
 		}
 	}
 
