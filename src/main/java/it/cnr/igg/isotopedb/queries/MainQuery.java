@@ -71,7 +71,7 @@ public class MainQuery extends Query {
 	private ArrayList<QueryFilter> dropDatasetFilters(ArrayList<QueryFilter> filters) {
 		ArrayList<QueryFilter> nfilters = new ArrayList<QueryFilter>();
 		for (QueryFilter f : filters) {
-			if (f.authors != null || f.keywords != null || f.reference != null) 
+			if (f.authors != null || f.keywords != null || f.reference != null || f.year != null) 
 				continue;
 			nfilters.add(f);
 		}
