@@ -48,6 +48,7 @@ public class QueryFilter {
 		}
 	}
 	
+
 	public void setYear(String operator, String year) throws DbException {
 		setOperator(operator);
 		this.year = Integer.valueOf(year);
@@ -56,13 +57,23 @@ public class QueryFilter {
 		coordinates = null;	
 		authors = null;
 	}
+
+	public void setYear(String operator, Integer year) throws DbException {
+		setOperator(operator);
+		this.year = year;
+		authors = null;
+		keywords = null;
+		reference = null;
+		coordinates = null;		
+
+	}
 	
 	public void setAuthors(String operator, ArrayList<String> authors) throws DbException {
 		setOperator(operator);
 		this.authors = authors;
 		keywords = null;
 		reference = null;
-		coordinates = null;		
+		coordinates = null;	
 		year = null;
 	}
 	
@@ -71,7 +82,7 @@ public class QueryFilter {
 		authors = null;
 		this.keywords = keywords;
 		reference = null;
-		coordinates = null;	
+		coordinates = null;		
 		year = null;
 	}
 	
