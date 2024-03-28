@@ -286,6 +286,9 @@ public class DatasetQuery extends Query {
 			if (f.reference != null) {
 				subQuery += manageReference(f) + " ";
 			}
+			if (f.year != null) {
+				subQuery += manageYear(f) + " ";
+			}
 		}
 		if (subQuery.length() > 0) {
 			if (subQuery.toUpperCase().startsWith("AND")) {
@@ -294,6 +297,7 @@ public class DatasetQuery extends Query {
 				subQuery = subQuery.substring(2);
 			}
 			query += subQuery;
+			System.out.println(query);
 			PreparedStatement ps = null;
 			ResultSet rs = null;
 			try {
@@ -357,6 +361,11 @@ public class DatasetQuery extends Query {
 
 	private String manageReference(QueryFilter f) {
 		String query = f.operator + " lower(link) like '%" + f.reference.toLowerCase() + "%' ";
+		return query;
+	}
+	
+	private String manageYear(QueryFilter f) {
+		String query = f.operator + " year = " + f.year.toString();
 		return query;
 	}
 
