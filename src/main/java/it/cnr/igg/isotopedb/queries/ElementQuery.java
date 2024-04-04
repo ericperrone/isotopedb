@@ -164,9 +164,9 @@ public class ElementQuery extends Query {
 		}
 
 		// elimina i dati fra parentesi
-		int start = el.indexOf('(');
+		int start = el.indexOf('[');
 		if (start >= 0) {
-			int end = el.indexOf(')');
+			int end = el.indexOf(']');
 			if (end >= start) {
 				String s1 = (start > 0) ? el.substring(0, start) : "";
 				String s2 = (end < el.length()) ? el.substring(end + 1) : "";
