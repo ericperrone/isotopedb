@@ -194,7 +194,7 @@ public class SampleQuery extends Query {
 		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
 				+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
 				+ "left join coord c on c.sample_id = sa.sample_id "
-				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\(.*\\)', '') "
+				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
 				+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
 		for (QueryFilter f : filters) {
 			if ((f.datasets != null) && f.datasets.size() > 0) {
@@ -272,7 +272,7 @@ public class SampleQuery extends Query {
 			String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
 					+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
 					+ "left join coord c on c.sample_id = sa.sample_id "
-					+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\(.*\\)', '') "
+					+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
 					+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
 			if (filter.datasets.size() > 0) {
 				queryData += " and si.dataset_id in (";
@@ -569,7 +569,7 @@ public class SampleQuery extends Query {
 		ComponentBean sfb = new ComponentBean();
 		String name = rs.getString("name");
 		String um = "";
-		int i = name.indexOf(" (");
+		int i = name.indexOf(" [");
 		if (i > -1)
 			um += name.substring(i);
 		String synonym = rs.getString("synonym");
