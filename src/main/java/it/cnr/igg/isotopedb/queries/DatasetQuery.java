@@ -16,22 +16,39 @@ public class DatasetQuery extends Query {
 		super();
 	}
 
-	public void deleteDataset(Long id) throws Exception, DbException {
+	public String deleteDataset(Long id) throws Exception, DbException {
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		Connection con = null;
+		String query = "select file_name from dataset where id = ?";
 		String deleteRef = "delete from dataset_authors where dataset_id = ?";
 		String delete = "delete from dataset where id = ?";
 		try {
 			con = cm.createConnection();
+			ps = con.prepareStatement(query);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			String fileName = "";
+			if (rs.next()) {
+				fileName = rs.getString(1);
+			}
+			rs.close();
+			rs = null;
+			ps.close();
 			ps = con.prepareStatement(deleteRef);
 			ps.setLong(1, id);
 			ps.execute();
+			ps.close();
 			ps = con.prepareStatement(delete);
 			ps.setLong(1, id);
 			ps.execute();
+			return fileName;
 		} catch (Exception ex) {
 			throw new DbException(ex);
 		} finally {
+			if (rs != null) {
+				rs.close();
+			}
 			if (ps != null) {
 				ps.close();
 			}
@@ -213,24 +230,44 @@ public class DatasetQuery extends Query {
 		}
 	}
 
-	public void updateProcessed(DatasetBean bean) throws Exception, DbException {
+	public String updateProcessed(DatasetBean bean) throws Exception, DbException {
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		Connection con = null;
+		String query = "select file_name from dataset where id = ?";
 		String update = "update dataset set processed=? where id=?";
 		try {
 			con = cm.createConnection();
 			con.setAutoCommit(false); // start transaction
+			
+			String fileName = "";
+			ps = con.prepareStatement(query);
+			ps.setLong(1, bean.getId());
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				fileName = rs.getString("file_name");
+			}
+			rs.close();
+			rs = null;
+			ps.close();
+			ps = null;
+			
 			ps = con.prepareStatement(update);
 
 			ps.setBoolean(1, bean.isProcessed());
 			ps.setLong(2, bean.getId());
 
 			ps.execute();
+			
+			return fileName;
 		} catch (Exception ex) {
 			if (con != null)
 				con.rollback();
 			throw new DbException(ex);
 		} finally {
+			if (rs != null) {
+				rs.close();
+			}
 			if (ps != null) {
 				ps.close();
 			}
