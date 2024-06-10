@@ -22,8 +22,14 @@ public class ConnectionManager {
 					props.getProperty("password"));
 			return connection;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new DbException(ex);
+			try {
+				return loadDefault();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DbException(e);
+			}
+//			ex.printStackTrace();
+//			throw new DbException(ex);
 		}
 	}
 
@@ -35,6 +41,14 @@ public class ConnectionManager {
 				ex.printStackTrace();
 			}
 		}
+	}
+	
+	private Connection loadDefault() throws Exception {
+		Class.forName("org.postgresql.Driver"); 
+		Properties props = Conf.loadDefault();
+		connection = DriverManager.getConnection(props.getProperty("url"), props.getProperty("user"),
+				props.getProperty("password"));
+		return connection;
 	}
 
 }

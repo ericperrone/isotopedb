@@ -19,7 +19,7 @@ public class Conf {
 		}
 	}
 	
-	private static Properties loadDefault() {
+	public static Properties loadDefault() {
 		Properties prop = new Properties();
 		prop.setProperty("driver", "org.postgresql.Driver");
 		prop.setProperty("url", "jdbc:postgresql://192.168.0.5:5432/itineris_wp8");
