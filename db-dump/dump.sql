@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-07-15 14:11:32
+-- Started on 2024-07-16 15:58:04
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 4972 (class 1262 OID 16394)
+-- TOC entry 4979 (class 1262 OID 16394)
 -- Name: isotope-studio; Type: DATABASE; Schema: -; Owner: -
 --
 
@@ -48,7 +48,7 @@ CREATE SCHEMA public;
 
 
 --
--- TOC entry 4973 (class 0 OID 0)
+-- TOC entry 4980 (class 0 OID 0)
 -- Dependencies: 4
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
 --
@@ -89,7 +89,7 @@ CREATE SEQUENCE public.administrators_id_seq
 
 
 --
--- TOC entry 4974 (class 0 OID 0)
+-- TOC entry 4981 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: administrators_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -123,7 +123,7 @@ CREATE SEQUENCE public.authors_id_seq
 
 
 --
--- TOC entry 4975 (class 0 OID 0)
+-- TOC entry 4982 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: authors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -158,7 +158,7 @@ CREATE SEQUENCE public.chem_elements_id_seq
 
 
 --
--- TOC entry 4976 (class 0 OID 0)
+-- TOC entry 4983 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: chem_elements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -218,7 +218,7 @@ CREATE SEQUENCE public.countries_id_seq
 
 
 --
--- TOC entry 4977 (class 0 OID 0)
+-- TOC entry 4984 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -267,7 +267,7 @@ CREATE SEQUENCE public.dataset_authors_author_id_seq
 
 
 --
--- TOC entry 4978 (class 0 OID 0)
+-- TOC entry 4985 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: dataset_authors_author_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -289,7 +289,7 @@ CREATE SEQUENCE public.dataset_authors_dataset_id_seq
 
 
 --
--- TOC entry 4979 (class 0 OID 0)
+-- TOC entry 4986 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: dataset_authors_dataset_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -311,12 +311,22 @@ CREATE SEQUENCE public.dataset_id_seq
 
 
 --
--- TOC entry 4980 (class 0 OID 0)
+-- TOC entry 4987 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: dataset_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.dataset_id_seq OWNED BY public.dataset.id;
+
+
+--
+-- TOC entry 239 (class 1259 OID 73898)
+-- Name: keywords; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.keywords (
+    key character varying(100) NOT NULL
+);
 
 
 --
@@ -347,7 +357,7 @@ CREATE SEQUENCE public.matrix_id_seq
 
 
 --
--- TOC entry 4981 (class 0 OID 0)
+-- TOC entry 4988 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: matrix_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -395,7 +405,7 @@ CREATE SEQUENCE public.reservoir_id_seq
 
 
 --
--- TOC entry 4982 (class 0 OID 0)
+-- TOC entry 4989 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: reservoir_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -444,7 +454,7 @@ CREATE SEQUENCE public.sample_index2_sample_id_seq
 
 
 --
--- TOC entry 4983 (class 0 OID 0)
+-- TOC entry 4990 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: sample_index2_sample_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -476,7 +486,7 @@ CREATE TABLE public.synonyms (
 
 
 --
--- TOC entry 4749 (class 2604 OID 16449)
+-- TOC entry 4753 (class 2604 OID 16449)
 -- Name: administrators id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -484,7 +494,7 @@ ALTER TABLE ONLY public.administrators ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 4751 (class 2604 OID 16450)
+-- TOC entry 4755 (class 2604 OID 16450)
 -- Name: authors id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -492,7 +502,7 @@ ALTER TABLE ONLY public.authors ALTER COLUMN id SET DEFAULT nextval('public.auth
 
 
 --
--- TOC entry 4752 (class 2604 OID 16451)
+-- TOC entry 4756 (class 2604 OID 16451)
 -- Name: chem_elements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -500,7 +510,7 @@ ALTER TABLE ONLY public.chem_elements ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 4754 (class 2604 OID 16452)
+-- TOC entry 4758 (class 2604 OID 16452)
 -- Name: countries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -508,7 +518,7 @@ ALTER TABLE ONLY public.countries ALTER COLUMN id SET DEFAULT nextval('public.co
 
 
 --
--- TOC entry 4755 (class 2604 OID 16453)
+-- TOC entry 4759 (class 2604 OID 16453)
 -- Name: dataset id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -516,7 +526,7 @@ ALTER TABLE ONLY public.dataset ALTER COLUMN id SET DEFAULT nextval('public.data
 
 
 --
--- TOC entry 4757 (class 2604 OID 16454)
+-- TOC entry 4761 (class 2604 OID 16454)
 -- Name: dataset_authors dataset_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -524,7 +534,7 @@ ALTER TABLE ONLY public.dataset_authors ALTER COLUMN dataset_id SET DEFAULT next
 
 
 --
--- TOC entry 4758 (class 2604 OID 16455)
+-- TOC entry 4762 (class 2604 OID 16455)
 -- Name: dataset_authors author_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -532,7 +542,7 @@ ALTER TABLE ONLY public.dataset_authors ALTER COLUMN author_id SET DEFAULT nextv
 
 
 --
--- TOC entry 4761 (class 2604 OID 73892)
+-- TOC entry 4765 (class 2604 OID 73892)
 -- Name: matrix id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -540,7 +550,7 @@ ALTER TABLE ONLY public.matrix ALTER COLUMN id SET DEFAULT nextval('public.matri
 
 
 --
--- TOC entry 4760 (class 2604 OID 16526)
+-- TOC entry 4764 (class 2604 OID 16526)
 -- Name: reservoir id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -548,7 +558,7 @@ ALTER TABLE ONLY public.reservoir ALTER COLUMN id SET DEFAULT nextval('public.re
 
 
 --
--- TOC entry 4759 (class 2604 OID 16456)
+-- TOC entry 4763 (class 2604 OID 16456)
 -- Name: sample_index sample_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -556,19 +566,19 @@ ALTER TABLE ONLY public.sample_index ALTER COLUMN sample_id SET DEFAULT nextval(
 
 
 --
--- TOC entry 4944 (class 0 OID 16395)
+-- TOC entry 4950 (class 0 OID 16395)
 -- Dependencies: 215
 -- Data for Name: administrators; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 INSERT INTO public.administrators VALUES (13, 'paolo.digiuseppe', 'e87d425e8fc2739c5f98694eb7107675228bb30898381f1ec6fef2351be36d28', 'paolo.digiuseppe@igg.cnr.it', NULL, NULL);
 INSERT INTO public.administrators VALUES (12, 'eric.perrone', 'e87d425e8fc2739c5f98694eb7107675228bb30898381f1ec6fef2351be36d28', 'erico.perrone@igg.cnr.it', '4eba7829cc949a03f8363d27e7564826122563ecc478e057409d848239710faf', NULL);
-INSERT INTO public.administrators VALUES (11, 'admin', 'e87d425e8fc2739c5f98694eb7107675228bb30898381f1ec6fef2351be36d28', 'perroneeric@gmail.com', '65b46dce7a4b5e8b936b5436fd0b102c3a9658351d1facea0f7ead7e8a7df24c', NULL);
+INSERT INTO public.administrators VALUES (11, 'admin', 'e87d425e8fc2739c5f98694eb7107675228bb30898381f1ec6fef2351be36d28', 'perroneeric@gmail.com', '921ce32d813841f46bfd88e568516cfa527fbbb58b838435e54757d87c12ccae', NULL);
 INSERT INTO public.administrators VALUES (14, 'pippo', 'e87d425e8fc2739c5f98694eb7107675228bb30898381f1ec6fef2351be36d28', 'pippo@nomail.com', '36e955cad02f65ca5bc01f18168545882a9322c38257b78db7b6406715d5b245', '2024-04-04 15:18:12.02+02');
 
 
 --
--- TOC entry 4946 (class 0 OID 16400)
+-- TOC entry 4952 (class 0 OID 16400)
 -- Dependencies: 217
 -- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -627,7 +637,7 @@ INSERT INTO public.authors VALUES (2471, 'VIAROLI', 'S.');
 
 
 --
--- TOC entry 4948 (class 0 OID 16404)
+-- TOC entry 4954 (class 0 OID 16404)
 -- Dependencies: 219
 -- Data for Name: chem_elements; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1130,11 +1140,42 @@ INSERT INTO public.chem_elements VALUES (540, '87Sr/86Sr(i)', true, NULL);
 INSERT INTO public.chem_elements VALUES (541, '208Pb/204Pb(i)', true, NULL);
 INSERT INTO public.chem_elements VALUES (542, '143Nd/144Nd(i)', true, NULL);
 INSERT INTO public.chem_elements VALUES (543, '206Pb/204Pb(i)', true, NULL);
+INSERT INTO public.chem_elements VALUES (544, 'NB(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (545, 'CO(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (546, 'FEOT(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (547, 'Y(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (548, 'CR(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (549, 'AL2O3(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (550, 'SR(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (551, 'MNO(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (552, 'P2O5(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (553, 'CAO(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (554, 'LA(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (555, 'TB(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (556, 'U(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (557, 'MGO(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (558, 'TH(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (559, 'ZR(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (560, 'CE(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (561, 'K2O(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (562, 'LU(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (563, 'YB(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (564, 'SC(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (565, 'EU(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (566, 'BA(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (567, 'ND(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (568, 'TA(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (569, 'HF(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (570, 'SIO2(WT%)', false, NULL);
 INSERT INTO public.chem_elements VALUES (363, 'LU176', true, NULL);
+INSERT INTO public.chem_elements VALUES (571, 'RB(PPM)', false, NULL);
+INSERT INTO public.chem_elements VALUES (572, 'TIO2(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (573, 'NA2O(WT%)', false, NULL);
+INSERT INTO public.chem_elements VALUES (574, 'SM(PPM)', false, NULL);
 
 
 --
--- TOC entry 4950 (class 0 OID 16409)
+-- TOC entry 4956 (class 0 OID 16409)
 -- Dependencies: 221
 -- Data for Name: coordinates; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1787,269 +1828,10 @@ INSERT INTO public.coordinates VALUES (19941, 38.58, 14.58);
 INSERT INTO public.coordinates VALUES (19942, 38.58, 14.58);
 INSERT INTO public.coordinates VALUES (19942, 38.58, 14.58);
 INSERT INTO public.coordinates VALUES (19942, 38.58, 14.58);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19943, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19944, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19944, 38.73722222222222, 39.327222222222225);
-INSERT INTO public.coordinates VALUES (19945, 38.73916666666667, 39.20916666666667);
-INSERT INTO public.coordinates VALUES (19945, 38.73916666666667, 39.20916666666667);
-INSERT INTO public.coordinates VALUES (19946, 38.68666666666666, 39.08222222222223);
-INSERT INTO public.coordinates VALUES (19946, 38.68666666666666, 39.08222222222223);
-INSERT INTO public.coordinates VALUES (19947, 38.68388888888889, 39.074444444444445);
-INSERT INTO public.coordinates VALUES (19947, 38.68388888888889, 39.074444444444445);
-INSERT INTO public.coordinates VALUES (19948, 38.68388888888889, 39.074444444444445);
-INSERT INTO public.coordinates VALUES (19948, 38.68388888888889, 39.074444444444445);
-INSERT INTO public.coordinates VALUES (19949, 38.79527777777778, 39.331388888888895);
-INSERT INTO public.coordinates VALUES (19949, 38.79527777777778, 39.331388888888895);
-INSERT INTO public.coordinates VALUES (19949, 38.79527777777778, 39.331388888888895);
-INSERT INTO public.coordinates VALUES (19949, 38.79527777777778, 39.331388888888895);
-INSERT INTO public.coordinates VALUES (19949, 38.79527777777778, 39.331388888888895);
-INSERT INTO public.coordinates VALUES (19950, 38.77777777777778, 39.33583333333333);
-INSERT INTO public.coordinates VALUES (19950, 38.77777777777778, 39.33583333333333);
-INSERT INTO public.coordinates VALUES (19951, 38.78444444444444, 39.36027777777778);
-INSERT INTO public.coordinates VALUES (19951, 38.78444444444444, 39.36027777777778);
-INSERT INTO public.coordinates VALUES (19951, 38.78444444444444, 39.36027777777778);
-INSERT INTO public.coordinates VALUES (19951, 38.78444444444444, 39.36027777777778);
-INSERT INTO public.coordinates VALUES (19951, 38.78444444444444, 39.36027777777778);
-INSERT INTO public.coordinates VALUES (19952, 38.74138888888889, 39.195277777777775);
-INSERT INTO public.coordinates VALUES (19952, 38.74138888888889, 39.195277777777775);
-INSERT INTO public.coordinates VALUES (19953, 38.75277777777778, 39.13388888888889);
-INSERT INTO public.coordinates VALUES (19953, 38.75277777777778, 39.13388888888889);
-INSERT INTO public.coordinates VALUES (19954, 38.740833333333335, 39.169444444444444);
-INSERT INTO public.coordinates VALUES (19954, 38.740833333333335, 39.169444444444444);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19955, 38.77722222222222, 39.33527777777778);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19956, 38.759166666666665, 39.17833333333333);
-INSERT INTO public.coordinates VALUES (19957, 39.01694444444444, 39.93472222222222);
-INSERT INTO public.coordinates VALUES (19957, 39.01694444444444, 39.93472222222222);
-INSERT INTO public.coordinates VALUES (19958, 38.99055555555556, 39.986111111111114);
-INSERT INTO public.coordinates VALUES (19958, 38.99055555555556, 39.986111111111114);
-INSERT INTO public.coordinates VALUES (19959, 38.93472222222222, 40.337500000000006);
-INSERT INTO public.coordinates VALUES (19959, 38.93472222222222, 40.337500000000006);
-INSERT INTO public.coordinates VALUES (19960, 38.95166666666667, 40.15972222222222);
-INSERT INTO public.coordinates VALUES (19960, 38.95166666666667, 40.15972222222222);
-INSERT INTO public.coordinates VALUES (19961, 38.95666666666667, 40.1225);
-INSERT INTO public.coordinates VALUES (19961, 38.95666666666667, 40.1225);
-INSERT INTO public.coordinates VALUES (19962, 38.948055555555555, 40.11611111111111);
-INSERT INTO public.coordinates VALUES (19962, 38.948055555555555, 40.11611111111111);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19963, 38.96944444444445, 40.04333333333333);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19964, 38.91027777777778, 40.05138888888889);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19965, 38.981944444444444, 39.15361111111111);
-INSERT INTO public.coordinates VALUES (19966, 38.97361111111111, 39.52861111111111);
-INSERT INTO public.coordinates VALUES (19966, 38.97361111111111, 39.52861111111111);
-INSERT INTO public.coordinates VALUES (19966, 38.97361111111111, 39.52861111111111);
-INSERT INTO public.coordinates VALUES (19966, 38.97361111111111, 39.52861111111111);
-INSERT INTO public.coordinates VALUES (19966, 38.97361111111111, 39.52861111111111);
-INSERT INTO public.coordinates VALUES (19967, 38.96, 39.54611111111111);
-INSERT INTO public.coordinates VALUES (19967, 38.96, 39.54611111111111);
-INSERT INTO public.coordinates VALUES (19968, 39.01777777777777, 39.89361111111111);
-INSERT INTO public.coordinates VALUES (19968, 39.01777777777777, 39.89361111111111);
-INSERT INTO public.coordinates VALUES (19969, 38.95944444444445, 40.19166666666666);
-INSERT INTO public.coordinates VALUES (19969, 38.95944444444445, 40.19166666666666);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19970, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19971, 38.94333333333333, 39.436388888888885);
-INSERT INTO public.coordinates VALUES (19971, 38.94333333333333, 39.436388888888885);
-INSERT INTO public.coordinates VALUES (19972, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19972, 38.96083333333333, 40.22222222222222);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19973, 38.97527777777778, 39.47916666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19974, 38.91722222222222, 39.47166666666667);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19975, 39.07472222222223, 39.695277777777775);
-INSERT INTO public.coordinates VALUES (19976, 38.91027777777778, 39.21527777777778);
-INSERT INTO public.coordinates VALUES (19976, 38.91027777777778, 39.21527777777778);
-INSERT INTO public.coordinates VALUES (19977, 38.91027777777778, 39.21527777777778);
-INSERT INTO public.coordinates VALUES (19977, 38.91027777777778, 39.21527777777778);
-INSERT INTO public.coordinates VALUES (19977, 38.91027777777778, 39.21527777777778);
-INSERT INTO public.coordinates VALUES (19977, 38.91027777777778, 39.21527777777778);
-INSERT INTO public.coordinates VALUES (19977, 38.91027777777778, 39.21527777777778);
-INSERT INTO public.coordinates VALUES (19978, 38.92611111111111, 39.20944444444445);
-INSERT INTO public.coordinates VALUES (19978, 38.92611111111111, 39.20944444444445);
-INSERT INTO public.coordinates VALUES (19978, 38.92611111111111, 39.20944444444445);
-INSERT INTO public.coordinates VALUES (19978, 38.92611111111111, 39.20944444444445);
-INSERT INTO public.coordinates VALUES (19978, 38.92611111111111, 39.20944444444445);
-INSERT INTO public.coordinates VALUES (19979, 38.95638888888889, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19979, 38.95638888888889, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19980, 38.910555555555554, 39.21638888888889);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19981, 38.95611111111111, 39.20722222222223);
-INSERT INTO public.coordinates VALUES (19982, 38.99916666666667, 39.578611111111115);
-INSERT INTO public.coordinates VALUES (19982, 38.99916666666667, 39.578611111111115);
-INSERT INTO public.coordinates VALUES (19983, 38.99916666666667, 39.578611111111115);
-INSERT INTO public.coordinates VALUES (19983, 38.99916666666667, 39.578611111111115);
-INSERT INTO public.coordinates VALUES (19984, 39.00361111111111, 39.626111111111115);
-INSERT INTO public.coordinates VALUES (19984, 39.00361111111111, 39.626111111111115);
-INSERT INTO public.coordinates VALUES (19985, 39.00361111111111, 39.626111111111115);
-INSERT INTO public.coordinates VALUES (19985, 39.00361111111111, 39.626111111111115);
-INSERT INTO public.coordinates VALUES (19986, 39.00416666666667, 39.63333333333333);
-INSERT INTO public.coordinates VALUES (19986, 39.00416666666667, 39.63333333333333);
-INSERT INTO public.coordinates VALUES (19986, 39.00416666666667, 39.63333333333333);
-INSERT INTO public.coordinates VALUES (19986, 39.00416666666667, 39.63333333333333);
-INSERT INTO public.coordinates VALUES (19986, 39.00416666666667, 39.63333333333333);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19987, 39.02055555555555, 39.60277777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
-INSERT INTO public.coordinates VALUES (19988, 39.08277777777778, 39.68527777777778);
 
 
 --
--- TOC entry 4951 (class 0 OID 16416)
+-- TOC entry 4957 (class 0 OID 16416)
 -- Dependencies: 223
 -- Data for Name: countries; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2274,7 +2056,7 @@ INSERT INTO public.countries VALUES (216, 'SS', 'South Sudan', NULL);
 
 
 --
--- TOC entry 4953 (class 0 OID 16420)
+-- TOC entry 4959 (class 0 OID 16420)
 -- Dependencies: 225
 -- Data for Name: dataset; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2297,11 +2079,12 @@ INSERT INTO public.dataset VALUES (853, 'Paternoster(2019)_Template.xlsx', 'pate
 INSERT INTO public.dataset VALUES (854, 'PennisiEtAl(2006)_Template1.xlsx', 'pennisi', true, 2024, 'doi:10.1016/j.apgeochem.2006.03.001', 'PENNISI,M.');
 INSERT INTO public.dataset VALUES (855, 'CarucciEtAl(2012)_Template1.xlsx', 'carucci2 corretto', true, 2024, '', 'CARUCCI,V.');
 INSERT INTO public.dataset VALUES (858, '_GEOROC_', 'VOLCANOLOGICAL IMPLICATIONS CRYSTAL-CHEMICAL VARIATIONS CLINOPYROXENES AEOLIAN ARC, SOUTHERN TYRRHENIAN SEA (ITALY)', true, 2001, '10.1007/s004450100125', 'NAZZARENI,S.;MOLIN,G. M.;PECCERILLO,A.;ZANAZZI,P. F.');
-INSERT INTO public.dataset VALUES (859, 'Esempio_Template.xlsx', 'itineris-template', true, 2024, '', '');
+INSERT INTO public.dataset VALUES (865, 'notsu-1995-total.csv', 'notsu', true, 2024, '', '');
+INSERT INTO public.dataset VALUES (866, 'Esempio_Template.xlsx', 'itineris template', false, 2024, '', '');
 
 
 --
--- TOC entry 4954 (class 0 OID 16426)
+-- TOC entry 4960 (class 0 OID 16426)
 -- Dependencies: 226
 -- Data for Name: dataset_authors; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2369,7 +2152,42 @@ INSERT INTO public.dataset_authors VALUES (858, 2465);
 
 
 --
--- TOC entry 4966 (class 0 OID 73889)
+-- TOC entry 4973 (class 0 OID 73898)
+-- Dependencies: 239
+-- Data for Name: keywords; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.keywords VALUES ('sample name');
+INSERT INTO public.keywords VALUES ('sample-name');
+INSERT INTO public.keywords VALUES ('sample_name');
+INSERT INTO public.keywords VALUES ('sample id');
+INSERT INTO public.keywords VALUES ('sample-id');
+INSERT INTO public.keywords VALUES ('sample_id');
+INSERT INTO public.keywords VALUES ('location');
+INSERT INTO public.keywords VALUES ('location_details');
+INSERT INTO public.keywords VALUES ('location-details');
+INSERT INTO public.keywords VALUES ('latitude');
+INSERT INTO public.keywords VALUES ('longitude');
+INSERT INTO public.keywords VALUES ('epsg');
+INSERT INTO public.keywords VALUES ('matrix');
+INSERT INTO public.keywords VALUES ('matrix_details');
+INSERT INTO public.keywords VALUES ('matrix-details');
+INSERT INTO public.keywords VALUES ('doi');
+INSERT INTO public.keywords VALUES ('authors');
+INSERT INTO public.keywords VALUES ('year of publication');
+INSERT INTO public.keywords VALUES ('unit');
+INSERT INTO public.keywords VALUES ('technique');
+INSERT INTO public.keywords VALUES ('uncertainty');
+INSERT INTO public.keywords VALUES ('type of unertainty');
+INSERT INTO public.keywords VALUES ('method');
+INSERT INTO public.keywords VALUES ('ref.std.');
+INSERT INTO public.keywords VALUES ('itineris document');
+INSERT INTO public.keywords VALUES ('itineris_document');
+INSERT INTO public.keywords VALUES ('itineris-document');
+
+
+--
+-- TOC entry 4972 (class 0 OID 73889)
 -- Dependencies: 238
 -- Data for Name: matrix; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2377,7 +2195,7 @@ INSERT INTO public.dataset_authors VALUES (858, 2465);
 
 
 --
--- TOC entry 4964 (class 0 OID 16523)
+-- TOC entry 4970 (class 0 OID 16523)
 -- Dependencies: 236
 -- Data for Name: reservoir; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -3705,7 +3523,7 @@ INSERT INTO public.reservoir VALUES (1280, 'Silicate Earth', 40, 'Zr', 10.5, NUL
 
 
 --
--- TOC entry 4958 (class 0 OID 16432)
+-- TOC entry 4964 (class 0 OID 16432)
 -- Dependencies: 230
 -- Data for Name: sample_attribute; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -20880,2511 +20698,1210 @@ INSERT INTO public.sample_attribute VALUES (19942, 'F', 'GEOROC_ID', '63939', NU
 INSERT INTO public.sample_attribute VALUES (19942, 'F', 'LOCATIONS', 'AEOLIAN ARC::FILICUDI;ITALY::FOSSA DELLE FELCI;ITALY::ITALY::', NULL, NULL);
 INSERT INTO public.sample_attribute VALUES (19942, 'C', 'AGE [MA]', NULL, 0.19, NULL);
 INSERT INTO public.sample_attribute VALUES (19942, 'C', 'K [WT%]', NULL, 2.19, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Sample Name', 'CA 136', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Latitude', '38°44''14''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Longitude', '39°19''38''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'SiO2 ', NULL, 47.695376346628876, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'TiO2 ', NULL, 1.9587942758550692, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Al2O3 ', NULL, 16.1676646706587, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Fe2O3 (Tot) ', NULL, 9.200673107977252, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'MnO ', NULL, 0.16238709022632697, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'MgO ', NULL, 7.622044047498223, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'CaO ', NULL, 8.779052065360803, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Na2O ', NULL, 4.445346594945701, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'K2O ', NULL, 2.648939409316959, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'P2O5 ', NULL, 0.6495483609053079, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'LOI', NULL, 1.080180406385006, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Rb ', NULL, 83.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Cs ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Sr', NULL, 747, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Ba ', NULL, 554, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Sc ', NULL, 22.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'V ', NULL, 210, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Cr ', NULL, 139, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Co', NULL, 40.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Ni ', NULL, 124.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Cu ', NULL, 45.95, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Y ', NULL, 24.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Zr ', NULL, 249.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Nb ', NULL, 69.68, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'La ', NULL, 44.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Ce ', NULL, 79.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Pr', NULL, 8.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Nd ', NULL, 33.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Sm ', NULL, 5.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Eu ', NULL, 1.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Gd ', NULL, 4.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Dy', NULL, 4.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Er ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Tm', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Yb ', NULL, 2.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Lu ', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Hf ', NULL, 5.16, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Ta', NULL, 3.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Ga ', NULL, 20.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Pb ', NULL, 1.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'Th', NULL, 6.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'C', 'U', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '87Sr/86Sr', NULL, 0.703284, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '87Sr/86Sr(i)', NULL, 0.7032764254217423, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '143Nd/144Nd', NULL, 0.512901, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '143Nd/144Nd(i)', NULL, 0.5128999811582795, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '206Pb/204Pb', NULL, 19.116515164837026, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '206Pb/204Pb(i)', NULL, 19.1139, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '207Pb/204Pb', NULL, 15.664756786298826, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '207Pb/204Pb(i)', NULL, 15.6617, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '208Pb/204Pb', NULL, 39.117031511688666, NULL);
-INSERT INTO public.sample_attribute VALUES (19943, 'I', '208Pb/204Pb(i)', NULL, 39.1093, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'F', 'Sample Name', 'CA 137', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'F', 'Latitude', '38°44''14''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'F', 'Longitude', '39°19''38''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'SiO2 ', NULL, 48.003299222820424, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'TiO2 ', NULL, 1.9631410256410255, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Al2O3 ', NULL, 16.015625, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Fe2O3 (Tot) ', NULL, 8.836863754894726, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'MnO ', NULL, 0.16025641025641024, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'MgO ', NULL, 7.8225160256410255, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'CaO ', NULL, 8.73397435897436, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Na2O ', NULL, 4.246794871794871, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'K2O ', NULL, 2.734375, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'P2O5 ', NULL, 0.641025641025641, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'LOI', NULL, 0.6268213616611416, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Rb ', NULL, 56, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Sr', NULL, 735, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Ba ', NULL, 523, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'V ', NULL, 195, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Cr ', NULL, 179, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Co', NULL, 37, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Ni ', NULL, 136, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Y ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Zr ', NULL, 225, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Nb ', NULL, 58, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'La ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19944, 'C', 'Ce ', NULL, 74, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'F', 'Sample Name', 'CA 138', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'F', 'Latitude', '38°44''21''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'F', 'Longitude', '39°12''33''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'SiO2 ', NULL, 50.61788705890436, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'TiO2 ', NULL, 1.7112191170514377, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Al2O3 ', NULL, 17.405832320777645, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Fe2O3 (Tot) ', NULL, 7.8418658324166355, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'MnO ', NULL, 0.13163223977318753, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'MgO ', NULL, 6.1968408262454435, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'CaO ', NULL, 6.88537869582827, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Na2O ', NULL, 4.961522883758607, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'K2O ', NULL, 2.6225192385581204, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'P2O5 ', NULL, 0.7087889833940867, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'LOI', NULL, 1.102388470877231, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Rb ', NULL, 46, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Sr', NULL, 817, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Ba ', NULL, 468, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'V ', NULL, 130, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Cr ', NULL, 105, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Co', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Ni ', NULL, 81, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Y ', NULL, 16, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Zr ', NULL, 284, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Nb ', NULL, 62, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'La ', NULL, 42, NULL);
-INSERT INTO public.sample_attribute VALUES (19945, 'C', 'Ce ', NULL, 78, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'F', 'Sample Name', 'CA 139', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'F', 'Latitude', '38°41''12''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'F', 'Longitude', '39°04''56''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'SiO2 ', NULL, 50.79899054784679, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'TiO2 ', NULL, 1.628697042366107, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Al2O3 ', NULL, 17.206235011990405, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Fe2O3 (Tot) ', NULL, 7.870568510889506, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'MnO ', NULL, 0.1398880895283773, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'MgO ', NULL, 7.114308553157473, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'CaO ', NULL, 7.42406075139888, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Na2O ', NULL, 4.256594724220623, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'K2O ', NULL, 2.1282973621103114, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'P2O5 ', NULL, 0.5895283772981614, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'LOI', NULL, 0.9595194745916018, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Rb ', NULL, 37, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Sr', NULL, 682, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Ba ', NULL, 637, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'V ', NULL, 162, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Cr ', NULL, 135, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Co', NULL, 39, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Ni ', NULL, 109, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Y ', NULL, 25, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Zr ', NULL, 265, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Nb ', NULL, 43, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'La ', NULL, 27, NULL);
-INSERT INTO public.sample_attribute VALUES (19946, 'C', 'Ce ', NULL, 65, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'F', 'Sample Name', 'CA 140', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'F', 'Latitude', '38°41''02''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'F', 'Longitude', '39°04''28''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'SiO2 ', NULL, 50.137483492908046, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'TiO2 ', NULL, 1.8659365175945637, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Al2O3 ', NULL, 16.996247845046135, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Fe2O3 (Tot) ', NULL, 8.067508521830238, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'MnO ', NULL, 0.14197343068654292, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'MgO ', NULL, 7.098671534327145, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'CaO ', NULL, 7.970794037115907, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Na2O ', NULL, 4.0969475712402375, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'K2O ', NULL, 2.0687557042896247, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'P2O5 ', NULL, 0.5678937227461717, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'LOI', NULL, 1.0292223141917933, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Rb ', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Sr', NULL, 701, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Ba ', NULL, 416, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'V ', NULL, 167, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Cr ', NULL, 142, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Co', NULL, 38, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Ni ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Y ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Zr ', NULL, 236, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Nb ', NULL, 35, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'La ', NULL, 41, NULL);
-INSERT INTO public.sample_attribute VALUES (19947, 'C', 'Ce ', NULL, 69, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'F', 'Sample Name', 'CA 141', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'F', 'Latitude', '38°41''02''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'F', 'Longitude', '39°04''28''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'SiO2 ', NULL, 47.81568609596718, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'TiO2 ', NULL, 2.1240356677687604, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Al2O3 ', NULL, 16.57148582306382, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Fe2O3 (Tot) ', NULL, 8.79144881361233, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'MnO ', NULL, 0.1603045786995291, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'MgO ', NULL, 7.22372507764753, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'CaO ', NULL, 9.16741809437932, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Na2O ', NULL, 4.318204588718564, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'K2O ', NULL, 2.2843402464682896, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'P2O5 ', NULL, 0.581104097785793, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'LOI', NULL, 1.6693508969690276, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Rb ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Sr', NULL, 835, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Ba ', NULL, 595, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'V ', NULL, 192, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Cr ', NULL, 171, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Co', NULL, 35, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Ni ', NULL, 73, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Y ', NULL, 25, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Zr ', NULL, 224, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Nb ', NULL, 58, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'La ', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19948, 'C', 'Ce ', NULL, 56, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Sample Name', 'CA 160', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Latitude', '38°47''43''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Longitude', '39°19''53''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Age', '1.66', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'SiO2 ', NULL, 49.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'TiO2 ', NULL, 1.976, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Al2O3 ', NULL, 17.12, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Fe2O3 (Tot) ', NULL, 9.11, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'MnO ', NULL, 0.145, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'MgO ', NULL, 6.94, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'CaO ', NULL, 7.33, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Na2O ', NULL, 4.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'K2O ', NULL, 2.59, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'P2O5 ', NULL, 0.78, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'LOI', NULL, 0.75, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Rb ', NULL, 38, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Sr', NULL, 823, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Ba ', NULL, 536, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Sc ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'V ', NULL, 162, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Cr ', NULL, 230, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Co', NULL, 34, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Ni ', NULL, 140, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Y ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Zr ', NULL, 282, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Nb ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'La ', NULL, 40.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Ce ', NULL, 72.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Pr', NULL, 7.76, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Nd ', NULL, 29.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Sm ', NULL, 5.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Eu ', NULL, 1.75, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Gd ', NULL, 5.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Dy', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Er ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Tm', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Yb ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Lu ', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Hf ', NULL, 4.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Ta', NULL, 3.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Ga ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'Th', NULL, 5.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19949, 'C', 'U', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'F', 'Sample Name', 'CA 161', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'F', 'Latitude', '38°46''40''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'F', 'Longitude', '39°20''09''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'SiO2 ', NULL, 47.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'TiO2 ', NULL, 2.206, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Al2O3 ', NULL, 16.31, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Fe2O3 (Tot) ', NULL, 9.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'MnO ', NULL, 0.152, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'MgO ', NULL, 8.28, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'CaO ', NULL, 8.83, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Na2O ', NULL, 3.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'K2O ', NULL, 2.51, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'P2O5 ', NULL, 0.52, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'LOI', NULL, 0.31, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Rb ', NULL, 42, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Sr', NULL, 603, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Ba ', NULL, 433, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Sc ', NULL, 24, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'V ', NULL, 207, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Cr ', NULL, 270, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Co', NULL, 39, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Ni ', NULL, 140, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Y ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Zr ', NULL, 207, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Nb ', NULL, 39, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'La ', NULL, 26, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Ce ', NULL, 49.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Pr', NULL, 5.69, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Nd ', NULL, 22.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Sm ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Eu ', NULL, 1.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Gd ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Dy', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Er ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Tm', NULL, 0.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Yb ', NULL, 2.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Lu ', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Hf ', NULL, 4, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Ta', NULL, 2.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Ga ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'Th', NULL, 3.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19950, 'C', 'U', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Sample Name', 'CA 163', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Latitude', '38°47''04''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Longitude', '39°21''37''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Age', '1.67', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'SiO2 ', NULL, 47.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'TiO2 ', NULL, 1.959, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Al2O3 ', NULL, 16.48, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Fe2O3 (Tot) ', NULL, 9.16, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'MnO ', NULL, 0.142, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'MgO ', NULL, 7.24, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'CaO ', NULL, 7.18, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Na2O ', NULL, 4.01, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'K2O ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'P2O5 ', NULL, 0.75, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'LOI', NULL, 0.93, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Rb ', NULL, 39, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Cs ', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Sr', NULL, 750, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Ba ', NULL, 567, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Sc ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'V ', NULL, 165, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Cr ', NULL, 240, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Co', NULL, 35, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Ni ', NULL, 150, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Y ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Zr ', NULL, 262, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Nb ', NULL, 54, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'La ', NULL, 38.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Ce ', NULL, 68.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Pr', NULL, 7.46, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Nd ', NULL, 28.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Sm ', NULL, 5.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Eu ', NULL, 1.73, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Gd ', NULL, 5.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Dy', NULL, 4.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Er ', NULL, 2.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Tm', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Yb ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Lu ', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Hf ', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Ta', NULL, 3.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Ga ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'Th', NULL, 5.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19951, 'C', 'U', NULL, 1.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'F', 'Sample Name', 'CA 165', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'F', 'Latitude', '38°44''29''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'F', 'Longitude', '39°11''43''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'SiO2 ', NULL, 50.23, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'TiO2 ', NULL, 1.715, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Al2O3 ', NULL, 17.41, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Fe2O3 (Tot) ', NULL, 9.17, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'MnO ', NULL, 0.145, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'MgO ', NULL, 6.81, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'CaO ', NULL, 7.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Na2O ', NULL, 4.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'K2O ', NULL, 2.14, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'P2O5 ', NULL, 0.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'LOI', NULL, 0.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Rb ', NULL, 34, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Cs ', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Sr', NULL, 671, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Ba ', NULL, 522, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Sc ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'V ', NULL, 179, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Cr ', NULL, 140, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Co', NULL, 34, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Ni ', NULL, 120, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Zn ', NULL, 80, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Y ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Zr ', NULL, 282, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Nb ', NULL, 42, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'La ', NULL, 32.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Ce ', NULL, 60.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Pr', NULL, 6.83, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Nd ', NULL, 25.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Sm ', NULL, 5.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Eu ', NULL, 1.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Gd ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Dy', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Er ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Tm', NULL, 0.33, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Yb ', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Lu ', NULL, 0.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Hf ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Ta', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Pb ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'Th', NULL, 5.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19952, 'C', 'U', NULL, 1.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'F', 'Sample Name', 'CA 167', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'F', 'Latitude', '38°45''10''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'F', 'Longitude', '39°08''02''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'SiO2 ', NULL, 49.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'TiO2 ', NULL, 1.718, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Al2O3 ', NULL, 17.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Fe2O3 (Tot) ', NULL, 8.76, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'MnO ', NULL, 0.14, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'MgO ', NULL, 6.38, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'CaO ', NULL, 7.45, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Na2O ', NULL, 4.46, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'K2O ', NULL, 2.21, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'P2O5 ', NULL, 0.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'LOI', NULL, 0.48, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Rb ', NULL, 36, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Sr', NULL, 676, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Ba ', NULL, 427, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Sc ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'V ', NULL, 167, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Cr ', NULL, 130, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Co', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Ni ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Y ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Zr ', NULL, 286, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Nb ', NULL, 45, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'La ', NULL, 34.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Ce ', NULL, 62.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Pr', NULL, 6.82, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Nd ', NULL, 25.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Sm ', NULL, 5.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Eu ', NULL, 1.68, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Gd ', NULL, 5.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Dy', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Er ', NULL, 2.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Tm', NULL, 0.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Yb ', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Lu ', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Hf ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Ta', NULL, 3, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Pb ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'Th', NULL, 5.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19953, 'C', 'U', NULL, 1.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'F', 'Sample Name', 'CA 204', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'F', 'Latitude', '38°44''27''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'F', 'Longitude', '39°10''10''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'SiO2 ', NULL, 50.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'TiO2 ', NULL, 2.005, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Al2O3 ', NULL, 17.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Fe2O3 (Tot) ', NULL, 9.23, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'MnO ', NULL, 0.144, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'MgO ', NULL, 6.81, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'CaO ', NULL, 7.57, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Na2O ', NULL, 4.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'K2O ', NULL, 2.08, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'P2O5 ', NULL, 0.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'LOI', NULL, 0.08, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Rb ', NULL, 29, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Cs ', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Sr', NULL, 685, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Ba ', NULL, 333, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Sc ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'V ', NULL, 188, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Cr ', NULL, 140, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Co', NULL, 35, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Ni ', NULL, 120, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Zn ', NULL, 80, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Y ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Zr ', NULL, 265, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Nb ', NULL, 37, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'La ', NULL, 33, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Ce ', NULL, 61.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Pr', NULL, 6.83, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Nd ', NULL, 27, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Sm ', NULL, 5.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Eu ', NULL, 1.77, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Gd ', NULL, 5.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Tb ', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Dy', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Er ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Tm', NULL, 0.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Yb ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Lu ', NULL, 0.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Hf ', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Ta', NULL, 4.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'Th', NULL, 4.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19954, 'C', 'U', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Sample Name', 'CA 162', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Latitude', '38°46''38''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Longitude', '39°20''07''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'SiO2 ', NULL, 46.49, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'TiO2 ', NULL, 2.163, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Al2O3 ', NULL, 16.12, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Fe2O3 (Tot) ', NULL, 9.42, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'MnO ', NULL, 0.149, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'MgO ', NULL, 8.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'CaO ', NULL, 8.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Na2O ', NULL, 3.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'K2O ', NULL, 2.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'P2O5 ', NULL, 0.51, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'LOI', NULL, 1.25, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Rb ', NULL, 41, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Sr', NULL, 581, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Ba ', NULL, 419, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Sc ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'V ', NULL, 200, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Cr ', NULL, 280, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Co', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Ni ', NULL, 150, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Zn ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Y ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Zr ', NULL, 205, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Nb ', NULL, 39, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'La ', NULL, 26.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Ce ', NULL, 49.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Pr', NULL, 5.69, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Nd ', NULL, 22.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Sm ', NULL, 4.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Eu ', NULL, 1.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Gd ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Dy', NULL, 4.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Er ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Tm', NULL, 0.32, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Yb ', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Lu ', NULL, 0.32, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Hf ', NULL, 4, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Ta', NULL, 3.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Ga ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'Th', NULL, 3.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'C', 'U', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '87Sr/86Sr', NULL, 0.703315, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '87Sr/86Sr(i)', NULL, 0.7033101892807967, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '143Nd/144Nd', NULL, 0.512901, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '143Nd/144Nd(i)', NULL, 0.512899576898669, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '206Pb/204Pb', NULL, 19.03137557480495, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '206Pb/204Pb(i)', NULL, 19.032, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '207Pb/204Pb', NULL, 15.639568689302566, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '207Pb/204Pb(i)', NULL, 15.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '208Pb/204Pb', NULL, 38.952484785563534, NULL);
-INSERT INTO public.sample_attribute VALUES (19955, 'I', '208Pb/204Pb(i)', NULL, 38.953, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Sample Name', 'CA 166', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Location_Details', ' Elazığ Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Latitude', '38°45''33''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Longitude', '39°10''42''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'SiO2 ', NULL, 51.03, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'TiO2 ', NULL, 1.755, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Al2O3 ', NULL, 17.73, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Fe2O3 (Tot) ', NULL, 8.82, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'MnO ', NULL, 0.141, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'MgO ', NULL, 6.51, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'CaO ', NULL, 7.01, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Na2O ', NULL, 4.82, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'K2O ', NULL, 2.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'P2O5 ', NULL, 0.67, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'LOI', NULL, -0.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Rb ', NULL, 39, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Cs ', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Sr', NULL, 693, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Ba ', NULL, 418, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Sc ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'V ', NULL, 168, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Cr ', NULL, 130, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Co', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Ni ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Y ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Zr ', NULL, 302, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Nb ', NULL, 49, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'La ', NULL, 35, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Ce ', NULL, 63.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Pr', NULL, 6.99, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Nd ', NULL, 26.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Sm ', NULL, 5.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Eu ', NULL, 1.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Gd ', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Dy', NULL, 4.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Er ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Tm', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Yb ', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Lu ', NULL, 0.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Hf ', NULL, 4.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Ta', NULL, 3.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Pb ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'Th', NULL, 5.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'C', 'U', NULL, 1.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '87Sr/86Sr', NULL, 0.703756, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '87Sr/86Sr(i)', NULL, 0.703752163348074, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '143Nd/144Nd', NULL, 0.512835, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '143Nd/144Nd(i)', NULL, 0.5128336823096368, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '206Pb/204Pb', NULL, 19.109617624868715, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '206Pb/204Pb(i)', NULL, 19.11, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '207Pb/204Pb', NULL, 15.666894609864572, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '207Pb/204Pb(i)', NULL, 15.667, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '208Pb/204Pb', NULL, 39.10833376240947, NULL);
-INSERT INTO public.sample_attribute VALUES (19956, 'I', '208Pb/204Pb(i)', NULL, 39.109, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'F', 'Sample Name', 'CA 189', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'F', 'Location_Details', 'Karakoçan Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'F', 'Latitude', '39°01''01''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'F', 'Longitude', '39°56''05''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'SiO2 ', NULL, 48.24, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'TiO2 ', NULL, 2.357, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Al2O3 ', NULL, 15, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Fe2O3 (Tot) ', NULL, 12.23, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'MnO ', NULL, 0.186, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'MgO ', NULL, 4.84, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'CaO ', NULL, 8.87, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Na2O ', NULL, 3.57, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'K2O ', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'P2O5 ', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'LOI', NULL, 1.87, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Rb ', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Sr', NULL, 395, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Ba ', NULL, 104, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Sc ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'V ', NULL, 277, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Cr ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Co', NULL, 36, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Ni ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Cu ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Zn ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Y ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Zr ', NULL, 224, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Nb ', NULL, 14, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'La ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Ce ', NULL, 39.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Pr', NULL, 5.02, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Nd ', NULL, 21.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Sm ', NULL, 5.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Eu ', NULL, 1.86, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Gd ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Tb ', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Dy', NULL, 5.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Ho', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Er ', NULL, 3.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Tm', NULL, 0.48, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Yb ', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Lu ', NULL, 0.44, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Hf ', NULL, 4.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Ta', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Ga ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'Th', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19957, 'C', 'U', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'F', 'Sample Name', 'CA 190', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'F', 'Location_Details', 'Karakoçan Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'F', 'Latitude', '38°59''26''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'F', 'Longitude', '39°59''10''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'SiO2 ', NULL, 46.23, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'TiO2 ', NULL, 2.547, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Al2O3 ', NULL, 15.44, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Fe2O3 (Tot) ', NULL, 13.42, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'MnO ', NULL, 0.197, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'MgO ', NULL, 4.41, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'CaO ', NULL, 8.17, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Na2O ', NULL, 3.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'K2O ', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'P2O5 ', NULL, 0.59, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'LOI', NULL, 2.74, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Rb ', NULL, 28, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Cs ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Sr', NULL, 434, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Ba ', NULL, 290, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Sc ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'V ', NULL, 195, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Co', NULL, 37, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Ni ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Cu ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Zn ', NULL, 140, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Y ', NULL, 33, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Zr ', NULL, 250, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Nb ', NULL, 15, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'La ', NULL, 25.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Ce ', NULL, 54.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Pr', NULL, 6.84, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Nd ', NULL, 29.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Sm ', NULL, 7.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Eu ', NULL, 2.24, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Gd ', NULL, 7.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Tb ', NULL, 1.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Dy', NULL, 6.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Ho', NULL, 1.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Er ', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Tm', NULL, 0.52, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Yb ', NULL, 3.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Lu ', NULL, 0.53, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Hf ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Ta', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Ga ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Pb ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'Th', NULL, 3.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19958, 'C', 'U', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'F', 'Sample Name', 'CA 194', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'F', 'Location_Details', 'Karakoçan Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'F', 'Latitude', '38°56''05''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'F', 'Longitude', '40°20''15''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'SiO2 ', NULL, 47.97, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'TiO2 ', NULL, 2.371, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Al2O3 ', NULL, 16.07, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Fe2O3 (Tot) ', NULL, 11.92, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'MnO ', NULL, 0.163, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'MgO ', NULL, 5.98, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'CaO ', NULL, 7.72, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Na2O ', NULL, 3.94, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'K2O ', NULL, 1.42, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'P2O5 ', NULL, 0.48, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'LOI', NULL, 0.12, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Rb ', NULL, 14, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Sr', NULL, 583, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Ba ', NULL, 172, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Sc ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'V ', NULL, 174, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Cr ', NULL, 130, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Co', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Ni ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Cu ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Zn ', NULL, 90, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Y ', NULL, 24, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Zr ', NULL, 218, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Nb ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'La ', NULL, 20.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Ce ', NULL, 43.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Pr', NULL, 5.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Nd ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Sm ', NULL, 5.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Eu ', NULL, 1.65, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Gd ', NULL, 5.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Tb ', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Dy', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Er ', NULL, 2.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Tm', NULL, 0.38, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Yb ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Lu ', NULL, 0.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Hf ', NULL, 4, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Ta', NULL, 1.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Ga ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'Th', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19959, 'C', 'U', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'F', 'Sample Name', 'CA 195', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'F', 'Location_Details', 'Karakoçan Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'F', 'Latitude', '38°57''06''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'F', 'Longitude', '40°09''35''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'SiO2 ', NULL, 47.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'TiO2 ', NULL, 2.761, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Al2O3 ', NULL, 16.14, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Fe2O3 (Tot) ', NULL, 12.82, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'MnO ', NULL, 0.175, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'MgO ', NULL, 4.93, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'CaO ', NULL, 8.33, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Na2O ', NULL, 3.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'K2O ', NULL, 1.05, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'P2O5 ', NULL, 0.45, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'LOI', NULL, 0.38, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Rb ', NULL, 16, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Sr', NULL, 452, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Ba ', NULL, 163, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Sc ', NULL, 24, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'V ', NULL, 270, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Cr ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Co', NULL, 38, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Ni ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Cu ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Zn ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Y ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Zr ', NULL, 225, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Nb ', NULL, 12, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'La ', NULL, 18.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Ce ', NULL, 40.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Pr', NULL, 5.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Nd ', NULL, 23.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Sm ', NULL, 5.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Eu ', NULL, 2.02, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Gd ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Tb ', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Dy', NULL, 5.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Ho', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Er ', NULL, 3.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Tm', NULL, 0.48, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Yb ', NULL, 3, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Lu ', NULL, 0.46, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Hf ', NULL, 4.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Ta', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Ga ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'Th', NULL, 2.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19960, 'C', 'U', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'F', 'Sample Name', 'CA 196', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'F', 'Location_Details', 'Karakoçan Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'F', 'Latitude', '38°57''24''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'F', 'Longitude', '40°07''21''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'SiO2 ', NULL, 47.68, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'TiO2 ', NULL, 3.022, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Al2O3 ', NULL, 16.58, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Fe2O3 (Tot) ', NULL, 13.15, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'MnO ', NULL, 0.179, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'MgO ', NULL, 3.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'CaO ', NULL, 7.77, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Na2O ', NULL, 3.88, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'K2O ', NULL, 1.16, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'P2O5 ', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'LOI', NULL, 0.74, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Rb ', NULL, 16, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Sr', NULL, 486, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Ba ', NULL, 179, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Sc ', NULL, 27, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'V ', NULL, 250, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Co', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Ni ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Zn ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Y ', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Zr ', NULL, 227, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Nb ', NULL, 13, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'La ', NULL, 22.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Ce ', NULL, 46.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Pr', NULL, 6.49, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Nd ', NULL, 29.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Sm ', NULL, 6.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Eu ', NULL, 2.45, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Gd ', NULL, 7.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Tb ', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Dy', NULL, 6.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Ho', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Er ', NULL, 3.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Tm', NULL, 0.46, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Yb ', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Lu ', NULL, 0.44, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Hf ', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Ta', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Ga ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'Th', NULL, 2.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19961, 'C', 'U', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'F', 'Sample Name', 'CA 197', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'F', 'Location_Details', 'Karakoçan Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'F', 'Latitude', '38°56''53''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'F', 'Longitude', '40°06''58''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'SiO2 ', NULL, 46.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'TiO2 ', NULL, 2.773, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Al2O3 ', NULL, 16.09, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Fe2O3 (Tot) ', NULL, 13.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'MnO ', NULL, 0.184, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'MgO ', NULL, 4.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'CaO ', NULL, 8.83, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Na2O ', NULL, 3.51, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'K2O ', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'P2O5 ', NULL, 0.45, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'LOI', NULL, 0.44, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Rb ', NULL, 10, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Sr', NULL, 471, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Ba ', NULL, 144, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Sc ', NULL, 25, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'V ', NULL, 283, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Cr ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Co', NULL, 39, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Ni ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Cu ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Zn ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Y ', NULL, 27, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Zr ', NULL, 214, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Nb ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'La ', NULL, 16.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Ce ', NULL, 37.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Pr', NULL, 4.94, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Nd ', NULL, 22.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Sm ', NULL, 5.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Eu ', NULL, 1.93, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Gd ', NULL, 5.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Tb ', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Dy', NULL, 5.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Ho', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Er ', NULL, 3.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Tm', NULL, 0.44, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Yb ', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Lu ', NULL, 0.47, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Hf ', NULL, 4, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Ta', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Ga ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'Th', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19962, 'C', 'U', NULL, 0.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Sample Name', 'CA 191', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Location_Details', 'Karakoçan Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Latitude', '38°58''10''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Longitude', '40°02''36''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Age', '4.08', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'SiO2 ', NULL, 47.53, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'TiO2 ', NULL, 2.318, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Al2O3 ', NULL, 17.06, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Fe2O3 (Tot) ', NULL, 12.32, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'MnO ', NULL, 0.169, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'MgO ', NULL, 5.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'CaO ', NULL, 8.58, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Na2O ', NULL, 3.82, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'K2O ', NULL, 0.85, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'P2O5 ', NULL, 0.39, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'LOI', NULL, 0.13, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Rb ', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Sr', NULL, 539, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Ba ', NULL, 139, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Sc ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'V ', NULL, 198, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Cr ', NULL, 80, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Co', NULL, 43, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Ni ', NULL, 80, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Cu ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Zn ', NULL, 90, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Y ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Zr ', NULL, 173, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Nb ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'La ', NULL, 15.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Ce ', NULL, 34.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Pr', NULL, 4.39, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Nd ', NULL, 18.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Sm ', NULL, 4.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Eu ', NULL, 1.67, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Gd ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Dy', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Er ', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Tm', NULL, 0.33, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Yb ', NULL, 2.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Lu ', NULL, 0.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Hf ', NULL, 3.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Ta', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'Th', NULL, 1.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'C', 'U', NULL, 0.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '87Sr/86Sr', NULL, 0.703567, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '87Sr/86Sr(i)', NULL, 0.7035645008201586, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '143Nd/144Nd', NULL, 0.512872, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '143Nd/144Nd(i)', NULL, 0.5128680778516302, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '206Pb/204Pb', NULL, 19.009407614594743, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '206Pb/204Pb(i)', NULL, 19.01, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '207Pb/204Pb', NULL, 15.654336741959238, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '207Pb/204Pb(i)', NULL, 15.654, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '208Pb/204Pb', NULL, 38.975022016559976, NULL);
-INSERT INTO public.sample_attribute VALUES (19963, 'I', '208Pb/204Pb(i)', NULL, 38.976, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Sample Name', 'CA 198', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Location_Details', 'Karakoçan Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Latitude', '38°54''37''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Longitude', '40°03''05''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'SiO2 ', NULL, 50.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'TiO2 ', NULL, 3.084, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Al2O3 ', NULL, 15.29, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Fe2O3 (Tot) ', NULL, 12.84, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'MnO ', NULL, 0.207, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'MgO ', NULL, 3.78, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'CaO ', NULL, 7.03, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Na2O ', NULL, 4.09, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'K2O ', NULL, 1.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'P2O5 ', NULL, 0.65, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'LOI', NULL, -0.04, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Rb ', NULL, 35, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Sr', NULL, 407, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Ba ', NULL, 343, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Sc ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'V ', NULL, 192, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Co', NULL, 27, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Zn ', NULL, 120, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Y ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Zr ', NULL, 306, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Nb ', NULL, 16, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'La ', NULL, 30.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Ce ', NULL, 65.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Pr', NULL, 8.25, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Nd ', NULL, 35.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Sm ', NULL, 8.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Eu ', NULL, 2.48, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Gd ', NULL, 8.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Tb ', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Dy', NULL, 8.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Ho', NULL, 1.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Er ', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Tm', NULL, 0.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Yb ', NULL, 4, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Lu ', NULL, 0.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Hf ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Ta', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Ga ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Pb ', NULL, 9, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'Th', NULL, 6.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'C', 'U', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '87Sr/86Sr', NULL, 0.704795, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '87Sr/86Sr(i)', NULL, 0.7047805182144128, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '143Nd/144Nd', NULL, 0.512704, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '143Nd/144Nd(i)', NULL, 0.5127002696498009, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '206Pb/204Pb', NULL, 19.068390083104347, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '206Pb/204Pb(i)', NULL, 19.069, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '207Pb/204Pb', NULL, 15.703262195318418, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '207Pb/204Pb(i)', NULL, 15.703, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '208Pb/204Pb', NULL, 39.17846077135823, NULL);
-INSERT INTO public.sample_attribute VALUES (19964, 'I', '208Pb/204Pb(i)', NULL, 39.179, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Sample Name', 'CA 174', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Latitude', '38°58''55''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Longitude', '39°09''13''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'SiO2 ', NULL, 49.75, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'TiO2 ', NULL, 1.419, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Al2O3 ', NULL, 16.92, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Fe2O3 (Tot) ', NULL, 10.22, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'MnO ', NULL, 0.154, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'MgO ', NULL, 6.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'CaO ', NULL, 10.01, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Na2O ', NULL, 3.67, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'K2O ', NULL, 1.15, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'P2O5 ', NULL, 0.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'LOI', NULL, 0.43, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Rb ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Cs ', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Sr', NULL, 546, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Ba ', NULL, 255, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Sc ', NULL, 24, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'V ', NULL, 202, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Cr ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Co', NULL, 36, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Ni ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Cu ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Zn ', NULL, 90, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Y ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Zr ', NULL, 162, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Nb ', NULL, 13, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'La ', NULL, 29.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Ce ', NULL, 55.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Pr', NULL, 6.55, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Nd ', NULL, 25.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Sm ', NULL, 5.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Eu ', NULL, 1.55, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Gd ', NULL, 5.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Dy', NULL, 4.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Er ', NULL, 2.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Tm', NULL, 0.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Yb ', NULL, 2.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Lu ', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Hf ', NULL, 3.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Ta', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Ga ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Pb ', NULL, 7, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'Th', NULL, 5.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'C', 'U', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '87Sr/86Sr', NULL, 0.70521, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '87Sr/86Sr(i)', NULL, 0.705192621076509, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '143Nd/144Nd', NULL, 0.512713, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '143Nd/144Nd(i)', NULL, 0.5127039954357256, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '206Pb/204Pb', NULL, 18.667650352329037, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '206Pb/204Pb(i)', NULL, 18.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '207Pb/204Pb', NULL, 15.641778874053903, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '207Pb/204Pb(i)', NULL, 15.642, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '208Pb/204Pb', NULL, 38.675900642665205, NULL);
-INSERT INTO public.sample_attribute VALUES (19965, 'I', '208Pb/204Pb(i)', NULL, 38.67, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Sample Name', 'CA 175', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Latitude', '38°58''25''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Longitude', '39°31''43''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Age', '11.44', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'SiO2 ', NULL, 48.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'TiO2 ', NULL, 1.696, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Al2O3 ', NULL, 14.84, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Fe2O3 (Tot) ', NULL, 11.17, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'MnO ', NULL, 0.148, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'MgO ', NULL, 8.12, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'CaO ', NULL, 7.47, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Na2O ', NULL, 3.42, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'K2O ', NULL, 1.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'P2O5 ', NULL, 0.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'LOI', NULL, 2.48, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Rb ', NULL, 27, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Sr', NULL, 410, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Ba ', NULL, 240, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Sc ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'V ', NULL, 181, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Cr ', NULL, 240, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Co', NULL, 47, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Ni ', NULL, 170, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Cu ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Zn ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Y ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Zr ', NULL, 128, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Nb ', NULL, 15, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'La ', NULL, 23.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Ce ', NULL, 42.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Pr', NULL, 4.84, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Nd ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Sm ', NULL, 4.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Eu ', NULL, 1.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Gd ', NULL, 4.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Tb ', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Dy', NULL, 3.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Ho', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Er ', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Tm', NULL, 0.29, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Yb ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Lu ', NULL, 0.28, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Hf ', NULL, 2.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Ta', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Ga ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'Th', NULL, 3.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19966, 'C', 'U', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'F', 'Sample Name', 'CA 176', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'F', 'Latitude', '38°57''36''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'F', 'Longitude', '39°32''46''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'SiO2 ', NULL, 49.65, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'TiO2 ', NULL, 1.609, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Al2O3 ', NULL, 15.42, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Fe2O3 (Tot) ', NULL, 11.16, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'MnO ', NULL, 0.146, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'MgO ', NULL, 7.51, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'CaO ', NULL, 8.65, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Na2O ', NULL, 3.51, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'K2O ', NULL, 1.11, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'P2O5 ', NULL, 0.43, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'LOI', NULL, 1.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Rb ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Sr', NULL, 541, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Ba ', NULL, 313, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Sc ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'V ', NULL, 200, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Cr ', NULL, 290, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Co', NULL, 43, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Ni ', NULL, 130, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Cu ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Zn ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Y ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Zr ', NULL, 127, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Nb ', NULL, 14, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'La ', NULL, 30.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Ce ', NULL, 55, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Pr', NULL, 5.98, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Nd ', NULL, 22.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Sm ', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Eu ', NULL, 1.49, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Gd ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Dy', NULL, 4.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Er ', NULL, 2.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Tm', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Yb ', NULL, 1.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Lu ', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Hf ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Ta', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Ga ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Pb ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'Th', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19967, 'C', 'U', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'F', 'Sample Name', 'CA 188', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'F', 'Latitude', '39°01''04''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'F', 'Longitude', '39°53''37''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'SiO2 ', NULL, 49.45, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'TiO2 ', NULL, 1.462, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Al2O3 ', NULL, 14.73, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Fe2O3 (Tot) ', NULL, 10.56, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'MnO ', NULL, 0.145, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'MgO ', NULL, 8.61, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'CaO ', NULL, 7.81, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Na2O ', NULL, 3.49, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'K2O ', NULL, 1.19, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'P2O5 ', NULL, 0.38, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'LOI', NULL, 2.01, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Rb ', NULL, 37, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Cs ', NULL, 1.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Sr', NULL, 589, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Ba ', NULL, 374, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Sc ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'V ', NULL, 177, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Cr ', NULL, 270, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Co', NULL, 45, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Ni ', NULL, 170, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Zn ', NULL, 90, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Y ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Zr ', NULL, 125, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Nb ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'La ', NULL, 33.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Ce ', NULL, 59.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Pr', NULL, 6.38, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Nd ', NULL, 24, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Sm ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Eu ', NULL, 1.49, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Gd ', NULL, 5.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Dy', NULL, 4.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Er ', NULL, 2.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Tm', NULL, 0.29, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Yb ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Lu ', NULL, 0.28, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Hf ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Ta', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'Th', NULL, 5.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19968, 'C', 'U', NULL, 1.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'F', 'Sample Name', 'CA 192', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'F', 'Latitude', '38°57''34''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'F', 'Longitude', '40°11''30''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'SiO2 ', NULL, 52.04, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'TiO2 ', NULL, 1.669, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Al2O3 ', NULL, 16.54, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Fe2O3 (Tot) ', NULL, 9.41, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'MnO ', NULL, 0.137, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'MgO ', NULL, 5.85, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'CaO ', NULL, 7.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Na2O ', NULL, 3.82, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'K2O ', NULL, 1.18, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'P2O5 ', NULL, 0.41, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'LOI', NULL, 0.03, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Rb ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Sr', NULL, 489, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Ba ', NULL, 204, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Sc ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'V ', NULL, 161, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Cr ', NULL, 170, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Co', NULL, 34, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Ni ', NULL, 120, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Cu ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Zn ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Y ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Zr ', NULL, 214, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Nb ', NULL, 14, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'La ', NULL, 24, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Ce ', NULL, 47.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Pr', NULL, 5.65, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Nd ', NULL, 22.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Sm ', NULL, 4.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Eu ', NULL, 1.46, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Gd ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Dy', NULL, 4.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Er ', NULL, 2.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Tm', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Yb ', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Lu ', NULL, 0.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Hf ', NULL, 3.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Ta', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Ga ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Pb ', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'Th', NULL, 4.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19969, 'C', 'U', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Sample Name', 'CA 193', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Latitude', '38°57''39''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Longitude', '40°13''20''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'SiO2 ', NULL, 53.76, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'TiO2 ', NULL, 1.51, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Al2O3 ', NULL, 16.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Fe2O3 (Tot) ', NULL, 8.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'MnO ', NULL, 0.131, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'MgO ', NULL, 5.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'CaO ', NULL, 7.77, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Na2O ', NULL, 3.76, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'K2O ', NULL, 1.14, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'P2O5 ', NULL, 0.44, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'LOI', NULL, 0.05, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Rb ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Cs ', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Sr', NULL, 477, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Ba ', NULL, 222, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Sc ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'V ', NULL, 158, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Cr ', NULL, 180, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Co', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Ni ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Cu ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Y ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Zr ', NULL, 220, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Nb ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'La ', NULL, 26.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Ce ', NULL, 50.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Pr', NULL, 5.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Nd ', NULL, 23.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Sm ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Eu ', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Gd ', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Dy', NULL, 4.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Er ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Tm', NULL, 0.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Yb ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Lu ', NULL, 0.38, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Hf ', NULL, 3.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Ta', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Pb ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'Th', NULL, 4.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'C', 'U', NULL, 1.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '87Sr/86Sr', NULL, 0.703954, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '87Sr/86Sr(i)', NULL, 0.7039341095890363, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '143Nd/144Nd', NULL, 0.512799, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '143Nd/144Nd(i)', NULL, 0.5127900397336584, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '206Pb/204Pb', NULL, 19.020040508577768, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '206Pb/204Pb(i)', NULL, 18.98, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '207Pb/204Pb', NULL, 15.683671921386097, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '207Pb/204Pb(i)', NULL, 15.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '208Pb/204Pb', NULL, 39.08297937753848, NULL);
-INSERT INTO public.sample_attribute VALUES (19970, 'I', '208Pb/204Pb(i)', NULL, 39.09, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'F', 'Sample Name', 'CA 202', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'F', 'Latitude', '38°56''36''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'F', 'Longitude', '39°26''11''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'SiO2 ', NULL, 49.58, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'TiO2 ', NULL, 1.425, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Al2O3 ', NULL, 15.95, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Fe2O3 (Tot) ', NULL, 12.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'MnO ', NULL, 0.159, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'MgO ', NULL, 4.95, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'CaO ', NULL, 9.03, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Na2O ', NULL, 3.45, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'K2O ', NULL, 0.68, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'P2O5 ', NULL, 0.18, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'LOI', NULL, 2.75, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Rb ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Sr', NULL, 288, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Ba ', NULL, 157, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Sc ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'V ', NULL, 239, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Cr ', NULL, 320, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Co', NULL, 51, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Ni ', NULL, 220, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Cu ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Zn ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Y ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Zr ', NULL, 79, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Nb ', NULL, 7, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'La ', NULL, 9, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Ce ', NULL, 18.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Pr', NULL, 2.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Nd ', NULL, 10.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Sm ', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Eu ', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Gd ', NULL, 3.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Tb ', NULL, 0.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Dy', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Ho', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Er ', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Tm', NULL, 0.29, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Yb ', NULL, 1.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Lu ', NULL, 0.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Hf ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Ta', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'Th', NULL, 1.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19971, 'C', 'U', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'F', 'Sample Name', 'CA 193', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'F', 'Latitude', '38°57''39''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'F', 'Longitude', '40°13''20''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'SiO2 ', NULL, 53.76, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'TiO2 ', NULL, 1.51, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Al2O3 ', NULL, 16.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Fe2O3 (Tot) ', NULL, 8.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'MnO ', NULL, 0.131, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'MgO ', NULL, 5.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'CaO ', NULL, 7.77, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Na2O ', NULL, 3.76, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'K2O ', NULL, 1.14, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'P2O5 ', NULL, 0.44, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'LOI', NULL, 0.05, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Rb ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Cs ', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Sr', NULL, 477, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Ba ', NULL, 222, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Sc ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'V ', NULL, 158, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Cr ', NULL, 180, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Co', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Ni ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Cu ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Y ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Zr ', NULL, 220, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Nb ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'La ', NULL, 26.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Ce ', NULL, 50.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Pr', NULL, 5.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Nd ', NULL, 23.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Sm ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Eu ', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Gd ', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Tb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Dy', NULL, 4.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Er ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Tm', NULL, 0.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Yb ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Lu ', NULL, 0.38, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Hf ', NULL, 3.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Ta', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Pb ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'Th', NULL, 4.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19972, 'C', 'U', NULL, 1.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Sample Name', 'CA 200', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Latitude', '38°58''31''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Longitude', '39°28''45''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Age', '11.01', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'SiO2 ', NULL, 48.68, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'TiO2 ', NULL, 1.383, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Al2O3 ', NULL, 15.41, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Fe2O3 (Tot) ', NULL, 11.98, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'MnO ', NULL, 0.158, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'MgO ', NULL, 4.82, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'CaO ', NULL, 8.92, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Na2O ', NULL, 3.33, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'K2O ', NULL, 0.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'P2O5 ', NULL, 0.19, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'LOI', NULL, 2.72, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Rb ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Sr', NULL, 278, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Ba ', NULL, 152, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Sc ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'V ', NULL, 230, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Cr ', NULL, 320, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Co', NULL, 52, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Ni ', NULL, 220, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Cu ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Zn ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Y ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Zr ', NULL, 77, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Nb ', NULL, 7, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'La ', NULL, 9.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Ce ', NULL, 18.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Pr', NULL, 2.38, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Nd ', NULL, 10.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Sm ', NULL, 2.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Eu ', NULL, 1.03, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Gd ', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Tb ', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Dy', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Ho', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Er ', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Tm', NULL, 0.29, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Yb ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Lu ', NULL, 0.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Hf ', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Ta', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'Th', NULL, 1.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'C', 'U', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '87Sr/86Sr', NULL, 0.704444, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '87Sr/86Sr(i)', NULL, 0.7044261223037096, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '143Nd/144Nd', NULL, 0.512743, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '143Nd/144Nd(i)', NULL, 0.5127314015861287, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '206Pb/204Pb', NULL, 18.959152143976862, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '206Pb/204Pb(i)', NULL, 19.01, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '207Pb/204Pb', NULL, 15.694421456313062, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '207Pb/204Pb(i)', NULL, 15.68, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '208Pb/204Pb', NULL, 39.062756237224704, NULL);
-INSERT INTO public.sample_attribute VALUES (19973, 'I', '208Pb/204Pb(i)', NULL, 39.08, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Sample Name', 'CA 201', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Latitude', '38°55''02''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Longitude', '39°28''18''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'SiO2 ', NULL, 49.48, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'TiO2 ', NULL, 1.583, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Al2O3 ', NULL, 14.87, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Fe2O3 (Tot) ', NULL, 11.23, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'MnO ', NULL, 0.153, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'MgO ', NULL, 8.85, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'CaO ', NULL, 7.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Na2O ', NULL, 3.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'K2O ', NULL, 1.07, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'P2O5 ', NULL, 0.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'LOI', NULL, 2.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Rb ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Cs ', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Sr', NULL, 826, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Ba ', NULL, 267, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Sc ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'V ', NULL, 183, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Cr ', NULL, 250, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Co', NULL, 46, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Ni ', NULL, 160, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Zn ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Y ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Zr ', NULL, 122, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Nb ', NULL, 12, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'La ', NULL, 24.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Ce ', NULL, 45.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Pr', NULL, 5.14, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Nd ', NULL, 20.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Sm ', NULL, 4.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Eu ', NULL, 1.43, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Gd ', NULL, 4.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Tb ', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Dy', NULL, 3.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Ho', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Er ', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Tm', NULL, 0.28, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Yb ', NULL, 1.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Lu ', NULL, 0.25, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Hf ', NULL, 2.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Ta', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Ga ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Pb ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'Th', NULL, 3.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'C', 'U', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '87Sr/86Sr', NULL, 0.704906, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '87Sr/86Sr(i)', NULL, 0.7048945125787386, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '143Nd/144Nd', NULL, 0.512698, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '143Nd/144Nd(i)', NULL, 0.5126885728177966, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '206Pb/204Pb', NULL, 18.81941986738862, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '206Pb/204Pb(i)', NULL, 18.96, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '207Pb/204Pb', NULL, 15.677845070678023, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '207Pb/204Pb(i)', NULL, 15.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '208Pb/204Pb', NULL, 38.912742793404625, NULL);
-INSERT INTO public.sample_attribute VALUES (19974, 'I', '208Pb/204Pb(i)', NULL, 39.06, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Sample Name', 'CA 185', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Location_Details', 'Tunceli Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Latitude', '39°04''29''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Longitude', '39°41''43''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'SiO2 ', NULL, 46.59, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'TiO2 ', NULL, 1.623, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Al2O3 ', NULL, 14.17, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Fe2O3 (Tot) ', NULL, 9.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'MnO ', NULL, 0.157, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'MgO ', NULL, 8.75, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'CaO ', NULL, 10.59, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Na2O ', NULL, 3.53, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'K2O ', NULL, 1.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'P2O5 ', NULL, 0.76, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'LOI', NULL, 1.68, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Rb ', NULL, 26, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Cs ', NULL, 1.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Sr', NULL, 934, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Ba ', NULL, 1143, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Sc ', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'V ', NULL, 227, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Cr ', NULL, 370, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Co', NULL, 36, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Ni ', NULL, 170, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Cu ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Zn ', NULL, 120, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Y ', NULL, 25, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Zr ', NULL, 277, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Nb ', NULL, 32, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'La ', NULL, 94.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Ce ', NULL, 172, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Pr', NULL, 18.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Nd ', NULL, 68, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Sm ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Eu ', NULL, 2.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Gd ', NULL, 9.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Tb ', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Dy', NULL, 5.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Ho', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Er ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Tm', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Yb ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Lu ', NULL, 0.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Hf ', NULL, 5.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Ta', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Pb ', NULL, 14, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'Th', NULL, 18.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'C', 'U', NULL, 3.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '87Sr/86Sr', NULL, 0.706821, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '87Sr/86Sr(i)', NULL, 0.7068084196956744, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '143Nd/144Nd', NULL, 0.51257, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '143Nd/144Nd(i)', NULL, 0.5125629644844082, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '206Pb/204Pb', NULL, 19.042409710070352, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '206Pb/204Pb(i)', NULL, 19.03, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '207Pb/204Pb', NULL, 15.711902008437288, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '207Pb/204Pb(i)', NULL, 15.712, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '208Pb/204Pb', NULL, 39.24365776102652, NULL);
-INSERT INTO public.sample_attribute VALUES (19975, 'I', '208Pb/204Pb(i)', NULL, 39.244, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'F', 'Sample Name', 'CA 168', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'F', 'Location_Details', 'Pertek Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'F', 'Latitude', '38°54''37''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'F', 'Longitude', '39°12''55''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'SiO2 ', NULL, 62.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'TiO2 ', NULL, 0.555, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Al2O3 ', NULL, 16.81, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Fe2O3 (Tot) ', NULL, 3.81, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'MnO ', NULL, 0.061, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'MgO ', NULL, 2.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'CaO ', NULL, 5.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Na2O ', NULL, 4.11, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'K2O ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'P2O5 ', NULL, 0.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'LOI', NULL, 3.02, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Rb ', NULL, 53, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Cs ', NULL, 3.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Sr', NULL, 554, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Ba ', NULL, 492, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Sc ', NULL, 9, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'V ', NULL, 75, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Cr ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Co', NULL, 12, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Ni ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Cu ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Zn ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Y ', NULL, 12, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Zr ', NULL, 154, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Nb ', NULL, 9, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'La ', NULL, 23.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Ce ', NULL, 42.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Pr', NULL, 4.43, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Nd ', NULL, 16.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Sm ', NULL, 3.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Eu ', NULL, 0.84, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Gd ', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Tb ', NULL, 0.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Dy', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Ho', NULL, 0.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Er ', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Tm', NULL, 0.18, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Yb ', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Lu ', NULL, 0.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Hf ', NULL, 3.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Ta', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Ga ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Pb ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'Th', NULL, 10.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19976, 'C', 'U', NULL, 2.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Sample Name', 'CA 170', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Location_Details', 'Pertek Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Latitude', '38°54''37''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Longitude', '39°12''55''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Age', '16.25', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'SiO2 ', NULL, 57.91, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'TiO2 ', NULL, 0.724, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Al2O3 ', NULL, 16.43, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Fe2O3 (Tot) ', NULL, 5.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'MnO ', NULL, 0.085, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'MgO ', NULL, 3.47, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'CaO ', NULL, 5.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Na2O ', NULL, 3.81, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'K2O ', NULL, 2.19, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'P2O5 ', NULL, 0.22, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'LOI', NULL, 2.45, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Rb ', NULL, 67, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Cs ', NULL, 3, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Sr', NULL, 517, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Ba ', NULL, 505, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Sc ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'V ', NULL, 92, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Cr ', NULL, 100, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Co', NULL, 16, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Ni ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Cu ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Zn ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Y ', NULL, 15, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Zr ', NULL, 166, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Nb ', NULL, 10, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'La ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Ce ', NULL, 52.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Pr', NULL, 5.57, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Nd ', NULL, 20.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Sm ', NULL, 4, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Eu ', NULL, 1.04, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Gd ', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Tb ', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Dy', NULL, 2.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Ho', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Er ', NULL, 1.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Tm', NULL, 0.23, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Yb ', NULL, 1.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Lu ', NULL, 0.23, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Hf ', NULL, 3.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Ta', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Ga ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Pb ', NULL, 14, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'Th', NULL, 11.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19977, 'C', 'U', NULL, 3.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Sample Name', 'CA 171', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Location_Details', 'Pertek Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Latitude', '38°55''34''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Longitude', '39°12''34''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Age', '15.75', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'SiO2 ', NULL, 64.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'TiO2 ', NULL, 0.558, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Al2O3 ', NULL, 16.15, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Fe2O3 (Tot) ', NULL, 3.74, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'MnO ', NULL, 0.066, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'MgO ', NULL, 2.02, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'CaO ', NULL, 3.92, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Na2O ', NULL, 3.91, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'K2O ', NULL, 2.89, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'P2O5 ', NULL, 0.18, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'LOI', NULL, 2.21, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Rb ', NULL, 97, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Cs ', NULL, 5.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Sr', NULL, 473, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Ba ', NULL, 602, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Sc ', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'V ', NULL, 74, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Cr ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Co', NULL, 9, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Zn ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Y ', NULL, 13, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Zr ', NULL, 177, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Nb ', NULL, 12, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'La ', NULL, 34, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Ce ', NULL, 58.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Pr', NULL, 5.99, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Nd ', NULL, 21.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Sm ', NULL, 3.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Eu ', NULL, 0.97, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Gd ', NULL, 3.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Tb ', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Dy', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Ho', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Er ', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Tm', NULL, 0.21, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Yb ', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Lu ', NULL, 0.22, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Hf ', NULL, 3.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Ta', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Pb ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'Th', NULL, 14.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19978, 'C', 'U', NULL, 4.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'F', 'Sample Name', 'CA 173', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'F', 'Location_Details', 'Pertek Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'F', 'Latitude', '38°57''23''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'F', 'Longitude', '39°12''26''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'SiO2 ', NULL, 60.78, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'TiO2 ', NULL, 0.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Al2O3 ', NULL, 16.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Fe2O3 (Tot) ', NULL, 4.86, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'MnO ', NULL, 0.081, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'MgO ', NULL, 3.39, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'CaO ', NULL, 5.32, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Na2O ', NULL, 3.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'K2O ', NULL, 2.61, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'P2O5 ', NULL, 0.18, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'LOI', NULL, 1.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Rb ', NULL, 80, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Cs ', NULL, 4, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Sr', NULL, 424, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Ba ', NULL, 434, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Sc ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'V ', NULL, 104, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Cr ', NULL, 80, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Co', NULL, 16, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Ni ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Cu ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Zn ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Y ', NULL, 15, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Zr ', NULL, 170, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Nb ', NULL, 9, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'La ', NULL, 27.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Ce ', NULL, 47.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Pr', NULL, 5.13, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Nd ', NULL, 18.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Sm ', NULL, 3.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Eu ', NULL, 0.93, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Gd ', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Tb ', NULL, 0.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Dy', NULL, 3, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Ho', NULL, 0.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Er ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Tm', NULL, 0.27, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Yb ', NULL, 1.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Lu ', NULL, 0.25, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Hf ', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Ta', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Pb ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'Th', NULL, 12.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19979, 'C', 'U', NULL, 3.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Sample Name', 'CA 169', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Location_Details', 'Pertek Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Latitude', '38°54''38''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Longitude', '39°12''59''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'SiO2 ', NULL, 65.15, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'TiO2 ', NULL, 0.394, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Al2O3 ', NULL, 15.46, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Fe2O3 (Tot) ', NULL, 2.55, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'MnO ', NULL, 0.038, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'MgO ', NULL, 1.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'CaO ', NULL, 3.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Na2O ', NULL, 3.66, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'K2O ', NULL, 3, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'P2O5 ', NULL, 0.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'LOI', NULL, 2.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Rb ', NULL, 94, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Cs ', NULL, 5.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Sr', NULL, 416, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Ba ', NULL, 453, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Sc ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'V ', NULL, 51, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Cr ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Co', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Ni ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Cu ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Zn ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Y ', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Zr ', NULL, 131, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Nb ', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'La ', NULL, 21.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Ce ', NULL, 36.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Pr', NULL, 3.96, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Nd ', NULL, 13.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Sm ', NULL, 2.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Eu ', NULL, 0.65, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Gd ', NULL, 2.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Tb ', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Dy', NULL, 1.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Ho', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Er ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Tm', NULL, 0.12, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Yb ', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Lu ', NULL, 0.13, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Hf ', NULL, 3, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Ta', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Pb ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'Th', NULL, 12.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'C', 'U', NULL, 4.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '87Sr/86Sr', NULL, 0.706686, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '87Sr/86Sr(i)', NULL, 0.7065356055443032, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '143Nd/144Nd', NULL, 0.512467, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '143Nd/144Nd(i)', NULL, 0.512454754803308, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '206Pb/204Pb', NULL, 18.955340351794266, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '206Pb/204Pb(i)', NULL, 18.93, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '207Pb/204Pb', NULL, 15.71873348857779, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '207Pb/204Pb(i)', NULL, 15.72, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '208Pb/204Pb', NULL, 39.1680976696054, NULL);
-INSERT INTO public.sample_attribute VALUES (19980, 'I', '208Pb/204Pb(i)', NULL, 39.16, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Sample Name', 'CA 172', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Location_Details', 'Pertek Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Latitude', '38°57''22''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Longitude', '39°12''26''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Age', '15.52', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'SiO2 ', NULL, 55.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'TiO2 ', NULL, 0.896, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Al2O3 ', NULL, 16.31, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Fe2O3 (Tot) ', NULL, 6.88, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'MnO ', NULL, 0.112, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'MgO ', NULL, 4.67, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'CaO ', NULL, 7.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Na2O ', NULL, 3.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'K2O ', NULL, 1.92, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'P2O5 ', NULL, 0.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'LOI', NULL, 1.77, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Rb ', NULL, 49, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Cs ', NULL, 2.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Sr', NULL, 458, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Ba ', NULL, 336, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Sc ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'V ', NULL, 159, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Cr ', NULL, 270, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Co', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Ni ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Zn ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Y ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Zr ', NULL, 148, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Nb ', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'La ', NULL, 22.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Ce ', NULL, 41.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Pr', NULL, 4.58, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Nd ', NULL, 17.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Sm ', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Eu ', NULL, 1.03, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Gd ', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Tb ', NULL, 0.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Dy', NULL, 3.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Ho', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Er ', NULL, 1.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Tm', NULL, 0.28, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Yb ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Lu ', NULL, 0.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Hf ', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Ta', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Ga ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Pb ', NULL, 13, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'Th', NULL, 8.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'C', 'U', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '87Sr/86Sr', NULL, 0.705544, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '87Sr/86Sr(i)', NULL, 0.7054789538250851, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '143Nd/144Nd', NULL, 0.512628, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '143Nd/144Nd(i)', NULL, 0.5126158227584705, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '206Pb/204Pb', NULL, 18.958449971732698, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '206Pb/204Pb(i)', NULL, 18.95, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '207Pb/204Pb', NULL, 15.697033492837374, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '207Pb/204Pb(i)', NULL, 15.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '208Pb/204Pb', NULL, 39.117489512501784, NULL);
-INSERT INTO public.sample_attribute VALUES (19981, 'I', '208Pb/204Pb(i)', NULL, 39.11, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'F', 'Sample Name', 'CA 177', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'F', 'Location_Details', 'Mazgırt Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'F', 'Latitude', '38°59''57''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'F', 'Longitude', '39°34''43''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'SiO2 ', NULL, 60.25, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'TiO2 ', NULL, 0.724, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Al2O3 ', NULL, 16.58, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Fe2O3 (Tot) ', NULL, 5.58, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'MnO ', NULL, 0.049, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'MgO ', NULL, 3.32, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'CaO ', NULL, 5.76, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Na2O ', NULL, 3.98, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'K2O ', NULL, 2.18, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'P2O5 ', NULL, 0.31, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'LOI', NULL, 1.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Rb ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Cs ', NULL, 2.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Sr', NULL, 552, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Ba ', NULL, 589, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Sc ', NULL, 13, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'V ', NULL, 115, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Cr ', NULL, 140, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Co', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Ni ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Cu ', NULL, 30, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Y ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Zr ', NULL, 170, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Nb ', NULL, 15, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'La ', NULL, 44.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Ce ', NULL, 65.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Pr', NULL, 7.85, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Nd ', NULL, 29, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Sm ', NULL, 5.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Eu ', NULL, 1.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Gd ', NULL, 4.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Tb ', NULL, 0.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Dy', NULL, 3.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Ho', NULL, 0.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Er ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Tm', NULL, 0.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Yb ', NULL, 1.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Lu ', NULL, 0.25, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Hf ', NULL, 3.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Ta', NULL, 1.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Pb ', NULL, 12, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'Th', NULL, 12.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19982, 'C', 'U', NULL, 4.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'F', 'Sample Name', 'CA 178', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'F', 'Location_Details', 'Mazgırt Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'F', 'Latitude', '38°59''57''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'F', 'Longitude', '39°34''43''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'SiO2 ', NULL, 62.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'TiO2 ', NULL, 0.774, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Al2O3 ', NULL, 16.18, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Fe2O3 (Tot) ', NULL, 4.71, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'MnO ', NULL, 0.076, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'MgO ', NULL, 3.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'CaO ', NULL, 4.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Na2O ', NULL, 3.95, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'K2O ', NULL, 2.89, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'P2O5 ', NULL, 0.32, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'LOI', NULL, 1.54, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Rb ', NULL, 89, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Cs ', NULL, 4.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Sr', NULL, 556, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Ba ', NULL, 718, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Sc ', NULL, 10, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'V ', NULL, 105, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Cr ', NULL, 90, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Co', NULL, 15, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Ni ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Cu ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Y ', NULL, 15, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Zr ', NULL, 200, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Nb ', NULL, 17, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'La ', NULL, 44.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Ce ', NULL, 72.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Pr', NULL, 7.67, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Nd ', NULL, 27.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Sm ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Eu ', NULL, 1.23, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Gd ', NULL, 4.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Tb ', NULL, 0.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Dy', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Ho', NULL, 0.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Er ', NULL, 1.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Tm', NULL, 0.22, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Yb ', NULL, 1.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Lu ', NULL, 0.21, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Hf ', NULL, 4.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Ta', NULL, 1.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Pb ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'Th', NULL, 15.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19983, 'C', 'U', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'F', 'Sample Name', 'CA 180', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'F', 'Location_Details', 'Mazgırt Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'F', 'Latitude', '39°00''13''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'F', 'Longitude', '39°37''34''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'SiO2 ', NULL, 50.91, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'TiO2 ', NULL, 1.398, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Al2O3 ', NULL, 15.72, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Fe2O3 (Tot) ', NULL, 8.45, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'MnO ', NULL, 0.116, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'MgO ', NULL, 5.75, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'CaO ', NULL, 8.01, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Na2O ', NULL, 3.54, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'K2O ', NULL, 2.01, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'P2O5 ', NULL, 0.58, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'LOI', NULL, 2.74, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Rb ', NULL, 47, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Cs ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Sr', NULL, 674, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Ba ', NULL, 710, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Sc ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'V ', NULL, 206, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Cr ', NULL, 210, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Co', NULL, 31, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Ni ', NULL, 120, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Cu ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Zn ', NULL, 80, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Y ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Zr ', NULL, 221, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Nb ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'La ', NULL, 54.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Ce ', NULL, 102, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Pr', NULL, 11.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Nd ', NULL, 42, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Sm ', NULL, 7.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Eu ', NULL, 1.99, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Gd ', NULL, 7.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Tb ', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Dy', NULL, 4.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Ho', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Er ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Tm', NULL, 0.34, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Yb ', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Lu ', NULL, 0.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Hf ', NULL, 4.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Ta', NULL, 1.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Ga ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Pb ', NULL, 12, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'Th', NULL, 11.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19984, 'C', 'U', NULL, 2.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'F', 'Sample Name', 'CA 181', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'F', 'Location_Details', 'Mazgırt Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'F', 'Latitude', '39°00''13''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'F', 'Longitude', '39°37''34''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'SiO2 ', NULL, 53.16, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'TiO2 ', NULL, 1.497, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Al2O3 ', NULL, 17.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Fe2O3 (Tot) ', NULL, 9.21, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'MnO ', NULL, 0.086, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'MgO ', NULL, 4.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'CaO ', NULL, 6.35, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Na2O ', NULL, 3.98, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'K2O ', NULL, 2.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'P2O5 ', NULL, 0.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'LOI', NULL, 1.05, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Rb ', NULL, 53, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Cs ', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Sr', NULL, 747, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Ba ', NULL, 805, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Sc ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'V ', NULL, 198, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Cr ', NULL, 220, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Co', NULL, 26, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Ni ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Cu ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Y ', NULL, 24, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Zr ', NULL, 240, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Nb ', NULL, 25, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'La ', NULL, 61, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Ce ', NULL, 111, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Pr', NULL, 12.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Nd ', NULL, 47.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Sm ', NULL, 8.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Eu ', NULL, 2.17, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Gd ', NULL, 7.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Tb ', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Dy', NULL, 5.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Ho', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Er ', NULL, 2.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Tm', NULL, 0.33, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Yb ', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Lu ', NULL, 0.32, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Hf ', NULL, 4.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Ta', NULL, 2.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Ga ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Pb ', NULL, 13, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'Th', NULL, 12.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19985, 'C', 'U', NULL, 2, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Sample Name', 'CA 182', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Location_Details', 'Mazgırt Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Latitude', '39°00''15''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Longitude', '39°38''00''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Age', '16.01', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Type of Uncertainty', 'SD', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'F', 'Ref.Std.', 'FCT (Fish Canyon Tuff sanidine)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'SiO2 ', NULL, 62.26, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'TiO2 ', NULL, 0.579, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Al2O3 ', NULL, 17.41, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Fe2O3 (Tot) ', NULL, 4.25, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'MnO ', NULL, 0.113, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'MgO ', NULL, 1.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'CaO ', NULL, 4.62, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Na2O ', NULL, 4.56, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'K2O ', NULL, 2.87, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'P2O5 ', NULL, 0.36, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'LOI', NULL, 0.71, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Rb ', NULL, 88, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Cs ', NULL, 3.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Sr', NULL, 776, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Ba ', NULL, 1361, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Sc ', NULL, 5, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'V ', NULL, 71, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Co', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Cu ', NULL, 10, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Y ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Zr ', NULL, 279, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Nb ', NULL, 33, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'La ', NULL, 76.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Ce ', NULL, 128, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Pr', NULL, 12.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Nd ', NULL, 43, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Sm ', NULL, 6.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Eu ', NULL, 1.64, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Gd ', NULL, 5.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Tb ', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Dy', NULL, 3.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Ho', NULL, 0.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Er ', NULL, 1.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Tm', NULL, 0.27, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Yb ', NULL, 1.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Lu ', NULL, 0.32, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Hf ', NULL, 5.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Ta', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Ga ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Pb ', NULL, 24, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'Th', NULL, 21.5, NULL);
-INSERT INTO public.sample_attribute VALUES (19986, 'C', 'U', NULL, 6, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Sample Name', 'CA 179', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Location_Details', 'Mazgırt Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Latitude', '39°01''14''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Longitude', '39°36''10''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'SiO2 ', NULL, 60.63, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'TiO2 ', NULL, 0.556, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Al2O3 ', NULL, 16.29, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Fe2O3 (Tot) ', NULL, 3.17, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'MnO ', NULL, 0.057, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'MgO ', NULL, 1.56, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'CaO ', NULL, 5.21, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Na2O ', NULL, 3.22, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'K2O ', NULL, 3.14, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'P2O5 ', NULL, 0.21, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'LOI', NULL, 3.88, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Rb ', NULL, 78, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Cs ', NULL, 3.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Sr', NULL, 549, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Ba ', NULL, 606, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Sc ', NULL, 9, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'V ', NULL, 87, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Cr ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Co', NULL, 8, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Cu ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Zn ', NULL, 40, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Y ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Zr ', NULL, 152, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Nb ', NULL, 11, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'La ', NULL, 35.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Ce ', NULL, 59.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Pr', NULL, 5.91, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Nd ', NULL, 21.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Sm ', NULL, 3.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Eu ', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Gd ', NULL, 3.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Tb ', NULL, 0.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Dy', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Ho', NULL, 0.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Er ', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Tm', NULL, 0.16, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Yb ', NULL, 1, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Lu ', NULL, 0.15, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Hf ', NULL, 2.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Ta', NULL, 1.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Ga ', NULL, 18, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Pb ', NULL, 19, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'Th', NULL, 15.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'C', 'U', NULL, 4.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '87Sr/86Sr', NULL, 0.705769, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '87Sr/86Sr(i)', NULL, 0.7056744458496851, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '143Nd/144Nd', NULL, 0.512592, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '143Nd/144Nd(i)', NULL, 0.5125811740249615, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '206Pb/204Pb', NULL, 19.07210156496635, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '206Pb/204Pb(i)', NULL, 19.06, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '207Pb/204Pb', NULL, 15.699846455248167, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '207Pb/204Pb(i)', NULL, 15.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '208Pb/204Pb', NULL, 39.21427887062043, NULL);
-INSERT INTO public.sample_attribute VALUES (19987, 'I', '208Pb/204Pb(i)', NULL, 39.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Sample Name', 'CA 187', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Location', 'Eastern Anatolia (Turkey)', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Location_Details', 'Mazgırt Field', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Latitude', '39°04''58''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Longitude', '39°41''07''''', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Year of Publication', '2017.0', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Ref.Std.', 'NIST SRM 987', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Ref.Std.', 'J-Ndi1', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Type of Uncertainty', '2SD ', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'F', 'Ref.Std.', 'NIST SRM 981', NULL, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'SiO2 ', NULL, 52.46, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'TiO2 ', NULL, 1.009, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Al2O3 ', NULL, 16.68, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Fe2O3 (Tot) ', NULL, 6.79, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'MnO ', NULL, 0.089, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'MgO ', NULL, 5.12, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'CaO ', NULL, 7.03, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Na2O ', NULL, 3.77, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'K2O ', NULL, 2.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'P2O5 ', NULL, 0.42, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'LOI', NULL, 4.37, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Rb ', NULL, 60, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Cs ', NULL, 1.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Sr', NULL, 876, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Ba ', NULL, 926, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Sc ', NULL, 16, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'V ', NULL, 158, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Cr ', NULL, 110, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Co', NULL, 23, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Ni ', NULL, 80, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Cu ', NULL, 50, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Zn ', NULL, 70, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Y ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Zr ', NULL, 226, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Nb ', NULL, 21, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'La ', NULL, 74.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Ce ', NULL, 121, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Pr', NULL, 12.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Nd ', NULL, 45.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Sm ', NULL, 7.6, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Eu ', NULL, 1.93, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Gd ', NULL, 6.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Tb ', NULL, 0.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Dy', NULL, 4.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Ho', NULL, 0.8, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Er ', NULL, 2.2, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Tm', NULL, 0.31, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Yb ', NULL, 1.9, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Lu ', NULL, 0.29, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Hf ', NULL, 4.3, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Ta', NULL, 2.1, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Ga ', NULL, 20, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Pb ', NULL, 22, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'Th', NULL, 21.7, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'C', 'U', NULL, 5.4, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '87Sr/86Sr', NULL, 0.705254, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '87Sr/86Sr(i)', NULL, 0.705208419026403, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '143Nd/144Nd', NULL, 0.512584, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '143Nd/144Nd(i)', NULL, 0.5125732299315755, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '206Pb/204Pb', NULL, 19.05855967168608, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '206Pb/204Pb(i)', NULL, 19.04, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '207Pb/204Pb', NULL, 15.709691823685949, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '207Pb/204Pb(i)', NULL, 15.71, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '208Pb/204Pb', NULL, 39.22112053003008, NULL);
-INSERT INTO public.sample_attribute VALUES (19988, 'I', '208Pb/204Pb(i)', NULL, 39.23, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'F', 'SAMPLE NAME', 'samp. ER11', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'F', 'ROCK NAME', 'ANDESITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'SIO2(WT%)', NULL, 62.02, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'TIO2(WT%)', NULL, 0.69, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'AL2O3(WT%)', NULL, 16.73, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'FEOT(WT%)', NULL, 4.45, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'CAO(WT%)', NULL, 6.34, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'MGO(WT%)', NULL, 2.93, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'MNO(WT%)', NULL, 0.08, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'K2O(WT%)', NULL, 1.63, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'NA2O(WT%)', NULL, 3.65, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'P2O5(WT%)', NULL, 0.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'SC(PPM)', NULL, 11.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'CR(PPM)', NULL, 48, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'CO(PPM)', NULL, 16.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'RB(PPM)', NULL, 45, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'SR(PPM)', NULL, 324, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'Y(PPM)', NULL, 22, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'ZR(PPM)', NULL, 184, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'NB(PPM)', NULL, 12, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'BA(PPM)', NULL, 327, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'LA(PPM)', NULL, 23.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'CE(PPM)', NULL, 47.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'ND(PPM)', NULL, 20.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'SM(PPM)', NULL, 3.89, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'EU(PPM)', NULL, 1.09, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'TB(PPM)', NULL, 0.55, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'YB(PPM)', NULL, 2.15, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'LU(PPM)', NULL, 0.33, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'HF(PPM)', NULL, 4.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'TA(PPM)', NULL, 0.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'TH(PPM)', NULL, 6.6, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'C', 'U(PPM)', NULL, 2.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19989, 'I', 'SR87_SR86', NULL, 0.70493, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'F', 'SAMPLE NAME', 'samp. ER13', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'F', 'ROCK NAME', 'DACITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'SIO2(WT%)', NULL, 66.44, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'TIO2(WT%)', NULL, 0.66, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'AL2O3(WT%)', NULL, 15.49, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'FEOT(WT%)', NULL, 3.75, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'CAO(WT%)', NULL, 3.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'MGO(WT%)', NULL, 1.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'MNO(WT%)', NULL, 0.05, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'K2O(WT%)', NULL, 2.99, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'NA2O(WT%)', NULL, 4.54, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'P2O5(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'SC(PPM)', NULL, 8.6, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'CR(PPM)', NULL, 13.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'CO(PPM)', NULL, 10.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'RB(PPM)', NULL, 106, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'SR(PPM)', NULL, 229, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'ZR(PPM)', NULL, 343, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'NB(PPM)', NULL, 14, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'BA(PPM)', NULL, 553, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'LA(PPM)', NULL, 30.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'CE(PPM)', NULL, 58.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'ND(PPM)', NULL, 25.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'SM(PPM)', NULL, 4.67, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'EU(PPM)', NULL, 1.09, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'TB(PPM)', NULL, 0.76, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'YB(PPM)', NULL, 2.7, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'LU(PPM)', NULL, 0.38, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'HF(PPM)', NULL, 7.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'TA(PPM)', NULL, 1.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'TH(PPM)', NULL, 16.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'C', 'U(PPM)', NULL, 5.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19990, 'I', 'SR87_SR86', NULL, 0.70472, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'F', 'SAMPLE NAME', 'samp. ER14', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'F', 'ROCK NAME', 'ANDESITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'SIO2(WT%)', NULL, 63.76, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'TIO2(WT%)', NULL, 0.73, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'AL2O3(WT%)', NULL, 16.02, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'FEOT(WT%)', NULL, 4.42, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'CAO(WT%)', NULL, 4.57, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'MGO(WT%)', NULL, 2.24, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'MNO(WT%)', NULL, 0.07, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'K2O(WT%)', NULL, 2.45, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'NA2O(WT%)', NULL, 4.17, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'P2O5(WT%)', NULL, 0.16, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'SC(PPM)', NULL, 11.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'CR(PPM)', NULL, 20, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'CO(PPM)', NULL, 14.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'RB(PPM)', NULL, 84, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'SR(PPM)', NULL, 286, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'ZR(PPM)', NULL, 278, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'NB(PPM)', NULL, 14, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'BA(PPM)', NULL, 476, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'LA(PPM)', NULL, 30.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'CE(PPM)', NULL, 59.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'ND(PPM)', NULL, 24.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'SM(PPM)', NULL, 4.53, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'EU(PPM)', NULL, 1.05, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'TB(PPM)', NULL, 0.71, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'YB(PPM)', NULL, 2.67, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'LU(PPM)', NULL, 0.38, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'HF(PPM)', NULL, 6.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'TA(PPM)', NULL, 1.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'TH(PPM)', NULL, 13.7, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'C', 'U(PPM)', NULL, 4.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19991, 'I', 'SR87_SR86', NULL, 0.70487, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'F', 'SAMPLE NAME', 'samp. ER15', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'F', 'ROCK NAME', 'DACITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'SIO2(WT%)', NULL, 68.97, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'TIO2(WT%)', NULL, 0.42, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'AL2O3(WT%)', NULL, 15.11, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'FEOT(WT%)', NULL, 2.63, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'CAO(WT%)', NULL, 3.26, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'MGO(WT%)', NULL, 1.15, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'MNO(WT%)', NULL, 0.06, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'K2O(WT%)', NULL, 2.79, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'NA2O(WT%)', NULL, 3.96, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'P2O5(WT%)', NULL, 0.12, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'SC(PPM)', NULL, 5.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'CR(PPM)', NULL, 11.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'CO(PPM)', NULL, 6.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'RB(PPM)', NULL, 106, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'SR(PPM)', NULL, 217, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'Y(PPM)', NULL, 21, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'ZR(PPM)', NULL, 173, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'NB(PPM)', NULL, 13, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'BA(PPM)', NULL, 487, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'LA(PPM)', NULL, 27.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'CE(PPM)', NULL, 52, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'ND(PPM)', NULL, 20.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'SM(PPM)', NULL, 3.65, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'EU(PPM)', NULL, 0.84, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'TB(PPM)', NULL, 0.56, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'YB(PPM)', NULL, 2.14, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'LU(PPM)', NULL, 0.32, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'HF(PPM)', NULL, 4.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'TA(PPM)', NULL, 1.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'TH(PPM)', NULL, 14.7, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'C', 'U(PPM)', NULL, 5.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19992, 'I', 'SR87_SR86', NULL, 0.70541, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'F', 'SAMPLE NAME', 'samp. ER16', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'F', 'ROCK NAME', 'DACITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'SIO2(WT%)', NULL, 69.14, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'TIO2(WT%)', NULL, 0.34, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'AL2O3(WT%)', NULL, 14.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'FEOT(WT%)', NULL, 2.24, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'CAO(WT%)', NULL, 2.93, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'MGO(WT%)', NULL, 0.78, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'MNO(WT%)', NULL, 0.05, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'K2O(WT%)', NULL, 2.85, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'NA2O(WT%)', NULL, 3.89, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'P2O5(WT%)', NULL, 0.09, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'SC(PPM)', NULL, 4.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'CR(PPM)', NULL, 11.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'CO(PPM)', NULL, 4.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'RB(PPM)', NULL, 117, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'SR(PPM)', NULL, 207, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'Y(PPM)', NULL, 21, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'ZR(PPM)', NULL, 171, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'NB(PPM)', NULL, 12, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'BA(PPM)', NULL, 552, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'LA(PPM)', NULL, 30, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'CE(PPM)', NULL, 58.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'ND(PPM)', NULL, 20.6, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'SM(PPM)', NULL, 3.46, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'EU(PPM)', NULL, 0.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'TB(PPM)', NULL, 0.63, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'YB(PPM)', NULL, 2.18, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'LU(PPM)', NULL, 0.32, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'HF(PPM)', NULL, 4.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'TA(PPM)', NULL, 1.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'TH(PPM)', NULL, 17.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'C', 'U(PPM)', NULL, 6.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19993, 'I', 'SR87_SR86', NULL, 0.70548, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'F', 'SAMPLE NAME', 'samp. ER17', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'F', 'ROCK NAME', 'ANDESITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'SIO2(WT%)', NULL, 64.24, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'TIO2(WT%)', NULL, 0.72, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'AL2O3(WT%)', NULL, 16.52, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'FEOT(WT%)', NULL, 4.29, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'CAO(WT%)', NULL, 4, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'MGO(WT%)', NULL, 2.08, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'MNO(WT%)', NULL, 0.06, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'K2O(WT%)', NULL, 2.36, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'NA2O(WT%)', NULL, 3.77, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'P2O5(WT%)', NULL, 0.15, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'SC(PPM)', NULL, 11.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'CR(PPM)', NULL, 31, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'CO(PPM)', NULL, 15.7, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'RB(PPM)', NULL, 81, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'SR(PPM)', NULL, 290, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'ZR(PPM)', NULL, 216, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'NB(PPM)', NULL, 11, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'BA(PPM)', NULL, 500, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'LA(PPM)', NULL, 36.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'CE(PPM)', NULL, 51.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'ND(PPM)', NULL, 30.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'SM(PPM)', NULL, 5.33, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'EU(PPM)', NULL, 1.38, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'TB(PPM)', NULL, 0.86, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'YB(PPM)', NULL, 2.51, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'LU(PPM)', NULL, 0.38, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'HF(PPM)', NULL, 5.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'TA(PPM)', NULL, 1.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'TH(PPM)', NULL, 14.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'C', 'U(PPM)', NULL, 5.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19994, 'I', 'SR87_SR86', NULL, 0.70477, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'F', 'SAMPLE NAME', 'samp. ER20', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'F', 'ROCK NAME', 'DACITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'SIO2(WT%)', NULL, 65.69, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'TIO2(WT%)', NULL, 0.59, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'AL2O3(WT%)', NULL, 16.13, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'FEOT(WT%)', NULL, 3.86, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'CAO(WT%)', NULL, 4.67, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'MGO(WT%)', NULL, 2.19, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'MNO(WT%)', NULL, 0.07, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'K2O(WT%)', NULL, 2.32, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'NA2O(WT%)', NULL, 3.75, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'P2O5(WT%)', NULL, 0.16, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'SC(PPM)', NULL, 10, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'CR(PPM)', NULL, 44, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'CO(PPM)', NULL, 12.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'RB(PPM)', NULL, 79, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'SR(PPM)', NULL, 281, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'Y(PPM)', NULL, 25, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'ZR(PPM)', NULL, 212, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'NB(PPM)', NULL, 14, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'BA(PPM)', NULL, 504, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'LA(PPM)', NULL, 33.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'CE(PPM)', NULL, 60.6, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'ND(PPM)', NULL, 23.7, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'SM(PPM)', NULL, 4.71, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'EU(PPM)', NULL, 1.24, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'TB(PPM)', NULL, 0.68, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'YB(PPM)', NULL, 2.37, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'LU(PPM)', NULL, 0.37, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'HF(PPM)', NULL, 5.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'TA(PPM)', NULL, 1.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'TH(PPM)', NULL, 12.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'C', 'U(PPM)', NULL, 4, NULL);
+INSERT INTO public.sample_attribute VALUES (19995, 'I', 'SR87_SR86', NULL, 0.70514, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'F', 'SAMPLE NAME', 'samp. ER21', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'F', 'ROCK NAME', 'ANDESITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'SIO2(WT%)', NULL, 63.18, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'TIO2(WT%)', NULL, 0.68, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'AL2O3(WT%)', NULL, 16.39, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'FEOT(WT%)', NULL, 4.14, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'CAO(WT%)', NULL, 5.28, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'MGO(WT%)', NULL, 2.62, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'MNO(WT%)', NULL, 0.07, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'K2O(WT%)', NULL, 1.81, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'NA2O(WT%)', NULL, 3.84, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'P2O5(WT%)', NULL, 0.16, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'SC(PPM)', NULL, 11.6, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'CR(PPM)', NULL, 38, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'CO(PPM)', NULL, 16.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'RB(PPM)', NULL, 64, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'SR(PPM)', NULL, 318, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'Y(PPM)', NULL, 23, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'ZR(PPM)', NULL, 174, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'NB(PPM)', NULL, 12, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'BA(PPM)', NULL, 370, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'LA(PPM)', NULL, 24.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'CE(PPM)', NULL, 49.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'ND(PPM)', NULL, 20.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'SM(PPM)', NULL, 3.93, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'EU(PPM)', NULL, 1.06, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'TB(PPM)', NULL, 0.61, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'YB(PPM)', NULL, 2.23, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'LU(PPM)', NULL, 0.33, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'HF(PPM)', NULL, 4.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'TA(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'TH(PPM)', NULL, 10.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'C', 'U(PPM)', NULL, 3.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19996, 'I', 'SR87_SR86', NULL, 0.70487, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'F', 'SAMPLE NAME', 'samp. ER22', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'F', 'ROCK NAME', 'DACITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'SIO2(WT%)', NULL, 66.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'TIO2(WT%)', NULL, 0.56, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'AL2O3(WT%)', NULL, 15.02, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'FEOT(WT%)', NULL, 3.48, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'CAO(WT%)', NULL, 4.82, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'MGO(WT%)', NULL, 2.2, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'MNO(WT%)', NULL, 0.06, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'K2O(WT%)', NULL, 2.55, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'NA2O(WT%)', NULL, 4.41, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'P2O5(WT%)', NULL, 0.16, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'RB(PPM)', NULL, 95, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'SR(PPM)', NULL, 259, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'Y(PPM)', NULL, 22, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'ZR(PPM)', NULL, 185, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'NB(PPM)', NULL, 12, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'C', 'BA(PPM)', NULL, 458, NULL);
+INSERT INTO public.sample_attribute VALUES (19997, 'I', 'SR87_SR86', NULL, 0.70515, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'F', 'SAMPLE NAME', 'samp. ER23', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'F', 'ROCK NAME', 'ANDESITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'SIO2(WT%)', NULL, 63.48, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'TIO2(WT%)', NULL, 0.6, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'AL2O3(WT%)', NULL, 15.68, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'FEOT(WT%)', NULL, 3.96, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'CAO(WT%)', NULL, 5.91, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'MGO(WT%)', NULL, 2.91, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'MNO(WT%)', NULL, 0.07, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'K2O(WT%)', NULL, 2.23, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'NA2O(WT%)', NULL, 3.49, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'P2O5(WT%)', NULL, 0.17, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'SC(PPM)', NULL, 10.4, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'CR(PPM)', NULL, 60, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'CO(PPM)', NULL, 15, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'RB(PPM)', NULL, 70, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'SR(PPM)', NULL, 315, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'Y(PPM)', NULL, 22, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'ZR(PPM)', NULL, 172, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'NB(PPM)', NULL, 12, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'BA(PPM)', NULL, 405, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'LA(PPM)', NULL, 23.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'CE(PPM)', NULL, 47.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'ND(PPM)', NULL, 17.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'SM(PPM)', NULL, 3.49, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'EU(PPM)', NULL, 0.97, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'TB(PPM)', NULL, 0.53, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'YB(PPM)', NULL, 1.76, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'LU(PPM)', NULL, 0.27, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'HF(PPM)', NULL, 3.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'TA(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'TH(PPM)', NULL, 11, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'C', 'U(PPM)', NULL, 2.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19998, 'I', 'SR87_SR86', NULL, 0.7053, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'F', 'SAMPLE NAME', 'samp. ER24', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'SIO2(WT%)', NULL, 47.56, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'TIO2(WT%)', NULL, 2.08, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'AL2O3(WT%)', NULL, 16.37, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'FEOT(WT%)', NULL, 10.55, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'CAO(WT%)', NULL, 9.13, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'MGO(WT%)', NULL, 5.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'MNO(WT%)', NULL, 0.17, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'K2O(WT%)', NULL, 0.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'NA2O(WT%)', NULL, 3.91, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'P2O5(WT%)', NULL, 0.45, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'SC(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'CR(PPM)', NULL, 61, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'CO(PPM)', NULL, 41, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'RB(PPM)', NULL, 6, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'SR(PPM)', NULL, 464, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'Y(PPM)', NULL, 41, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'ZR(PPM)', NULL, 266, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'NB(PPM)', NULL, 12, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'BA(PPM)', NULL, 191, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'LA(PPM)', NULL, 20.7, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'CE(PPM)', NULL, 47.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'ND(PPM)', NULL, 25.8, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'SM(PPM)', NULL, 6.1, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'EU(PPM)', NULL, 2.03, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'TB(PPM)', NULL, 1.02, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'YB(PPM)', NULL, 3.75, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'LU(PPM)', NULL, 0.52, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'HF(PPM)', NULL, 5.3, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'TA(PPM)', NULL, 1, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'TH(PPM)', NULL, 1.5, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'C', 'U(PPM)', NULL, 0.7, NULL);
+INSERT INTO public.sample_attribute VALUES (19999, 'I', 'SR87_SR86', NULL, 0.70387, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'F', 'SAMPLE NAME', 'samp. ER25', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'F', 'ROCK NAME', 'ANDESITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'SIO2(WT%)', NULL, 64.33, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'TIO2(WT%)', NULL, 0.56, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'AL2O3(WT%)', NULL, 16.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'FEOT(WT%)', NULL, 3.82, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'CAO(WT%)', NULL, 5.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'MGO(WT%)', NULL, 2.43, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'MNO(WT%)', NULL, 0.07, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'K2O(WT%)', NULL, 1.78, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'NA2O(WT%)', NULL, 3.87, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'P2O5(WT%)', NULL, 0.16, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'SC(PPM)', NULL, 9.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'CR(PPM)', NULL, 44, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'CO(PPM)', NULL, 12.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'RB(PPM)', NULL, 48, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'SR(PPM)', NULL, 303, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'Y(PPM)', NULL, 21, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'ZR(PPM)', NULL, 175, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'NB(PPM)', NULL, 11, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'BA(PPM)', NULL, 355, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'LA(PPM)', NULL, 23.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'CE(PPM)', NULL, 46, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'ND(PPM)', NULL, 19, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'SM(PPM)', NULL, 3.58, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'EU(PPM)', NULL, 0.94, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'TB(PPM)', NULL, 0.57, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'YB(PPM)', NULL, 1.95, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'LU(PPM)', NULL, 0.29, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'HF(PPM)', NULL, 4, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'TA(PPM)', NULL, 0.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'TH(PPM)', NULL, 8.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'C', 'U(PPM)', NULL, 2.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20000, 'I', 'SR87_SR86', NULL, 0.70512, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'F', 'SAMPLE NAME', 'samp. ER26', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'F', 'ROCK NAME', 'ANDESITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / ERCIYES', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'SIO2(WT%)', NULL, 57.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'TIO2(WT%)', NULL, 1.05, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'AL2O3(WT%)', NULL, 17.45, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'FEOT(WT%)', NULL, 6.16, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'CAO(WT%)', NULL, 6.77, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'MGO(WT%)', NULL, 3.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'MNO(WT%)', NULL, 0.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'K2O(WT%)', NULL, 1.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'NA2O(WT%)', NULL, 3.96, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'P2O5(WT%)', NULL, 0.35, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'SC(PPM)', NULL, 15.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'CR(PPM)', NULL, 67, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'CO(PPM)', NULL, 23, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'RB(PPM)', NULL, 26, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'SR(PPM)', NULL, 394, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'ZR(PPM)', NULL, 224, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'NB(PPM)', NULL, 14, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'BA(PPM)', NULL, 342, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'LA(PPM)', NULL, 27.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'CE(PPM)', NULL, 58.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'ND(PPM)', NULL, 24.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'SM(PPM)', NULL, 4.97, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'EU(PPM)', NULL, 1.51, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'TB(PPM)', NULL, 0.74, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'YB(PPM)', NULL, 2.71, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'LU(PPM)', NULL, 0.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'HF(PPM)', NULL, 4.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'TA(PPM)', NULL, 1.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'TH(PPM)', NULL, 4.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'C', 'U(PPM)', NULL, 1.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20001, 'I', 'SR87_SR86', NULL, 0.70454, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'F', 'SAMPLE NAME', 'samp. HA01', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / HASANDAG', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'SIO2(WT%)', NULL, 49.61, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'TIO2(WT%)', NULL, 1.39, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'AL2O3(WT%)', NULL, 18.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'FEOT(WT%)', NULL, 8.68, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'CAO(WT%)', NULL, 10.72, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'MGO(WT%)', NULL, 6.01, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'K2O(WT%)', NULL, 1.02, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'NA2O(WT%)', NULL, 4.21, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'P2O5(WT%)', NULL, 0.36, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'SC(PPM)', NULL, 25, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'CR(PPM)', NULL, 20, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'CO(PPM)', NULL, 35, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'RB(PPM)', NULL, 19, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'SR(PPM)', NULL, 612, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'ZR(PPM)', NULL, 153, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'NB(PPM)', NULL, 10, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'BA(PPM)', NULL, 388, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'LA(PPM)', NULL, 28.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'CE(PPM)', NULL, 58.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'ND(PPM)', NULL, 26.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'SM(PPM)', NULL, 5.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'EU(PPM)', NULL, 1.57, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'TB(PPM)', NULL, 0.81, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'YB(PPM)', NULL, 2.47, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'LU(PPM)', NULL, 0.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'HF(PPM)', NULL, 3, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'TA(PPM)', NULL, 1.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'TH(PPM)', NULL, 5, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'C', 'U(PPM)', NULL, 1.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20002, 'I', 'SR87_SR86', NULL, 0.70498, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'F', 'SAMPLE NAME', 'samp. KT11', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'F', 'LOCATION COMMENT', 'KIZIRTEPE REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'SIO2(WT%)', NULL, 51.84, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'TIO2(WT%)', NULL, 1.54, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'AL2O3(WT%)', NULL, 17.12, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'FEOT(WT%)', NULL, 7.91, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'CAO(WT%)', NULL, 8.24, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'MGO(WT%)', NULL, 6.58, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'MNO(WT%)', NULL, 0.13, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'K2O(WT%)', NULL, 1.57, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'NA2O(WT%)', NULL, 4, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'P2O5(WT%)', NULL, 0.46, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'SC(PPM)', NULL, 19.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'CR(PPM)', NULL, 161, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'CO(PPM)', NULL, 33, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'RB(PPM)', NULL, 30, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'SR(PPM)', NULL, 619, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'Y(PPM)', NULL, 28, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'ZR(PPM)', NULL, 197, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'NB(PPM)', NULL, 20, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'BA(PPM)', NULL, 391, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'LA(PPM)', NULL, 29, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'CE(PPM)', NULL, 59.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'ND(PPM)', NULL, 26, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'SM(PPM)', NULL, 5.06, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'EU(PPM)', NULL, 1.63, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'TB(PPM)', NULL, 0.67, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'YB(PPM)', NULL, 2.25, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'LU(PPM)', NULL, 0.36, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'HF(PPM)', NULL, 4.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'TA(PPM)', NULL, 1.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'TH(PPM)', NULL, 4.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'C', 'U(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20003, 'I', 'SR87_SR86', NULL, 0.70464, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'F', 'SAMPLE NAME', 'samp. KT12', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'F', 'LOCATION COMMENT', 'KIZIRTEPE REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'SIO2(WT%)', NULL, 48.97, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'TIO2(WT%)', NULL, 1.26, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'AL2O3(WT%)', NULL, 16.36, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'FEOT(WT%)', NULL, 8.15, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'CAO(WT%)', NULL, 11.33, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'MGO(WT%)', NULL, 7.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'MNO(WT%)', NULL, 0.13, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'K2O(WT%)', NULL, 1.09, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'NA2O(WT%)', NULL, 3.44, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'P2O5(WT%)', NULL, 0.42, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'SC(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'CR(PPM)', NULL, 227, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'CO(PPM)', NULL, 37, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'RB(PPM)', NULL, 17, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'SR(PPM)', NULL, 624, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'ZR(PPM)', NULL, 153, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'NB(PPM)', NULL, 16, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'BA(PPM)', NULL, 399, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'LA(PPM)', NULL, 29.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'CE(PPM)', NULL, 61.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'ND(PPM)', NULL, 25.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'SM(PPM)', NULL, 5.02, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'EU(PPM)', NULL, 1.58, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'TB(PPM)', NULL, 0.72, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'YB(PPM)', NULL, 2.41, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'LU(PPM)', NULL, 0.35, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'HF(PPM)', NULL, 3.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'TA(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'TH(PPM)', NULL, 5.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'C', 'U(PPM)', NULL, 1.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20004, 'I', 'SR87_SR86', NULL, 0.70516, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'F', 'SAMPLE NAME', 'samp. KT13', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'F', 'LOCATION COMMENT', 'KIZIRTEPE REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'SIO2(WT%)', NULL, 48.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'TIO2(WT%)', NULL, 1.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'AL2O3(WT%)', NULL, 16.65, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'FEOT(WT%)', NULL, 8.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'CAO(WT%)', NULL, 11.34, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'MGO(WT%)', NULL, 7.16, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'K2O(WT%)', NULL, 1, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'NA2O(WT%)', NULL, 3.34, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'P2O5(WT%)', NULL, 0.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'SC(PPM)', NULL, 30, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'CR(PPM)', NULL, 207, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'CO(PPM)', NULL, 36, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'RB(PPM)', NULL, 19, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'SR(PPM)', NULL, 605, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'ZR(PPM)', NULL, 143, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'NB(PPM)', NULL, 16, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'BA(PPM)', NULL, 408, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'LA(PPM)', NULL, 29.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'CE(PPM)', NULL, 60, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'ND(PPM)', NULL, 26.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'SM(PPM)', NULL, 5.19, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'EU(PPM)', NULL, 1.61, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'TB(PPM)', NULL, 0.73, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'YB(PPM)', NULL, 2.29, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'LU(PPM)', NULL, 0.34, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'HF(PPM)', NULL, 3.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'TA(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'TH(PPM)', NULL, 5, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'C', 'U(PPM)', NULL, 1, NULL);
+INSERT INTO public.sample_attribute VALUES (20005, 'I', 'SR87_SR86', NULL, 0.70512, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'F', 'SAMPLE NAME', 'samp. KT14', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'F', 'LOCATION COMMENT', 'KIZIRTEPE REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'SIO2(WT%)', NULL, 48.83, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'TIO2(WT%)', NULL, 1.28, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'AL2O3(WT%)', NULL, 16.52, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'FEOT(WT%)', NULL, 8.44, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'CAO(WT%)', NULL, 10.86, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'MGO(WT%)', NULL, 7.77, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'K2O(WT%)', NULL, 1.05, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'NA2O(WT%)', NULL, 3.55, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'P2O5(WT%)', NULL, 0.39, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'SC(PPM)', NULL, 29, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'CR(PPM)', NULL, 272, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'CO(PPM)', NULL, 40, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'RB(PPM)', NULL, 18, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'SR(PPM)', NULL, 614, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'ZR(PPM)', NULL, 151, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'NB(PPM)', NULL, 16, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'BA(PPM)', NULL, 419, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'LA(PPM)', NULL, 29.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'CE(PPM)', NULL, 62.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'ND(PPM)', NULL, 26.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'SM(PPM)', NULL, 5.19, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'EU(PPM)', NULL, 1.61, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'TB(PPM)', NULL, 0.75, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'YB(PPM)', NULL, 2.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'LU(PPM)', NULL, 0.35, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'HF(PPM)', NULL, 3.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'TA(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'TH(PPM)', NULL, 5.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'C', 'U(PPM)', NULL, 1.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20006, 'I', 'SR87_SR86', NULL, 0.70514, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'F', 'SAMPLE NAME', 'samp. KT16', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'F', 'LOCATION COMMENT', 'KIZIRTEPE REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'SIO2(WT%)', NULL, 50.57, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'TIO2(WT%)', NULL, 1.26, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'AL2O3(WT%)', NULL, 16.44, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'FEOT(WT%)', NULL, 8.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'CAO(WT%)', NULL, 9.72, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'MGO(WT%)', NULL, 8.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'K2O(WT%)', NULL, 1.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'NA2O(WT%)', NULL, 3.46, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'P2O5(WT%)', NULL, 0.43, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'SC(PPM)', NULL, 24, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'CR(PPM)', NULL, 274, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'CO(PPM)', NULL, 39, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'RB(PPM)', NULL, 21, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'SR(PPM)', NULL, 606, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'ZR(PPM)', NULL, 173, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'NB(PPM)', NULL, 18, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'BA(PPM)', NULL, 415, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'LA(PPM)', NULL, 30.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'CE(PPM)', NULL, 63.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'ND(PPM)', NULL, 26.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'SM(PPM)', NULL, 5.12, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'EU(PPM)', NULL, 1.63, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'TB(PPM)', NULL, 0.74, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'YB(PPM)', NULL, 2.44, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'LU(PPM)', NULL, 0.35, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'HF(PPM)', NULL, 3.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'TA(PPM)', NULL, 1, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'TH(PPM)', NULL, 5.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'C', 'U(PPM)', NULL, 1.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20007, 'I', 'SR87_SR86', NULL, 0.70503, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'F', 'SAMPLE NAME', 'samp. EG12', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'SIO2(WT%)', NULL, 48.52, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'TIO2(WT%)', NULL, 1.23, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'AL2O3(WT%)', NULL, 16.08, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'FEOT(WT%)', NULL, 8.11, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'CAO(WT%)', NULL, 11.07, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'MGO(WT%)', NULL, 10.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'MNO(WT%)', NULL, 0.13, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'K2O(WT%)', NULL, 1.03, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'NA2O(WT%)', NULL, 3.08, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'P2O5(WT%)', NULL, 0.31, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'SC(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'CR(PPM)', NULL, 414, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'CO(PPM)', NULL, 44, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'RB(PPM)', NULL, 16, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'SR(PPM)', NULL, 697, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'Y(PPM)', NULL, 22, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'ZR(PPM)', NULL, 97, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'NB(PPM)', NULL, 10, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'BA(PPM)', NULL, 389, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'LA(PPM)', NULL, 20.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'CE(PPM)', NULL, 42.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'ND(PPM)', NULL, 19.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'SM(PPM)', NULL, 3.85, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'EU(PPM)', NULL, 1.32, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'TB(PPM)', NULL, 0.56, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'YB(PPM)', NULL, 2.05, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'LU(PPM)', NULL, 0.31, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'HF(PPM)', NULL, 2.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'TA(PPM)', NULL, 0.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'TH(PPM)', NULL, 3.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'C', 'U(PPM)', NULL, 0.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20008, 'I', 'SR87_SR86', NULL, 0.70478, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'F', 'SAMPLE NAME', 'samp. EG14', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'SIO2(WT%)', NULL, 49.11, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'TIO2(WT%)', NULL, 0.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'AL2O3(WT%)', NULL, 14.91, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'FEOT(WT%)', NULL, 7.48, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'CAO(WT%)', NULL, 10.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'MGO(WT%)', NULL, 10.59, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'MNO(WT%)', NULL, 0.13, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'K2O(WT%)', NULL, 0.86, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'NA2O(WT%)', NULL, 2.96, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'P2O5(WT%)', NULL, 0.25, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'SC(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'CR(PPM)', NULL, 563, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'CO(PPM)', NULL, 44, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'RB(PPM)', NULL, 13, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'SR(PPM)', NULL, 783, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'Y(PPM)', NULL, 17, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'ZR(PPM)', NULL, 64, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'NB(PPM)', NULL, 9, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'BA(PPM)', NULL, 326, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'LA(PPM)', NULL, 24.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'CE(PPM)', NULL, 48, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'ND(PPM)', NULL, 20.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'SM(PPM)', NULL, 3.81, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'EU(PPM)', NULL, 1.21, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'TB(PPM)', NULL, 0.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'YB(PPM)', NULL, 1.67, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'LU(PPM)', NULL, 0.23, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'HF(PPM)', NULL, 2.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'TA(PPM)', NULL, 0.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'TH(PPM)', NULL, 5.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'C', 'U(PPM)', NULL, 1.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20009, 'I', 'SR87_SR86', NULL, 0.7044, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'F', 'SAMPLE NAME', 'samp. EG15', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'SIO2(WT%)', NULL, 50.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'TIO2(WT%)', NULL, 1.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'AL2O3(WT%)', NULL, 16.98, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'FEOT(WT%)', NULL, 8.59, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'CAO(WT%)', NULL, 8.88, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'MGO(WT%)', NULL, 8.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'K2O(WT%)', NULL, 1.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'NA2O(WT%)', NULL, 3.57, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'P2O5(WT%)', NULL, 0.36, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'SC(PPM)', NULL, 25, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'CR(PPM)', NULL, 287, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'CO(PPM)', NULL, 42, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'RB(PPM)', NULL, 13, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'SR(PPM)', NULL, 535, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'Y(PPM)', NULL, 26, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'ZR(PPM)', NULL, 155, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'NB(PPM)', NULL, 15, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'BA(PPM)', NULL, 279, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'LA(PPM)', NULL, 20.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'CE(PPM)', NULL, 43.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'ND(PPM)', NULL, 21.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'SM(PPM)', NULL, 4.63, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'EU(PPM)', NULL, 1.51, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'TB(PPM)', NULL, 0.65, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'YB(PPM)', NULL, 2.46, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'LU(PPM)', NULL, 0.37, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'HF(PPM)', NULL, 3.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'TA(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'TH(PPM)', NULL, 3, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'C', 'U(PPM)', NULL, 1.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20010, 'I', 'SR87_SR86', NULL, 0.70434, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'F', 'SAMPLE NAME', 'samp. EG16', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'SIO2(WT%)', NULL, 47.73, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'TIO2(WT%)', NULL, 1.47, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'AL2O3(WT%)', NULL, 16.03, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'FEOT(WT%)', NULL, 8.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'CAO(WT%)', NULL, 9.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'MGO(WT%)', NULL, 7.97, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'K2O(WT%)', NULL, 0.99, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'NA2O(WT%)', NULL, 3.49, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'P2O5(WT%)', NULL, 0.32, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'SC(PPM)', NULL, 28, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'CR(PPM)', NULL, 305, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'CO(PPM)', NULL, 38, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'RB(PPM)', NULL, 13, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'SR(PPM)', NULL, 503, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'ZR(PPM)', NULL, 133, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'NB(PPM)', NULL, 12, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'BA(PPM)', NULL, 264, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'LA(PPM)', NULL, 17.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'CE(PPM)', NULL, 37.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'ND(PPM)', NULL, 17.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'SM(PPM)', NULL, 3.84, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'EU(PPM)', NULL, 1.34, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'TB(PPM)', NULL, 0.62, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'YB(PPM)', NULL, 2.24, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'LU(PPM)', NULL, 0.33, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'HF(PPM)', NULL, 2.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'TA(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'TH(PPM)', NULL, 3.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'C', 'U(PPM)', NULL, 0.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20011, 'I', 'SR87_SR86', NULL, 0.70427, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'F', 'SAMPLE NAME', 'samp. EG17', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'SIO2(WT%)', NULL, 49.67, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'TIO2(WT%)', NULL, 1.44, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'AL2O3(WT%)', NULL, 16.67, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'FEOT(WT%)', NULL, 8.32, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'CAO(WT%)', NULL, 9.47, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'MGO(WT%)', NULL, 7.52, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'K2O(WT%)', NULL, 1.12, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'NA2O(WT%)', NULL, 3.41, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'P2O5(WT%)', NULL, 0.39, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'SC(PPM)', NULL, 24, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'CR(PPM)', NULL, 233, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'CO(PPM)', NULL, 37, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'RB(PPM)', NULL, 13, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'SR(PPM)', NULL, 659, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'ZR(PPM)', NULL, 152, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'NB(PPM)', NULL, 14, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'BA(PPM)', NULL, 587, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'LA(PPM)', NULL, 25.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'CE(PPM)', NULL, 52.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'ND(PPM)', NULL, 24.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'SM(PPM)', NULL, 4.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'EU(PPM)', NULL, 1.54, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'TB(PPM)', NULL, 0.64, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'YB(PPM)', NULL, 2.18, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'LU(PPM)', NULL, 0.34, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'HF(PPM)', NULL, 3.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'TA(PPM)', NULL, 0.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'TH(PPM)', NULL, 4, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'C', 'U(PPM)', NULL, 1.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20012, 'I', 'SR87_SR86', NULL, 0.70465, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'F', 'SAMPLE NAME', 'samp. EG18', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'SIO2(WT%)', NULL, 49.46, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'TIO2(WT%)', NULL, 1.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'AL2O3(WT%)', NULL, 16.19, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'FEOT(WT%)', NULL, 7.85, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'CAO(WT%)', NULL, 9.04, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'MGO(WT%)', NULL, 8.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'MNO(WT%)', NULL, 0.13, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'K2O(WT%)', NULL, 1.52, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'NA2O(WT%)', NULL, 3.56, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'P2O5(WT%)', NULL, 0.45, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'SC(PPM)', NULL, 21, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'CR(PPM)', NULL, 269, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'CO(PPM)', NULL, 33, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'RB(PPM)', NULL, 26, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'SR(PPM)', NULL, 743, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'Y(PPM)', NULL, 26, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'ZR(PPM)', NULL, 190, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'NB(PPM)', NULL, 14, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'BA(PPM)', NULL, 387, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'LA(PPM)', NULL, 31.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'CE(PPM)', NULL, 66.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'ND(PPM)', NULL, 31.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'SM(PPM)', NULL, 6.28, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'EU(PPM)', NULL, 1.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'TB(PPM)', NULL, 0.68, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'YB(PPM)', NULL, 2.12, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'LU(PPM)', NULL, 0.31, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'HF(PPM)', NULL, 3.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'TA(PPM)', NULL, 0.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'TH(PPM)', NULL, 5.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'C', 'U(PPM)', NULL, 1.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20013, 'I', 'SR87_SR86', NULL, 0.70446, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'F', 'SAMPLE NAME', 'samp. EG19', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'SIO2(WT%)', NULL, 50.21, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'TIO2(WT%)', NULL, 1.55, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'AL2O3(WT%)', NULL, 16.62, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'FEOT(WT%)', NULL, 8.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'CAO(WT%)', NULL, 8.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'MGO(WT%)', NULL, 7.51, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'K2O(WT%)', NULL, 1.33, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'NA2O(WT%)', NULL, 3.77, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'P2O5(WT%)', NULL, 0.43, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'SC(PPM)', NULL, 23, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'CR(PPM)', NULL, 244, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'CO(PPM)', NULL, 37, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'RB(PPM)', NULL, 22, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'SR(PPM)', NULL, 572, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'ZR(PPM)', NULL, 183, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'NB(PPM)', NULL, 17, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'BA(PPM)', NULL, 336, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'LA(PPM)', NULL, 24.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'CE(PPM)', NULL, 51.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'ND(PPM)', NULL, 23.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'SM(PPM)', NULL, 4.82, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'EU(PPM)', NULL, 1.55, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'TB(PPM)', NULL, 0.67, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'YB(PPM)', NULL, 2.28, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'LU(PPM)', NULL, 0.32, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'HF(PPM)', NULL, 3.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'TA(PPM)', NULL, 1.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'TH(PPM)', NULL, 3.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'C', 'U(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20014, 'I', 'SR87_SR86', NULL, 0.70438, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'F', 'SAMPLE NAME', 'samp. EG21', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'SIO2(WT%)', NULL, 48.82, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'TIO2(WT%)', NULL, 1.45, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'AL2O3(WT%)', NULL, 16.18, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'FEOT(WT%)', NULL, 8.09, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'CAO(WT%)', NULL, 9.37, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'MGO(WT%)', NULL, 7.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'MNO(WT%)', NULL, 0.13, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'K2O(WT%)', NULL, 1.48, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'NA2O(WT%)', NULL, 3.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'P2O5(WT%)', NULL, 0.43, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'SC(PPM)', NULL, 24, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'CR(PPM)', NULL, 267, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'CO(PPM)', NULL, 37, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'RB(PPM)', NULL, 26, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'SR(PPM)', NULL, 715, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'Y(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'ZR(PPM)', NULL, 184, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'NB(PPM)', NULL, 14, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'BA(PPM)', NULL, 407, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'LA(PPM)', NULL, 31.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'CE(PPM)', NULL, 64.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'ND(PPM)', NULL, 31, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'SM(PPM)', NULL, 6.48, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'EU(PPM)', NULL, 1.83, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'TB(PPM)', NULL, 0.72, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'YB(PPM)', NULL, 2.27, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'LU(PPM)', NULL, 0.31, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'HF(PPM)', NULL, 3.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'TA(PPM)', NULL, 1, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'TH(PPM)', NULL, 5.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'C', 'U(PPM)', NULL, 1.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20015, 'I', 'SR87_SR86', NULL, 0.70434, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'F', 'SAMPLE NAME', 'samp. EG22', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'F', 'LOCATION COMMENT', 'EGRIKUYU REGION', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'SIO2(WT%)', NULL, 48.46, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'TIO2(WT%)', NULL, 1.32, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'AL2O3(WT%)', NULL, 15.29, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'FEOT(WT%)', NULL, 8.59, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'CAO(WT%)', NULL, 10.46, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'MGO(WT%)', NULL, 10.21, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'K2O(WT%)', NULL, 0.87, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'NA2O(WT%)', NULL, 3.45, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'P2O5(WT%)', NULL, 0.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'RB(PPM)', NULL, 13, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'SR(PPM)', NULL, 574, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'Y(PPM)', NULL, 25, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'ZR(PPM)', NULL, 134, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'NB(PPM)', NULL, 14, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'C', 'BA(PPM)', NULL, 324, NULL);
+INSERT INTO public.sample_attribute VALUES (20016, 'I', 'SR87_SR86', NULL, 0.70476, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'F', 'SAMPLE NAME', 'samp. KP15', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / KARAPINAR', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'SIO2(WT%)', NULL, 47.62, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'TIO2(WT%)', NULL, 1.08, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'AL2O3(WT%)', NULL, 15.07, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'FEOT(WT%)', NULL, 8.17, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'CAO(WT%)', NULL, 9.96, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'MGO(WT%)', NULL, 10.72, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'MNO(WT%)', NULL, 0.13, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'K2O(WT%)', NULL, 0.84, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'NA2O(WT%)', NULL, 2.99, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'P2O5(WT%)', NULL, 0.32, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'SC(PPM)', NULL, 28, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'CR(PPM)', NULL, 474, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'CO(PPM)', NULL, 47, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'RB(PPM)', NULL, 17, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'SR(PPM)', NULL, 569, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'Y(PPM)', NULL, 24, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'ZR(PPM)', NULL, 127, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'NB(PPM)', NULL, 11, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'BA(PPM)', NULL, 317, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'LA(PPM)', NULL, 27.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'CE(PPM)', NULL, 56, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'ND(PPM)', NULL, 22.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'SM(PPM)', NULL, 4.42, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'EU(PPM)', NULL, 1.36, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'TB(PPM)', NULL, 0.61, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'YB(PPM)', NULL, 2.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'LU(PPM)', NULL, 0.34, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'HF(PPM)', NULL, 3.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'TA(PPM)', NULL, 0.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'TH(PPM)', NULL, 6.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'C', 'U(PPM)', NULL, 1.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20017, 'I', 'SR87_SR86', NULL, 0.70536, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'F', 'SAMPLE NAME', 'samp. KP16', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / KARAPINAR', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'SIO2(WT%)', NULL, 49.81, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'TIO2(WT%)', NULL, 1.09, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'AL2O3(WT%)', NULL, 15.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'FEOT(WT%)', NULL, 8.05, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'CAO(WT%)', NULL, 9.73, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'MGO(WT%)', NULL, 10.47, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'MNO(WT%)', NULL, 0.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'K2O(WT%)', NULL, 0.93, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'NA2O(WT%)', NULL, 3.18, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'P2O5(WT%)', NULL, 0.32, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'SC(PPM)', NULL, 27, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'CR(PPM)', NULL, 456, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'CO(PPM)', NULL, 45, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'RB(PPM)', NULL, 20, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'SR(PPM)', NULL, 566, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'Y(PPM)', NULL, 24, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'ZR(PPM)', NULL, 135, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'NB(PPM)', NULL, 11, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'BA(PPM)', NULL, 356, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'LA(PPM)', NULL, 29.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'CE(PPM)', NULL, 55.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'ND(PPM)', NULL, 22.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'SM(PPM)', NULL, 4.56, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'EU(PPM)', NULL, 1.37, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'TB(PPM)', NULL, 0.62, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'YB(PPM)', NULL, 2.24, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'LU(PPM)', NULL, 0.35, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'HF(PPM)', NULL, 2.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'TA(PPM)', NULL, 0.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'TH(PPM)', NULL, 7.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'C', 'U(PPM)', NULL, 1.5, NULL);
+INSERT INTO public.sample_attribute VALUES (20018, 'I', 'SR87_SR86', NULL, 0.70539, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'F', 'SAMPLE NAME', 'samp. KP17', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'F', 'ROCK NAME', 'BASALT', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / KARAPINAR', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'SIO2(WT%)', NULL, 52.29, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'TIO2(WT%)', NULL, 1, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'AL2O3(WT%)', NULL, 15.95, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'FEOT(WT%)', NULL, 7.07, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'CAO(WT%)', NULL, 9.11, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'MGO(WT%)', NULL, 7.86, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'MNO(WT%)', NULL, 0.12, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'K2O(WT%)', NULL, 1.19, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'NA2O(WT%)', NULL, 3.36, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'P2O5(WT%)', NULL, 0.32, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'SC(PPM)', NULL, 24, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'CR(PPM)', NULL, 267, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'CO(PPM)', NULL, 36, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'RB(PPM)', NULL, 25, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'SR(PPM)', NULL, 606, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'Y(PPM)', NULL, 24, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'ZR(PPM)', NULL, 147, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'NB(PPM)', NULL, 12, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'BA(PPM)', NULL, 478, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'LA(PPM)', NULL, 34.6, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'CE(PPM)', NULL, 67.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'ND(PPM)', NULL, 27.1, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'SM(PPM)', NULL, 4.54, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'EU(PPM)', NULL, 1.41, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'TB(PPM)', NULL, 0.67, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'YB(PPM)', NULL, 2.17, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'LU(PPM)', NULL, 0.36, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'HF(PPM)', NULL, 3.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'TA(PPM)', NULL, 0.7, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'TH(PPM)', NULL, 10.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'C', 'U(PPM)', NULL, 2, NULL);
+INSERT INTO public.sample_attribute VALUES (20019, 'I', 'SR87_SR86', NULL, 0.70563, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'F', 'SAMPLE NAME', 'samp. KP18', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'F', 'TYPE OF MATERIAL', 'WHOLE ROCK', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'F', 'ROCK NAME', 'ANDESITE', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'F', 'SAMPLING TECHNIQUE', 'OUTCROP', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'F', 'LOCATION', 'ANATOLIA-IRAN BELT / TURKEY / CENTRAL ANATOLIAN VOLCANIC BELT / KARAPINAR', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'F', 'GEOLOGICAL AGE', 'QUATERNARY', NULL, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'SIO2(WT%)', NULL, 56.38, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'TIO2(WT%)', NULL, 0.78, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'AL2O3(WT%)', NULL, 15.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'FEOT(WT%)', NULL, 5.99, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'CAO(WT%)', NULL, 7.62, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'MGO(WT%)', NULL, 6.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'MNO(WT%)', NULL, 0.11, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'K2O(WT%)', NULL, 2.09, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'NA2O(WT%)', NULL, 3.51, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'P2O5(WT%)', NULL, 0.26, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'SC(PPM)', NULL, 18, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'CR(PPM)', NULL, 234, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'CO(PPM)', NULL, 26, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'RB(PPM)', NULL, 58, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'SR(PPM)', NULL, 669, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'Y(PPM)', NULL, 21, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'ZR(PPM)', NULL, 137, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'NB(PPM)', NULL, 15, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'BA(PPM)', NULL, 766, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'LA(PPM)', NULL, 40.8, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'CE(PPM)', NULL, 76.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'ND(PPM)', NULL, 27.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'SM(PPM)', NULL, 4.59, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'EU(PPM)', NULL, 1.26, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'TB(PPM)', NULL, 0.63, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'YB(PPM)', NULL, 2.14, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'LU(PPM)', NULL, 0.33, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'HF(PPM)', NULL, 3.3, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'TA(PPM)', NULL, 0.9, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'TH(PPM)', NULL, 15.2, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'C', 'U(PPM)', NULL, 3.4, NULL);
+INSERT INTO public.sample_attribute VALUES (20020, 'I', 'SR87_SR86', NULL, 0.70581, NULL);
 
 
 --
--- TOC entry 4959 (class 0 OID 16437)
+-- TOC entry 4965 (class 0 OID 16437)
 -- Dependencies: 231
 -- Data for Name: sample_index; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -24179,56 +22696,42 @@ INSERT INTO public.sample_index VALUES (19939, '2024-06-11 15:15:51.060216+02', 
 INSERT INTO public.sample_index VALUES (19940, '2024-06-11 15:15:51.926494+02', 856);
 INSERT INTO public.sample_index VALUES (19941, '2024-06-11 15:15:52.812076+02', 856);
 INSERT INTO public.sample_index VALUES (19942, '2024-06-11 15:15:53.679287+02', 856);
-INSERT INTO public.sample_index VALUES (19943, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19944, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19945, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19946, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19947, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19948, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19949, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19950, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19951, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19952, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19953, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19954, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19955, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19956, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19957, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19958, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19959, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19960, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19961, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19962, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19963, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19964, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19965, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19966, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19967, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19968, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19969, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19970, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19971, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19972, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19973, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19974, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19975, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19976, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19977, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19978, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19979, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19980, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19981, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19982, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19983, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19984, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19985, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19986, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19987, '2024-07-15 11:26:30.986497+02', 859);
-INSERT INTO public.sample_index VALUES (19988, '2024-07-15 11:26:30.986497+02', 859);
+INSERT INTO public.sample_index VALUES (19989, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19990, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19991, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19992, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19993, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19994, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19995, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19996, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19997, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19998, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (19999, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20000, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20001, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20002, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20003, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20004, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20005, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20006, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20007, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20008, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20009, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20010, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20011, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20012, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20013, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20014, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20015, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20016, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20017, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20018, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20019, '2024-07-16 15:16:19.200874+02', 865);
+INSERT INTO public.sample_index VALUES (20020, '2024-07-16 15:16:19.200874+02', 865);
 
 
 --
--- TOC entry 4961 (class 0 OID 16441)
+-- TOC entry 4967 (class 0 OID 16441)
 -- Dependencies: 233
 -- Data for Name: spider_normalization; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -24242,7 +22745,7 @@ INSERT INTO public.spider_normalization VALUES ('EMORB', '{"U": "0.18", "Y": "22
 
 
 --
--- TOC entry 4962 (class 0 OID 16446)
+-- TOC entry 4968 (class 0 OID 16446)
 -- Dependencies: 234
 -- Data for Name: synonyms; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -24624,7 +23127,7 @@ INSERT INTO public.synonyms VALUES ('ZrO2', 'ZRO2');
 
 
 --
--- TOC entry 4984 (class 0 OID 0)
+-- TOC entry 4991 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: administrators_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -24633,7 +23136,7 @@ SELECT pg_catalog.setval('public.administrators_id_seq', 1, false);
 
 
 --
--- TOC entry 4985 (class 0 OID 0)
+-- TOC entry 4992 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: authors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -24642,16 +23145,16 @@ SELECT pg_catalog.setval('public.authors_id_seq', 2471, true);
 
 
 --
--- TOC entry 4986 (class 0 OID 0)
+-- TOC entry 4993 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: chem_elements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.chem_elements_id_seq', 543, true);
+SELECT pg_catalog.setval('public.chem_elements_id_seq', 574, true);
 
 
 --
--- TOC entry 4987 (class 0 OID 0)
+-- TOC entry 4994 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -24660,7 +23163,7 @@ SELECT pg_catalog.setval('public.countries_id_seq', 1, false);
 
 
 --
--- TOC entry 4988 (class 0 OID 0)
+-- TOC entry 4995 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: dataset_authors_author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -24669,7 +23172,7 @@ SELECT pg_catalog.setval('public.dataset_authors_author_id_seq', 1, false);
 
 
 --
--- TOC entry 4989 (class 0 OID 0)
+-- TOC entry 4996 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: dataset_authors_dataset_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -24678,16 +23181,16 @@ SELECT pg_catalog.setval('public.dataset_authors_dataset_id_seq', 1, false);
 
 
 --
--- TOC entry 4990 (class 0 OID 0)
+-- TOC entry 4997 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: dataset_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.dataset_id_seq', 859, true);
+SELECT pg_catalog.setval('public.dataset_id_seq', 866, true);
 
 
 --
--- TOC entry 4991 (class 0 OID 0)
+-- TOC entry 4998 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: matrix_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -24696,7 +23199,7 @@ SELECT pg_catalog.setval('public.matrix_id_seq', 1, false);
 
 
 --
--- TOC entry 4992 (class 0 OID 0)
+-- TOC entry 4999 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: reservoir_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -24705,16 +23208,16 @@ SELECT pg_catalog.setval('public.reservoir_id_seq', 1321, true);
 
 
 --
--- TOC entry 4993 (class 0 OID 0)
+-- TOC entry 5000 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: sample_index2_sample_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sample_index2_sample_id_seq', 19988, true);
+SELECT pg_catalog.setval('public.sample_index2_sample_id_seq', 20020, true);
 
 
 --
--- TOC entry 4763 (class 2606 OID 16458)
+-- TOC entry 4767 (class 2606 OID 16458)
 -- Name: administrators administrators_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24723,7 +23226,7 @@ ALTER TABLE ONLY public.administrators
 
 
 --
--- TOC entry 4765 (class 2606 OID 16460)
+-- TOC entry 4769 (class 2606 OID 16460)
 -- Name: administrators administrators_un; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24732,7 +23235,7 @@ ALTER TABLE ONLY public.administrators
 
 
 --
--- TOC entry 4768 (class 2606 OID 16462)
+-- TOC entry 4772 (class 2606 OID 16462)
 -- Name: authors authors_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24741,7 +23244,7 @@ ALTER TABLE ONLY public.authors
 
 
 --
--- TOC entry 4771 (class 2606 OID 16464)
+-- TOC entry 4775 (class 2606 OID 16464)
 -- Name: authors authors_un; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24750,7 +23253,7 @@ ALTER TABLE ONLY public.authors
 
 
 --
--- TOC entry 4774 (class 2606 OID 16466)
+-- TOC entry 4778 (class 2606 OID 16466)
 -- Name: chem_elements chem_elements_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24759,7 +23262,7 @@ ALTER TABLE ONLY public.chem_elements
 
 
 --
--- TOC entry 4777 (class 2606 OID 16468)
+-- TOC entry 4781 (class 2606 OID 16468)
 -- Name: countries countries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24768,7 +23271,7 @@ ALTER TABLE ONLY public.countries
 
 
 --
--- TOC entry 4779 (class 2606 OID 16470)
+-- TOC entry 4783 (class 2606 OID 16470)
 -- Name: dataset dataset_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24777,7 +23280,16 @@ ALTER TABLE ONLY public.dataset
 
 
 --
--- TOC entry 4793 (class 2606 OID 73896)
+-- TOC entry 4799 (class 2606 OID 73902)
+-- Name: keywords keywords_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.keywords
+    ADD CONSTRAINT keywords_pk PRIMARY KEY (key);
+
+
+--
+-- TOC entry 4797 (class 2606 OID 73896)
 -- Name: matrix matrix_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24786,7 +23298,7 @@ ALTER TABLE ONLY public.matrix
 
 
 --
--- TOC entry 4791 (class 2606 OID 16530)
+-- TOC entry 4795 (class 2606 OID 16530)
 -- Name: reservoir reservoir_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24795,7 +23307,7 @@ ALTER TABLE ONLY public.reservoir
 
 
 --
--- TOC entry 4783 (class 2606 OID 16472)
+-- TOC entry 4787 (class 2606 OID 16472)
 -- Name: sample_index sample_index_pk2; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24804,7 +23316,7 @@ ALTER TABLE ONLY public.sample_index
 
 
 --
--- TOC entry 4785 (class 2606 OID 16474)
+-- TOC entry 4789 (class 2606 OID 16474)
 -- Name: spider_normalization spider_normalization_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24813,7 +23325,7 @@ ALTER TABLE ONLY public.spider_normalization
 
 
 --
--- TOC entry 4789 (class 2606 OID 16476)
+-- TOC entry 4793 (class 2606 OID 16476)
 -- Name: synonyms synonyms_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24822,7 +23334,7 @@ ALTER TABLE ONLY public.synonyms
 
 
 --
--- TOC entry 4766 (class 1259 OID 16477)
+-- TOC entry 4770 (class 1259 OID 16477)
 -- Name: authors_name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24830,7 +23342,7 @@ CREATE INDEX authors_name_idx ON public.authors USING btree (name);
 
 
 --
--- TOC entry 4769 (class 1259 OID 16478)
+-- TOC entry 4773 (class 1259 OID 16478)
 -- Name: authors_surname_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24838,7 +23350,7 @@ CREATE INDEX authors_surname_idx ON public.authors USING btree (surname);
 
 
 --
--- TOC entry 4772 (class 1259 OID 73883)
+-- TOC entry 4776 (class 1259 OID 73883)
 -- Name: chem_elements_element_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24846,7 +23358,7 @@ CREATE INDEX chem_elements_element_idx ON public.chem_elements USING btree (elem
 
 
 --
--- TOC entry 4775 (class 1259 OID 16480)
+-- TOC entry 4779 (class 1259 OID 16480)
 -- Name: countries_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24854,7 +23366,7 @@ CREATE INDEX countries_index ON public.countries USING btree (country_name);
 
 
 --
--- TOC entry 4780 (class 1259 OID 16481)
+-- TOC entry 4784 (class 1259 OID 16481)
 -- Name: dataset_authors_author_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24862,7 +23374,7 @@ CREATE INDEX dataset_authors_author_id_idx ON public.dataset_authors USING btree
 
 
 --
--- TOC entry 4781 (class 1259 OID 16482)
+-- TOC entry 4785 (class 1259 OID 16482)
 -- Name: dataset_authors_dataset_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24870,7 +23382,7 @@ CREATE INDEX dataset_authors_dataset_id_idx ON public.dataset_authors USING btre
 
 
 --
--- TOC entry 4786 (class 1259 OID 16483)
+-- TOC entry 4790 (class 1259 OID 16483)
 -- Name: synonyms_name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24878,7 +23390,7 @@ CREATE INDEX synonyms_name_idx ON public.synonyms USING btree (name);
 
 
 --
--- TOC entry 4787 (class 1259 OID 16484)
+-- TOC entry 4791 (class 1259 OID 16484)
 -- Name: synonyms_synonym_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24886,7 +23398,7 @@ CREATE INDEX synonyms_synonym_idx ON public.synonyms USING btree (synonym);
 
 
 --
--- TOC entry 4795 (class 2606 OID 16485)
+-- TOC entry 4801 (class 2606 OID 16485)
 -- Name: dataset_authors author_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24895,7 +23407,7 @@ ALTER TABLE ONLY public.dataset_authors
 
 
 --
--- TOC entry 4794 (class 2606 OID 16490)
+-- TOC entry 4800 (class 2606 OID 16490)
 -- Name: coordinates coordinates_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24904,7 +23416,7 @@ ALTER TABLE ONLY public.coordinates
 
 
 --
--- TOC entry 4796 (class 2606 OID 16495)
+-- TOC entry 4802 (class 2606 OID 16495)
 -- Name: dataset_authors dataset_authors_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24913,7 +23425,7 @@ ALTER TABLE ONLY public.dataset_authors
 
 
 --
--- TOC entry 4797 (class 2606 OID 16500)
+-- TOC entry 4803 (class 2606 OID 16500)
 -- Name: dataset_authors dataset_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24922,7 +23434,7 @@ ALTER TABLE ONLY public.dataset_authors
 
 
 --
--- TOC entry 4798 (class 2606 OID 16505)
+-- TOC entry 4804 (class 2606 OID 16505)
 -- Name: sample_attribute sample_attribute_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24931,7 +23443,7 @@ ALTER TABLE ONLY public.sample_attribute
 
 
 --
--- TOC entry 4799 (class 2606 OID 16510)
+-- TOC entry 4805 (class 2606 OID 16510)
 -- Name: sample_index sample_index_dataset_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24939,7 +23451,7 @@ ALTER TABLE ONLY public.sample_index
     ADD CONSTRAINT sample_index_dataset_fk FOREIGN KEY (dataset_id) REFERENCES public.dataset(id);
 
 
--- Completed on 2024-07-15 14:11:32
+-- Completed on 2024-07-16 15:58:04
 
 --
 -- PostgreSQL database dump complete
