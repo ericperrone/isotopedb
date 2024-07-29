@@ -3,7 +3,6 @@ package it.cnr.igg.isotopedb.queries;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import it.cnr.igg.isotopedb.beans.AdministratorBean;
