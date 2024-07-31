@@ -26,6 +26,13 @@ public class ComponentBean extends TheBean {
 		this.isIsotope = isIsotope;
 	}
 	
+	public ComponentBean(String component, Double value, boolean isIsotope, String um) {
+		this.component = component;
+		this.value = value;
+		this.isIsotope = isIsotope;
+		this.um = um;
+	}
+	
 	public ComponentBean() {
 		
 	}

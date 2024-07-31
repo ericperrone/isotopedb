@@ -356,7 +356,7 @@ public class SampleQuery extends Query {
 		String insertSample = "insert into sample_index (ts, dataset_id) values(now(), ?);";
 		String getSampleId = "SELECT currval(pg_get_serial_sequence(\'sample_index\',\'sample_id\')) as sample_id";
 		String insertField = "insert into sample_attribute (sample_id, type, name, svalue) values (?, ?, ?, ?)";
-		String insertChem = "insert into sample_attribute (sample_id, type, name, nvalue) values (?, ?, ?, ?)";
+		String insertChem = "insert into sample_attribute (sample_id, type, name, nvalue, um) values (?, ?, ?, ?, ?)";
 		String insertCoord = "insert into coordinates (sample_id, latitude, longitude) values (?, ?, ?)";
 		try {
 			ElementQuery eq = new ElementQuery();
@@ -428,12 +428,16 @@ public class SampleQuery extends Query {
 				List<ComponentBean> components = sb.getComponents();
 				for (ComponentBean cb : components) {
 					Double value = cb.getValue();
-					if (value != null && value != 0L) {
+					if (value != null && value != 0) {
 						ps = con.prepareStatement(insertChem);
 						ps.setLong(1, sampleId);
 						ps.setString(2, cb.getIsIsotope() == true ? TYPE_ISOTOPE : TYPE_CHEM);
 						ps.setString(3, cb.getComponent());
 						ps.setDouble(4, value);
+						if (cb.getIsIsotope() == false)
+							ps.setString(5, cb.getUm());
+						else
+							ps.setString(5, null);
 						ps.execute();
 						ps.close();
 						ps = null;
