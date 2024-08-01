@@ -58,6 +58,46 @@ public class MatrixQuery extends Query {
 		}
 	}
 	
+	public ArrayList<MatrixBean> getByName(String name) throws DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getByName(con, name);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			cm.closeConnection();
+		}		
+	}
+	
+	public ArrayList<MatrixBean> getByName(Connection con, String name)  throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = baseQuery + " and matrix = ? " + baseOrderBy;
+			ArrayList<MatrixBean> m = new ArrayList<MatrixBean>();
+			ps = con.prepareStatement(query);
+			ps.setString(1, name);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				m.add(new MatrixBean(rs.getLong("id"), rs.getLong("parent_id"), rs.getInt("level"), rs.getString("matrix")));
+			}
+			if (m.size() == 0)
+				m = getByAlias(con, name);
+			return m;
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}		
+	}
+	
 	public ArrayList<MatrixBean> getByAlias(String alias) throws DbException {
 		Connection con = null;
 		try {

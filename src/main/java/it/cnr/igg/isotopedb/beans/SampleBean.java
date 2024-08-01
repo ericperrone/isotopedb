@@ -6,6 +6,7 @@ public class SampleBean extends TheBean {
 	private Long id;
 	private List<ComponentBean> components;
 	private List<SampleFieldBean> fields;
+	private List<MatrixBean> matrices;
 	private Long datasetId;
 	
 	public SampleBean() {
@@ -14,6 +15,7 @@ public class SampleBean extends TheBean {
 		datasetId = -1L;
 		components = null;
 		fields = null;
+		matrices = null;
 	}
 	
 	public void setId(Long id) {
@@ -36,6 +38,10 @@ public class SampleBean extends TheBean {
 		return fields;
 	}
 
+	public List<MatrixBean> getMatrices() {
+		return matrices;
+	}
+	
 	public List<ComponentBean> getComponents() {
 		return components;
 	}
@@ -46,5 +52,9 @@ public class SampleBean extends TheBean {
 
 	public void setFields(List<SampleFieldBean> fields) {
 		this.fields = fields;
+	}
+	
+	public void setMatrices(List<MatrixBean> matrices) {
+		this.matrices = matrices;
 	}
 }
