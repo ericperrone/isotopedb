@@ -5,15 +5,13 @@ import java.util.ArrayList;
 public class MatrixBean extends TheBean {
 	private Long matrixId;
 	private Long parentId;
-	private Integer level;
 	private String matrix;
 	private ArrayList<String> aliases;
 	
-	public MatrixBean(Long matrixId, Long parentId, Integer level, String matrix) {
+	public MatrixBean(Long matrixId, Long parentId, String matrix) {
 		super();
 		this.matrixId = matrixId;
 		this.parentId = parentId;
-		this.level = level;
 		this.matrix = matrix;
 	}
 
@@ -23,10 +21,6 @@ public class MatrixBean extends TheBean {
 
 	public Long getParentId() {
 		return parentId;
-	}
-
-	public Integer getLevel() {
-		return level;
 	}
 
 	public String getMatrix() {

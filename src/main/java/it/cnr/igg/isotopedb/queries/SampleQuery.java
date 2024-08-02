@@ -446,6 +446,12 @@ public class SampleQuery extends Query {
 						}
 					}
 				}
+				
+				// step 5: set matrix
+				if (sb.getMatrices() != null && sb.getMatrices().size() > 0) {
+					MatrixQuery mq = new MatrixQuery();
+					mq.insertSampleMatrix(sampleId, (ArrayList)sb.getMatrices());
+				}
 			}
 			ArrayList<ElementBean> ls = new ArrayList<ElementBean>();
 			for (ElementBean em : hm.values()) {
