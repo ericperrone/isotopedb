@@ -14,8 +14,8 @@ import it.cnr.igg.isotopedb.exceptions.DbException;
 
 public class MatrixQuery extends Query {
 
-	private String baseQuery = "select m.id, m.matrix, m.parent_id from matrix m where 1=1 ";
-	private String baseOrderBy = "order by m.id, m.matrix";
+	private String baseQuery = "select m.matrix, m.nodeid, m.parent_nodeid from matrix m where 1=1 ";
+	private String baseOrderBy = "order by m.nodeid, m.matrix";
 
 	public MatrixQuery() {
 		super();
@@ -43,7 +43,7 @@ public class MatrixQuery extends Query {
 			ps = con.prepareStatement(baseQuery + baseOrderBy);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				m.add(new MatrixBean(rs.getLong("id"), rs.getLong("parent_id"), rs.getString("matrix")));
+				m.add(new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), rs.getString("matrix")));
 			}
 			return m;
 		} catch (Exception ex) {
@@ -75,13 +75,13 @@ public class MatrixQuery extends Query {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = baseQuery + " and matrix = ? " + baseOrderBy;
+			String query = baseQuery + " and lower(matrix) = ? " + baseOrderBy;
 			ArrayList<MatrixBean> m = new ArrayList<MatrixBean>();
 			ps = con.prepareStatement(query);
-			ps.setString(1, name);
+			ps.setString(1, name.toLowerCase());
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				m.add(new MatrixBean(rs.getLong("id"), rs.getLong("parent_id"), rs.getString("matrix")));
+				m.add(new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), rs.getString("matrix")));
 			}
 			if (m.size() == 0)
 				m = getByAlias(con, name);
@@ -112,7 +112,7 @@ public class MatrixQuery extends Query {
 	}
 
 	public ArrayList<MatrixBean> getByAlias(Connection con, String alias) throws Exception, DbException {
-		String query = "select m.id, m.matrix, m.parent_id from matrix m where m.id = (select ma.matrix_id from matrix_aliases ma where ma.alias = ?)";
+		String query = "select m.nodeid , m.matrix, m.parent_nodeid from matrix m where m.nodeid = (select ma.matrix_id from matrix_aliases ma where ma.alias = ?)";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -122,7 +122,7 @@ public class MatrixQuery extends Query {
 			ps.setString(1, alias);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				m.add(new MatrixBean(rs.getLong("id"), rs.getLong("parent_id"), rs.getString("matrix")));
+				m.add(new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), rs.getString("matrix")));
 			}
 			return m;
 		} catch (Exception ex) {
@@ -158,7 +158,7 @@ public class MatrixQuery extends Query {
 			for (MatrixBean mb : beans) {
 				ps = con.prepareStatement(insert);
 				ps.setLong(1, sampleId);
-				ps.setLong(2, mb.getMatrixId());
+				ps.setLong(2, mb.getNodeId());
 				ps.execute();
 				ps.close();
 				ps = null;

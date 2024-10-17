@@ -3,24 +3,24 @@ package it.cnr.igg.isotopedb.beans;
 import java.util.ArrayList;
 
 public class MatrixBean extends TheBean {
-	private Long matrixId;
-	private Long parentId;
+	private Long nodeId;
+	private Long parentNodeId;
 	private String matrix;
 	private ArrayList<String> aliases;
 	
-	public MatrixBean(Long matrixId, Long parentId, String matrix) {
+	public MatrixBean(Long nodeId, Long parentNodeId, String matrix) {
 		super();
-		this.matrixId = matrixId;
-		this.parentId = parentId;
+		this.nodeId = nodeId;
+		this.parentNodeId = parentNodeId;
 		this.matrix = matrix;
 	}
 
-	public Long getMatrixId() {
-		return matrixId;
+	public Long getNodeId() {
+		return nodeId;
 	}
 
-	public Long getParentId() {
-		return parentId;
+	public Long getParentNodeId() {
+		return parentNodeId;
 	}
 
 	public String getMatrix() {
