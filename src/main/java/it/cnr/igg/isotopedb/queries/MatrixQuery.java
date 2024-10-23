@@ -15,7 +15,7 @@ import it.cnr.igg.isotopedb.exceptions.DbException;
 public class MatrixQuery extends Query {
 
 	private String baseQuery = "select m.matrix, m.nodeid, m.parent_nodeid from matrix m where 1=1 ";
-	private String baseOrderBy = "order by m.nodeid, m.matrix";
+	private String baseOrderBy = "order by m.nodeid";
 
 	public MatrixQuery() {
 		super();
@@ -31,6 +31,187 @@ public class MatrixQuery extends Query {
 			throw new DbException(ex.getMessage());
 		} finally {
 			cm.closeConnection();
+		}
+	}
+
+	public ArrayList<MatrixBean> getRoots() throws DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getRoots(con);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			cm.closeConnection();
+		}
+	}
+
+	public ArrayList<MatrixBean> getRoots(Connection con) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ArrayList<MatrixBean> m = new ArrayList<MatrixBean>();
+			ps = con.prepareStatement(baseQuery + " and parent_nodeid is null " + baseOrderBy);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				m.add(new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), rs.getString("matrix")));
+			}
+			return m;
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
+
+	public ArrayList<MatrixBean> getChildren(Integer nodeId) throws DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getChildren(con, nodeId);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			cm.closeConnection();
+		}
+	}
+
+	public ArrayList<MatrixBean> getChildren(Connection con, Integer nodeId) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = baseQuery + " and parent_nodeid = ? order by nodeid";
+
+		try {
+			ArrayList<MatrixBean> m = new ArrayList<MatrixBean>();
+			ps = con.prepareStatement(query);
+			ps.setInt(1, nodeId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				m.add(new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), rs.getString("matrix")));
+			}
+			return m;
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
+
+	public MatrixBean getNode(Integer nodeId) throws DbException, Exception {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		MatrixBean bean = null;
+
+		try {
+			con = cm.createConnection();
+			ps = con.prepareStatement(baseQuery + " and nodeid = ?");
+			ps.setInt(1, nodeId);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				bean = new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), rs.getString("matrix"));
+			}
+			return bean;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			cm.closeConnection();
+		}
+	}
+
+	public ArrayList<MatrixBean> getAncestor(Integer nodeId) throws DbException, Exception {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<MatrixBean> beans = new ArrayList<MatrixBean>();
+
+		try {
+			con = cm.createConnection();
+			ps = con.prepareStatement("select parent_nodeid from matrix where nodeid = ?");
+			ps.setInt(1, nodeId);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				Integer parent = rs.getInt(1);
+				if (parent != null) {
+					return getChildren(con, parent);
+				}
+			}
+
+			return beans;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			cm.closeConnection();
+		}
+	}
+
+	public ArrayList<MatrixBean> getTree(Integer nodeId) throws DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getTree(con, nodeId);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			cm.closeConnection();
+		}
+	}
+
+	public ArrayList<MatrixBean> getTree(Connection con, Integer nodeId) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = baseQuery + " and nodeid between ? and ? order by nodeid";
+
+		try {
+			ArrayList<MatrixBean> m = new ArrayList<MatrixBean>();
+			ps = con.prepareStatement(query);
+			Integer limit = nodeId - 1 + 10000;
+			ps.setInt(1, nodeId);
+			ps.setInt(2, limit);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				m.add(new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), rs.getString("matrix")));
+			}
+			return m;
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
 		}
 	}
 
