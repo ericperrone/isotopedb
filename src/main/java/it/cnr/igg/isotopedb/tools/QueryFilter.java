@@ -29,6 +29,7 @@ public class QueryFilter {
 	public GeoCoord coordinates;
 	public ArrayList<DatasetBean> datasets;
 	public Integer year;
+	public Integer matrixId;
 	public static final String AND = "AND";
 	public static final String OR = "OR";
 	
@@ -48,7 +49,16 @@ public class QueryFilter {
 		}
 	}
 	
-
+	public void setMatrixId(String operator, Integer matrixId) throws DbException {
+		setOperator(operator);
+		this.matrixId = matrixId;
+		year = null;
+		keywords = null;
+		reference = null;
+		coordinates = null;	
+		authors = null;
+	}
+	
 	public void setYear(String operator, String year) throws DbException {
 		setOperator(operator);
 		this.year = Integer.valueOf(year);
@@ -56,6 +66,7 @@ public class QueryFilter {
 		reference = null;
 		coordinates = null;	
 		authors = null;
+		matrixId = null;
 	}
 
 	public void setYear(String operator, Integer year) throws DbException {
@@ -65,7 +76,7 @@ public class QueryFilter {
 		keywords = null;
 		reference = null;
 		coordinates = null;		
-
+		matrixId = null;
 	}
 	
 	public void setAuthors(String operator, ArrayList<String> authors) throws DbException {
@@ -75,6 +86,7 @@ public class QueryFilter {
 		reference = null;
 		coordinates = null;	
 		year = null;
+		matrixId = null;
 	}
 	
 	public void setKeywords(String operator, ArrayList<String> keywords) throws DbException {
@@ -84,6 +96,7 @@ public class QueryFilter {
 		reference = null;
 		coordinates = null;		
 		year = null;
+		matrixId = null;
 	}
 	
 	public void setReference(String operator, String reference) throws DbException {
@@ -93,6 +106,7 @@ public class QueryFilter {
 		this.reference = reference;
 		coordinates = null;		
 		year = null;
+		matrixId = null;
 	}
 	
 	public void setCoordinates(String operator, GeoCoord coordinates) throws DbException {
@@ -102,5 +116,6 @@ public class QueryFilter {
 		reference = null;
 		this.coordinates = coordinates;	
 		year = null;
+		matrixId = null;
 	}
 }

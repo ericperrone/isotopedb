@@ -214,6 +214,35 @@ public class MatrixQuery extends Query {
 			}
 		}
 	}
+	
+	public ArrayList<Integer> getSubTree(Connection con, Integer nodeId) throws Exception, DbException  {
+		ArrayList<Integer> subTree = new ArrayList<Integer>();
+		getSubTreeRc(con, subTree, nodeId);
+		return subTree;
+	}
+	
+	public void getSubTreeRc(Connection con, ArrayList<Integer> subTree, Integer nodeId) throws Exception, DbException  {
+		subTree.add(nodeId);
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement("select nodeid from matrix where parent_nodeid = ?");
+			ps.setInt(1, nodeId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				getSubTreeRc(con, subTree, rs.getInt(1));
+			}
+		} catch (Exception x) {
+			x.printStackTrace();
+			throw new DbException(x.getMessage());
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null)
+				ps.close();
+		}
+	}
 
 	public ArrayList<MatrixBean> getAll(Connection con) throws Exception, DbException {
 		PreparedStatement ps = null;

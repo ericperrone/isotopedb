@@ -12,6 +12,7 @@ import it.cnr.igg.isotopedb.beans.AuthorBean;
 import it.cnr.igg.isotopedb.beans.ComponentBean;
 import it.cnr.igg.isotopedb.beans.DatasetBean;
 import it.cnr.igg.isotopedb.beans.ElementBean;
+import it.cnr.igg.isotopedb.beans.MatrixBean;
 import it.cnr.igg.isotopedb.beans.SampleBean;
 import it.cnr.igg.isotopedb.beans.SampleFieldBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
@@ -192,9 +193,12 @@ public class SampleQuery extends Query {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
+				+ "m.matrix, "
 				+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
 				+ "left join coord c on c.sample_id = sa.sample_id "
 				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
+				+ "left join sample_matrix sm on sm.sample_id = sa.sample_id "
+				+ "left join matrix m on sm.matrix_id = m.nodeid " 				
 				+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
 		for (QueryFilter f : filters) {
 			if ((f.datasets != null) && f.datasets.size() > 0) {
@@ -212,11 +216,23 @@ public class SampleQuery extends Query {
 				queryData += " and longitude >= " + f.coordinates.minLong + " and longitude <= "
 						+ f.coordinates.maxLong + ")";				
 			}
+			if (f.matrixId != null) {
+				MatrixQuery mq = new MatrixQuery();
+				ArrayList<Integer> nodeIds = mq.getSubTree(con, f.matrixId);
+				String in = "";
+				for (Integer id : nodeIds) {
+					in += id + ",";
+				}
+				in = in.substring(0, in.length() - 1);
+				queryData += " " + f.operator;
+				queryData += " sm.matrix_id in (" + in + ")";
+			}
 		}
 		queryData += " order by si.sample_id";
 
 		try {
 			System.out.println(queryData);
+			// getSubTree
 			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
 
 			ps = con.prepareStatement(queryData);
@@ -270,9 +286,11 @@ public class SampleQuery extends Query {
 		ResultSet rs = null;
 		try {
 			String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
+					+ "m.matrix, "
 					+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
 					+ "left join coord c on c.sample_id = sa.sample_id "
 					+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
+					+ "left join matrix m on sm.matrix_id = m.nodeid " 
 					+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
 			if (filter.datasets.size() > 0) {
 				queryData += " and si.dataset_id in (";
@@ -448,9 +466,11 @@ public class SampleQuery extends Query {
 				}
 				
 				// step 5: set matrix
-				if (sb.getMatrices() != null && sb.getMatrices().size() > 0) {
+				if (sb.getMatrix() != null) {
 					MatrixQuery mq = new MatrixQuery();
-					mq.insertSampleMatrix(sampleId, (ArrayList)sb.getMatrices());
+					ArrayList<MatrixBean> beans = new ArrayList<MatrixBean>();
+					beans.add(sb.getMatrix());
+					mq.insertSampleMatrix(sampleId, beans);
 				}
 			}
 			ArrayList<ElementBean> ls = new ArrayList<ElementBean>();
