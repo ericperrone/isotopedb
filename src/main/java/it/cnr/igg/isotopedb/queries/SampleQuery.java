@@ -193,7 +193,7 @@ public class SampleQuery extends Query {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
-				+ "m.matrix, "
+				+ "m.matrix, m.nodeid, m.parent_nodeid, "
 				+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
 				+ "left join coord c on c.sample_id = sa.sample_id "
 				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
@@ -250,6 +250,13 @@ public class SampleQuery extends Query {
 					bean.getFields().add(sfb);
 					index.put(id, bean);
 				}
+				String matrix = rs.getString("matrix");
+				if (matrix != null) {
+					index.get(id).setMatrix(new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), matrix));
+					SampleFieldBean sfb = new SampleFieldBean("MATRIX", matrix);
+					index.get(id).getFields().add(sfb);
+				}
+
 				String type = rs.getString("type");
 				switch (type) {
 				case TYPE_FIELD:
