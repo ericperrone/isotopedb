@@ -2,35 +2,51 @@ package it.cnr.igg.isotopedb.beans;
 
 public class DatasetBean extends TheBean {
 	private Long id;
-	private String fileName, metadata;
+	private String fileName, keywords;
 	private String authors, link;
 	private Integer year;
 	private boolean processed;
+	private String metadata;
 	
-	public DatasetBean(String fileName, String metadata,
+	public DatasetBean(String fileName, String keywords,
 			String authors, String link,
 			int year,
 			boolean processed) {
 		super();
 		this.fileName = fileName;
-		this.metadata = metadata;
+		this.keywords = keywords;
 		this.processed = processed;
 		this.authors = authors;
 		this.link = link;
 		this.year = year;
 	}
 	
-	public DatasetBean(Long id, String fileName, String metadata,
+	public DatasetBean(Long id, String fileName, String keywords,
 			String authors, String link,
 			int year,
 			boolean processed) {
 		super();
 		this.id = id;
 		this.fileName = fileName;
-		this.metadata = metadata;
+		this.keywords = keywords;
 		this.processed = processed;
 		this.authors = authors;
 		this.link = link;
+		this.year = year;
+	}
+	
+	public DatasetBean(Long id, String fileName, String keywords,
+			String authors, String link, String metadata,
+			int year,
+			boolean processed) {
+		super();
+		this.id = id;
+		this.fileName = fileName;
+		this.keywords = keywords;
+		this.processed = processed;
+		this.authors = authors;
+		this.link = link;
+		this.metadata = metadata;
 		this.year = year;
 	}
 
@@ -38,7 +54,7 @@ public class DatasetBean extends TheBean {
 		super();
 		this.id = -1L;
 		this.fileName = null;
-		this.metadata = null;
+		this.keywords = null;
 		this.authors = null;
 		this.link = null;
 		this.year = -1;
@@ -65,6 +81,10 @@ public class DatasetBean extends TheBean {
 		return fileName;
 	}
 
+	public String getKeywords() {
+		return keywords;
+	}
+	
 	public String getMetadata() {
 		return metadata;
 	}
@@ -76,13 +96,17 @@ public class DatasetBean extends TheBean {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public void setMetadata(String metadata) {
+		this.metadata = metadata;
+	}
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 
-	public void setMetadata(String metadata) {
-		this.metadata = metadata;
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 
 	public void setProcessed(boolean processed) {

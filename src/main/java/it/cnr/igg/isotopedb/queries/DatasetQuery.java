@@ -150,12 +150,12 @@ public class DatasetQuery extends Query {
 			throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String insert = "insert into dataset (file_name, metadata, processed, link, authors, year) values (?,?,?,?,?,?)";
+		String insert = "insert into dataset (file_name, keywords, processed, link, authors, year) values (?,?,?,?,?,?)";
 		String getId = "SELECT currval(pg_get_serial_sequence(\'dataset\',\'id\')) as id";
 		try {
 			ps = con.prepareStatement(insert);
 			ps.setString(1, bean.getFileName());
-			ps.setString(2, bean.getMetadata());
+			ps.setString(2, bean.getKeywords());
 			ps.setBoolean(3, processed);
 			ps.setString(4, bean.getLink());
 			ps.setString(5, bean.getAuthors());
@@ -289,7 +289,7 @@ public class DatasetQuery extends Query {
 
 			if (rs.next()) {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-						rs.getString("metadata"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
 						rs.getBoolean("processed"));
 				return bean;
 			}
@@ -344,7 +344,7 @@ public class DatasetQuery extends Query {
 
 				while (rs.next()) {
 					DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-							rs.getString("metadata"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
 							rs.getBoolean("processed"));
 					beans.add(bean);
 				}
@@ -384,9 +384,9 @@ public class DatasetQuery extends Query {
 	private String manageKeywords(QueryFilter f) {
 		String query = "";
 		if (f.keywords.size() == 1) {
-			query = f.operator + " lower(metadata) similar to '%" + f.keywords.get(0).toLowerCase() + "%'";
+			query = f.operator + " lower(keywords) similar to '%" + f.keywords.get(0).toLowerCase() + "%'";
 		} else {
-			query = f.operator + " lower(metadata) similar to '%(\"";
+			query = f.operator + " lower(keywords) similar to '%(\"";
 			for (String key : f.keywords) {
 				query += "(" + key.toLowerCase() + ")|";
 			}
@@ -435,7 +435,7 @@ public class DatasetQuery extends Query {
 			}
 
 			if (queryFilter.keywords != null) {
-				query += " and lower(metadata) similar to '%(";
+				query += " and lower(keywords) similar to '%(";
 				for (String key : queryFilter.keywords) {
 					query += "(" + key.toLowerCase() + ")|";
 				}
@@ -467,7 +467,7 @@ public class DatasetQuery extends Query {
 
 				while (rs.next()) {
 					DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-							rs.getString("metadata"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
 							rs.getBoolean("processed"));
 					beans.add(bean);
 				}
@@ -510,8 +510,8 @@ public class DatasetQuery extends Query {
 		if (filter.getFileName() != null) {
 			query += " and lower(file_name) like ?";
 		}
-		if (filter.getMetadata() != null) {
-			query += " and metadata like ?";
+		if (filter.getKeywords() != null) {
+			query += " and keywords like ?";
 		}
 		if (filter.getLink() != null) {
 			query += " and lower(link) like ?";
@@ -528,9 +528,9 @@ public class DatasetQuery extends Query {
 			query += "(" + authors[authors.length - 1].toLowerCase().trim() + ")";
 			query += ")%'";
 		}
-		if (filter.getMetadata() != null) {
-			String[] keywords = filter.getMetadata().split(" ");
-			query += " and lower(metadata) similar to '%(";
+		if (filter.getKeywords() != null) {
+			String[] keywords = filter.getKeywords().split(" ");
+			query += " and lower(keywords) similar to '%(";
 			for (int i = 0; i < keywords.length - 2; i++) {
 				query += "(" + keywords[i].toLowerCase().trim() + ")|";
 			}
@@ -551,7 +551,7 @@ public class DatasetQuery extends Query {
 				ps.setString(position, "%" + filter.getFileName().toLowerCase() + "%");
 				position++;
 			}
-			if (filter.getMetadata() != null) {
+			if (filter.getKeywords() != null) {
 				ps.setString(position, "%" + filter.getLink().toLowerCase() + "%");
 				position++;
 			}
@@ -563,7 +563,7 @@ public class DatasetQuery extends Query {
 
 			while (rs.next()) {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-						rs.getString("metadata"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
 						rs.getBoolean("processed"));
 				beans.add(bean);
 			}
