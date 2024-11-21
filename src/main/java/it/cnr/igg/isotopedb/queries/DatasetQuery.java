@@ -150,7 +150,7 @@ public class DatasetQuery extends Query {
 			throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String insert = "insert into dataset (file_name, keywords, processed, link, authors, year) values (?,?,?,?,?,?)";
+		String insert = "insert into dataset (file_name, keywords, processed, link, authors, year, metadata) values (?,?,?,?,?,?)";
 		String getId = "SELECT currval(pg_get_serial_sequence(\'dataset\',\'id\')) as id";
 		try {
 			ps = con.prepareStatement(insert);
@@ -160,6 +160,7 @@ public class DatasetQuery extends Query {
 			ps.setString(4, bean.getLink());
 			ps.setString(5, bean.getAuthors());
 			ps.setInt(6, bean.getYear());
+			ps.setString(7, bean.getMetadata() == null ? "" : bean.getMetadata());
 			ps.execute();
 			ps.close();
 			ps = null;
@@ -425,13 +426,7 @@ public class DatasetQuery extends Query {
 
 				query = query.substring(0, query.length() - 4);
 				query += ")))";
-
-//				query += " and lower(authors) similar to '%(";
-//				for (String auth : queryFilter.authors) {
-//					query += "(" + auth.toLowerCase() + ")|";
-//				}
-//				query = query.substring(0, query.length() - 1);
-//				query += ")%'";
+				query += ")%'";
 			}
 
 			if (queryFilter.keywords != null) {
@@ -563,7 +558,7 @@ public class DatasetQuery extends Query {
 
 			while (rs.next()) {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
 						rs.getBoolean("processed"));
 				beans.add(bean);
 			}
