@@ -150,7 +150,7 @@ public class DatasetQuery extends Query {
 			throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String insert = "insert into dataset (file_name, keywords, processed, link, authors, year, metadata) values (?,?,?,?,?,?)";
+		String insert = "insert into dataset (file_name, keywords, processed, link, authors, year, metadata) values (?,?,?,?,?,?,?)";
 		String getId = "SELECT currval(pg_get_serial_sequence(\'dataset\',\'id\')) as id";
 		try {
 			ps = con.prepareStatement(insert);
@@ -277,20 +277,20 @@ public class DatasetQuery extends Query {
 		}
 	}
 
-	public DatasetBean findByDOI(String DOI, Connection con) throws Exception, DbException {
+	public DatasetBean findByLink(String link, Connection con) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String query = "select * from dataset where link=?";
 		try {
 			con = cm.createConnection();
 			ps = con.prepareStatement(query);
-			ps.setString(1, DOI);
+			ps.setString(1, link);
 			int position = 1;
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
 						rs.getBoolean("processed"));
 				return bean;
 			}
@@ -345,7 +345,7 @@ public class DatasetQuery extends Query {
 
 				while (rs.next()) {
 					DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
 							rs.getBoolean("processed"));
 					beans.add(bean);
 				}
@@ -462,7 +462,7 @@ public class DatasetQuery extends Query {
 
 				while (rs.next()) {
 					DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getInt("year"),
+							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
 							rs.getBoolean("processed"));
 					beans.add(bean);
 				}
