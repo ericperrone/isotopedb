@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -462,7 +463,7 @@ public class SampleQuery extends Query {
 						if (cb.getIsIsotope() == false)
 							ps.setString(5, cb.getUm());
 						else
-							ps.setString(5, null);
+							ps.setNull(5, Types.VARCHAR);
 						ps.execute();
 						ps.close();
 						ps = null;
@@ -534,6 +535,8 @@ public class SampleQuery extends Query {
 	}
 
 	private String parseGps(String s) {
+		s = s.replaceAll(" ", "");
+		s = s.replaceAll("\"", "''");
 		String gradi = s.substring(0, s.indexOf("°"));
 		String primi = s.substring(s.indexOf("°") + 1, s.indexOf("'"));
 		String secondi = s.substring(s.indexOf("'") + 1, s.indexOf("''"));
