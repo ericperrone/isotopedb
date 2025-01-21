@@ -537,6 +537,8 @@ public class SampleQuery extends Query {
 	private String parseGps(String s) {
 		s = s.replaceAll(" ", "");
 		s = s.replaceAll("\"", "''");
+		s = s.replaceAll("′", "'");
+		s = s.replaceAll("″", "''");
 		String gradi = s.substring(0, s.indexOf("°"));
 		String primi = s.substring(s.indexOf("°") + 1, s.indexOf("'"));
 		String secondi = s.substring(s.indexOf("'") + 1, s.indexOf("''"));
@@ -546,6 +548,7 @@ public class SampleQuery extends Query {
 		Double gr = g + p / 60d + sc / 3600d;
 		return "" + gr;
 	}
+
 
 	private String removeSpaces(String s) {
 		s = s.trim();
@@ -558,20 +561,27 @@ public class SampleQuery extends Query {
 	}
 
 	public static void main(String[] args) {
-		String lat = "45° 28' 12'' N";
-		String lon = "9° 10' 12'' E";
+//		String lat = "45° 28' 12'' N";
+//		String lon = "9° 10' 12'' E";
 		// 38°45'18''N
 
 		SampleQuery sq = new SampleQuery();
-		String[] coord = sq.toEpsg4326(lat, lon);
-		System.out.println(coord[0]);
-		System.out.println(coord[1]);
-
-		lat = "38°45'18''N";
-		lon = "34°36'44''E";
-		coord = sq.toEpsg4326(lat, lon);
-		System.out.println(coord[0]);
-		System.out.println(coord[1]);
+		String in = "11°05′ 06″ ";
+		String ugly = "" + in.charAt(5);
+		String ugly2 = "" + in.charAt(9);
+		System.out.println(ugly);
+		System.out.println(ugly2);
+		
+		 sq.parseGps(in);
+//		String[] coord = sq.toEpsg4326(lat, lon);
+//		System.out.println(coord[0]);
+//		System.out.println(coord[1]);
+//
+//		lat = "38°45'18''N";
+//		lon = "34°36'44''E";
+//		coord = sq.toEpsg4326(lat, lon);
+//		System.out.println(coord[0]);
+//		System.out.println(coord[1]);
 	}
 
 	private ElementBean toElementBean(ComponentBean bean) {
