@@ -49,6 +49,15 @@ public class QueryFilter {
 		}
 	}
 	
+	public ArrayList<QueryFilterItem> getDatasetItemsByType(String type) {
+		ArrayList<QueryFilterItem> items = new ArrayList<QueryFilterItem>();
+		for (QueryFilterItem q : this.datasets) {
+			if (q.type.equals(type)) 
+				items.add(q);
+		}
+		return items;
+	}
+	
 	public void setMatrixId(String operator, Integer matrixId) throws DbException {
 		setOperator(operator);
 		this.matrixId = matrixId;

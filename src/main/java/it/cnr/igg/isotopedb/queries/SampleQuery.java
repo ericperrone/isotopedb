@@ -201,26 +201,84 @@ public class SampleQuery extends Query {
 				+ "left join sample_matrix sm on sm.sample_id = sa.sample_id "
 				+ "left join matrix m on sm.matrix_id = m.nodeid " + "where type in ('F', 'I', 'C') "
 				+ "and sa.sample_id = si.sample_id ";
-		if (filters.size() > 0)
-			queryData += "and (";
+//		if (filters.size() > 0)
+//			queryData += "and (";
 
-		int nFilter = 1;
+//		int nFilter = 1;
 		
 		for (QueryFilter f : filters) {
 			if ((f.datasets != null) && f.datasets.size() > 0) {
-				for (QueryFilterItem qfi : f.datasets) {
-					queryData += nFilter > 1 ? " " + qfi.operator : " ";
-					queryData += " si.dataset_id in (";
-					queryData += qfi.bean.getId() + ",";
-					queryData = queryData.substring(0, queryData.length() - 1);
-					queryData += ")";
+				ArrayList<QueryFilterItem> authors = f.getDatasetItemsByType(QueryFilterItem.TYPE_AUTHOR);
+				ArrayList<QueryFilterItem> keywords = f.getDatasetItemsByType(QueryFilterItem.TYPE_KEYWORD);
+				ArrayList<QueryFilterItem> references = f.getDatasetItemsByType(QueryFilterItem.TYPE_REFERENCE);
+				ArrayList<QueryFilterItem> years = f.getDatasetItemsByType(QueryFilterItem.TYPE_YEAR);
+
+				if (authors.size() > 0) {
+					queryData += authors.get(0).operator + " (";
+					int n = 1;
+					for (QueryFilterItem qfi : authors) {
+						queryData += n > 1 ? " or si.dataset_id in (" : "si.dataset_id in (";
+						queryData += qfi.bean.getId() + ",";
+						queryData = queryData.substring(0, queryData.length() - 1);
+						queryData += ")";
+						n++;
+					}
+					queryData += ") ";
 				}
+					
+				if (keywords.size() > 0) {
+					queryData += keywords.get(0).operator + " (";
+					int n = 1;
+					for (QueryFilterItem qfi : keywords) {
+						queryData += n > 1 ? " or si.dataset_id in (" : "si.dataset_id in (";
+						queryData += qfi.bean.getId() + ",";
+						queryData = queryData.substring(0, queryData.length() - 1);
+						queryData += ")";	
+						n++;
+					}
+					queryData += ") ";
+				}					
+					
+				if (references.size() > 0) {
+					queryData += references.get(0).operator + " (";
+					int n = 1;
+					for (QueryFilterItem qfi : references) {
+						queryData += n > 1 ? " or si.dataset_id in (" : " si.dataset_id in (";
+						queryData += qfi.bean.getId() + ",";
+						queryData = queryData.substring(0, queryData.length() - 1);
+						queryData += ")";	
+						n++;
+					}
+					queryData += ") ";
+				}					
+										
+				if (years.size() > 0) {
+					queryData += years.get(0).operator + " (";
+					int n = 1;
+					for (QueryFilterItem qfi : years) {
+						queryData += n > 1 ? " or si.dataset_id in (" : " si.dataset_id in (";
+						queryData += qfi.bean.getId() + ",";
+						queryData = queryData.substring(0, queryData.length() - 1);
+						queryData += ")";						
+					}
+					queryData += ") ";
+				}
+				
+//				for (QueryFilterItem qfi : authors) {
+//					queryData += nFilter > 1 ? " " + qfi.operator : " ";
+//					queryData += " si.dataset_id in (";
+//					queryData += qfi.bean.getId() + ",";
+//					queryData = queryData.substring(0, queryData.length() - 1);
+//					queryData += ")";
+//					++nFilter;
+//				}
 			}
 			if (f.coordinates != null) {
-				queryData += nFilter > 1 ? " " + f.operator: " ";
-				queryData += " (latitude >= " + f.coordinates.minLat + " and latitude <= " + f.coordinates.maxLat;
+//				queryData += nFilter > 1 ? " " + f.operator: " ";
+				queryData += f.operator + " (latitude >= " + f.coordinates.minLat + " and latitude <= " + f.coordinates.maxLat;
 				queryData += " and longitude >= " + f.coordinates.minLong + " and longitude <= " + f.coordinates.maxLong
-						+ ")";
+						+ ") ";
+//				++nFilter;
 			}
 			if (f.matrixId != null) {
 				MatrixQuery mq = new MatrixQuery();
@@ -230,13 +288,13 @@ public class SampleQuery extends Query {
 					in += id + ",";
 				}
 				in = in.substring(0, in.length() - 1);
-				queryData += nFilter > 1 ? " " + f.operator : " ";
-				queryData += " sm.matrix_id in (" + in + ")";
+//				queryData += nFilter > 1 ? " " + f.operator : " ";
+				queryData += f.operator + " sm.matrix_id in (" + in + ") ";
+//				++nFilter;
 			}
-			++nFilter;
 		}
-		if (filters.size() > 0)
-			queryData += ")";
+//		if (filters.size() > 0)
+//			queryData += ")";
 
 		queryData += " order by si.sample_id";
 

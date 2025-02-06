@@ -328,11 +328,11 @@ public class DatasetQuery extends Query {
 				query += subQuery;
 				ArrayList<DatasetBean> beans = executeDatasetQuery(query, con);
 				String operator = f.operator;
-				if (beans.size() > 1) {
-					operator = "OR";
-				}
+//				if (beans.size() > 1) {
+//					operator = "OR";
+//				}
 				for (DatasetBean b : beans) {
-					list.add(new QueryFilterItem(operator, b));
+					list.add(new QueryFilterItem(QueryFilterItem.TYPE_AUTHOR, operator, b));
 				}
 				return list;
 			}
@@ -360,7 +360,7 @@ public class DatasetQuery extends Query {
 				query += subQuery;
 				ArrayList<DatasetBean> beans = executeDatasetQuery(query, con);
 				for (DatasetBean b : beans) {
-					list.add(new QueryFilterItem(f.operator, b));
+					list.add(new QueryFilterItem(QueryFilterItem.TYPE_YEAR, f.operator, b));
 				}
 				return list;
 			}
@@ -388,7 +388,7 @@ public class DatasetQuery extends Query {
 				query += subQuery;
 				ArrayList<DatasetBean> beans = executeDatasetQuery(query, con);
 				for (DatasetBean b : beans) {
-					list.add(new QueryFilterItem(f.operator, b));
+					list.add(new QueryFilterItem(QueryFilterItem.TYPE_REFERENCE, f.operator, b));
 				}
 				return list;
 			}
@@ -416,10 +416,10 @@ public class DatasetQuery extends Query {
 				query += subQuery;
 				ArrayList<DatasetBean> beans = executeDatasetQuery(query, con);
 				String operator = f.operator;
-				if (beans.size() > 1)
-					operator = "OR";
+//				if (beans.size() > 1)
+//					operator = "OR";
 				for (DatasetBean b : beans) {
-					list.add(new QueryFilterItem(operator, b));
+					list.add(new QueryFilterItem(QueryFilterItem.TYPE_KEYWORD, f.operator, b));
 				}
 				return list;
 			}
@@ -622,7 +622,7 @@ public class DatasetQuery extends Query {
 					DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
 							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"),
 							rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
-					beans.add(new QueryFilterItem("", bean));
+					beans.add(new QueryFilterItem("", "", bean));
 				}
 			} catch (Exception ex) {
 				throw new DbException(ex);
