@@ -39,29 +39,38 @@ public class MainQuery extends Query {
 			queryFilter.datasets = new ArrayList<QueryFilterItem>();
 //			queryFilter.datasets = (new DatasetQuery()).findDatasets(filters, con);
 			try {
-				queryFilter.datasets.add((new DatasetQuery()).findDatasetByAuthorList(filters, con));
+				ArrayList<QueryFilterItem> items = (new DatasetQuery()).findDatasetByAuthorList(filters, con);
+				for (QueryFilterItem item : items)
+					queryFilter.datasets.add(item);
 			} catch (Exception x) {
 				// x.printStackTrace();
 				// do nothing
 			}
 			try {
-				queryFilter.datasets.add((new DatasetQuery()).findDatasetByYear(filters, con));
+				ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByYear(filters, con));
+				for (QueryFilterItem item : items)
+					queryFilter.datasets.add(item);
+
 			} catch (Exception x) {
 				// x.printStackTrace();
 				// do nothing
-			}		
+			}
 			try {
-				queryFilter.datasets.add((new DatasetQuery()).findDatasetByReference(filters, con));
+				ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByReference(filters, con));
+				for (QueryFilterItem item : items)
+					queryFilter.datasets.add(item);
 			} catch (Exception x) {
 				// x.printStackTrace();
 				// do nothing
-			}	
+			}
 			try {
-				queryFilter.datasets.add((new DatasetQuery()).findDatasetByKeywords(filters, con));
+				ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByKeywords(filters, con));
+				for (QueryFilterItem item : items)
+					queryFilter.datasets.add(item);
 			} catch (Exception x) {
 				// x.printStackTrace();
 				// do nothing
-			}			
+			}
 			filters = dropDatasetFilters(filters);
 			filters.add(queryFilter);
 			beans = (new SampleQuery()).querySampleInfo(filters, con);

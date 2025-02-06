@@ -308,10 +308,11 @@ public class DatasetQuery extends Query {
 		}
 	}
 
-	public QueryFilterItem findDatasetByAuthorList(ArrayList<QueryFilter> filters, Connection con)
+	public ArrayList<QueryFilterItem> findDatasetByAuthorList(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
 		if (filters.size() == 0)
 			throw new NoDatasetFoundException("No author filter.");
+		ArrayList<QueryFilterItem> list = new ArrayList<QueryFilterItem>();
 		String query = "select * from dataset where ";
 		String subQuery = "";
 		for (QueryFilter f : filters) {
@@ -325,16 +326,25 @@ public class DatasetQuery extends Query {
 					subQuery = subQuery.substring(2);
 				}
 				query += subQuery;
-				return new QueryFilterItem(f.operator, executeDatasetQuery(query, con));
+				ArrayList<DatasetBean> beans = executeDatasetQuery(query, con);
+				String operator = f.operator;
+				if (beans.size() > 1) {
+					operator = "OR";
+				}
+				for (DatasetBean b : beans) {
+					list.add(new QueryFilterItem(operator, b));
+				}
+				return list;
 			}
 		}
 		throw new NoDatasetFoundException("No author filter");
 	}
 	
-	public QueryFilterItem findDatasetByYear(ArrayList<QueryFilter> filters, Connection con)
+	public ArrayList<QueryFilterItem> findDatasetByYear(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
 		if (filters.size() == 0)
 			throw new NoDatasetFoundException("No year filter.");
+		ArrayList<QueryFilterItem> list = new ArrayList<QueryFilterItem>();
 		String query = "select * from dataset where ";
 		String subQuery = "";
 		for (QueryFilter f : filters) {
@@ -348,16 +358,21 @@ public class DatasetQuery extends Query {
 					subQuery = subQuery.substring(2);
 				}
 				query += subQuery;
-				return new QueryFilterItem(f.operator, executeDatasetQuery(query, con));
+				ArrayList<DatasetBean> beans = executeDatasetQuery(query, con);
+				for (DatasetBean b : beans) {
+					list.add(new QueryFilterItem(f.operator, b));
+				}
+				return list;
 			}
 		}
 		throw new NoDatasetFoundException("No year filter");
 	}
 	
-	public QueryFilterItem findDatasetByReference(ArrayList<QueryFilter> filters, Connection con)
+	public ArrayList<QueryFilterItem> findDatasetByReference(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
 		if (filters.size() == 0)
 			throw new NoDatasetFoundException("No reference filter.");
+		ArrayList<QueryFilterItem> list = new ArrayList<QueryFilterItem>();
 		String query = "select * from dataset where ";
 		String subQuery = "";
 		for (QueryFilter f : filters) {
@@ -371,16 +386,21 @@ public class DatasetQuery extends Query {
 					subQuery = subQuery.substring(2);
 				}
 				query += subQuery;
-				return new QueryFilterItem(f.operator, executeDatasetQuery(query, con));
+				ArrayList<DatasetBean> beans = executeDatasetQuery(query, con);
+				for (DatasetBean b : beans) {
+					list.add(new QueryFilterItem(f.operator, b));
+				}
+				return list;
 			}
 		}
 		throw new NoDatasetFoundException("No reference filter");
 	}	
 	
-	public QueryFilterItem findDatasetByKeywords(ArrayList<QueryFilter> filters, Connection con)
+	public ArrayList<QueryFilterItem> findDatasetByKeywords(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
 		if (filters.size() == 0)
 			throw new NoDatasetFoundException("No keywords filter.");
+		ArrayList<QueryFilterItem> list = new ArrayList<QueryFilterItem>();
 		String query = "select * from dataset where ";
 		String subQuery = "";
 		for (QueryFilter f : filters) {
@@ -394,27 +414,40 @@ public class DatasetQuery extends Query {
 					subQuery = subQuery.substring(2);
 				}
 				query += subQuery;
-				return new QueryFilterItem(f.operator, executeDatasetQuery(query, con));
+				ArrayList<DatasetBean> beans = executeDatasetQuery(query, con);
+				String operator = f.operator;
+				if (beans.size() > 1)
+					operator = "OR";
+				for (DatasetBean b : beans) {
+					list.add(new QueryFilterItem(operator, b));
+				}
+				return list;
 			}
 		}
 		throw new NoDatasetFoundException("No keywords filter");
 	}	
 	
-	private DatasetBean executeDatasetQuery(String query, Connection con) throws NoDatasetFoundException, Exception {
+	private ArrayList<DatasetBean> executeDatasetQuery(String query, Connection con) throws NoDatasetFoundException, Exception {
 		System.out.println(query);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
+			ArrayList<DatasetBean> list = new ArrayList<DatasetBean>();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
 						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"),
 						rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
 				
-				return bean;
-			} else {
+				list.add(bean);
+			} 
+			
+			if (list.size() > 0) {
+				return list;
+			}
+			else {
 				throw new NoDatasetFoundException("No dataset for query:\n" + query);
 			}
 		} catch (NoDatasetFoundException ex) {
