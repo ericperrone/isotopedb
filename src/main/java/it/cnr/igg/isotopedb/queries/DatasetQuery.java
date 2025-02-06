@@ -9,6 +9,7 @@ import it.cnr.igg.isotopedb.beans.DatasetBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
 import it.cnr.igg.isotopedb.exceptions.NoDatasetFoundException;
 import it.cnr.igg.isotopedb.tools.QueryFilter;
+import it.cnr.igg.isotopedb.tools.QueryFilterItem;
 
 public class DatasetQuery extends Query {
 
@@ -55,7 +56,7 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
-	
+
 	public ArrayList<Integer> getYears(Connection con) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -78,8 +79,8 @@ public class DatasetQuery extends Query {
 				ps.close();
 			}
 		}
-	}	
-	
+	}
+
 	public ArrayList<Integer> getYears() throws Exception, DbException {
 		Connection con = null;
 		try {
@@ -240,7 +241,7 @@ public class DatasetQuery extends Query {
 		try {
 			con = cm.createConnection();
 			con.setAutoCommit(false); // start transaction
-			
+
 			String fileName = "";
 			ps = con.prepareStatement(query);
 			ps.setLong(1, bean.getId());
@@ -252,14 +253,14 @@ public class DatasetQuery extends Query {
 			rs = null;
 			ps.close();
 			ps = null;
-			
+
 			ps = con.prepareStatement(update);
 
 			ps.setBoolean(1, bean.isProcessed());
 			ps.setLong(2, bean.getId());
 
 			ps.execute();
-			
+
 			return fileName;
 		} catch (Exception ex) {
 			if (con != null)
@@ -290,8 +291,8 @@ public class DatasetQuery extends Query {
 
 			if (rs.next()) {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
-						rs.getBoolean("processed"));
+						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"),
+						rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
 				return bean;
 			}
 			return null;
@@ -306,6 +307,131 @@ public class DatasetQuery extends Query {
 			}
 		}
 	}
+
+	public QueryFilterItem findDatasetByAuthorList(ArrayList<QueryFilter> filters, Connection con)
+			throws Exception, NoDatasetFoundException, DbException {
+		if (filters.size() == 0)
+			throw new NoDatasetFoundException("No author filter.");
+		String query = "select * from dataset where ";
+		String subQuery = "";
+		for (QueryFilter f : filters) {
+			if (f.authors != null) {
+				subQuery += manageAuthors(f) + " ";
+			}
+			if (subQuery.length() > 0) {
+				if (subQuery.toUpperCase().startsWith("AND")) {
+					subQuery = subQuery.substring(3);
+				} else if (subQuery.toUpperCase().startsWith("OR")) {
+					subQuery = subQuery.substring(2);
+				}
+				query += subQuery;
+				return new QueryFilterItem(f.operator, executeDatasetQuery(query, con));
+			}
+		}
+		throw new NoDatasetFoundException("No author filter");
+	}
+	
+	public QueryFilterItem findDatasetByYear(ArrayList<QueryFilter> filters, Connection con)
+			throws Exception, NoDatasetFoundException, DbException {
+		if (filters.size() == 0)
+			throw new NoDatasetFoundException("No year filter.");
+		String query = "select * from dataset where ";
+		String subQuery = "";
+		for (QueryFilter f : filters) {
+			if (f.year != null) {
+				subQuery += manageYear(f) + " ";
+			}
+			if (subQuery.length() > 0) {
+				if (subQuery.toUpperCase().startsWith("AND")) {
+					subQuery = subQuery.substring(3);
+				} else if (subQuery.toUpperCase().startsWith("OR")) {
+					subQuery = subQuery.substring(2);
+				}
+				query += subQuery;
+				return new QueryFilterItem(f.operator, executeDatasetQuery(query, con));
+			}
+		}
+		throw new NoDatasetFoundException("No year filter");
+	}
+	
+	public QueryFilterItem findDatasetByReference(ArrayList<QueryFilter> filters, Connection con)
+			throws Exception, NoDatasetFoundException, DbException {
+		if (filters.size() == 0)
+			throw new NoDatasetFoundException("No reference filter.");
+		String query = "select * from dataset where ";
+		String subQuery = "";
+		for (QueryFilter f : filters) {
+			if (f.reference != null) {
+				subQuery += manageReference(f) + " ";
+			}
+			if (subQuery.length() > 0) {
+				if (subQuery.toUpperCase().startsWith("AND")) {
+					subQuery = subQuery.substring(3);
+				} else if (subQuery.toUpperCase().startsWith("OR")) {
+					subQuery = subQuery.substring(2);
+				}
+				query += subQuery;
+				return new QueryFilterItem(f.operator, executeDatasetQuery(query, con));
+			}
+		}
+		throw new NoDatasetFoundException("No reference filter");
+	}	
+	
+	public QueryFilterItem findDatasetByKeywords(ArrayList<QueryFilter> filters, Connection con)
+			throws Exception, NoDatasetFoundException, DbException {
+		if (filters.size() == 0)
+			throw new NoDatasetFoundException("No keywords filter.");
+		String query = "select * from dataset where ";
+		String subQuery = "";
+		for (QueryFilter f : filters) {
+			if (f.keywords != null) {
+				subQuery += manageKeywords(f) + " ";
+			}
+			if (subQuery.length() > 0) {
+				if (subQuery.toUpperCase().startsWith("AND")) {
+					subQuery = subQuery.substring(3);
+				} else if (subQuery.toUpperCase().startsWith("OR")) {
+					subQuery = subQuery.substring(2);
+				}
+				query += subQuery;
+				return new QueryFilterItem(f.operator, executeDatasetQuery(query, con));
+			}
+		}
+		throw new NoDatasetFoundException("No keywords filter");
+	}	
+	
+	private DatasetBean executeDatasetQuery(String query, Connection con) throws NoDatasetFoundException, Exception {
+		System.out.println(query);
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
+						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"),
+						rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
+				
+				return bean;
+			} else {
+				throw new NoDatasetFoundException("No dataset for query:\n" + query);
+			}
+		} catch (NoDatasetFoundException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}	
+	}
+	
+	
 
 	public ArrayList<DatasetBean> findDatasets(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
@@ -339,14 +465,13 @@ public class DatasetQuery extends Query {
 			PreparedStatement ps = null;
 			ResultSet rs = null;
 			try {
-				con = cm.createConnection();
 				ps = con.prepareStatement(query);
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
 					DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
-							rs.getBoolean("processed"));
+							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"),
+							rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
 					beans.add(bean);
 				}
 				if (beans.size() < 1) {
@@ -387,7 +512,7 @@ public class DatasetQuery extends Query {
 		if (f.keywords.size() == 1) {
 			query = f.operator + " lower(keywords) similar to '%" + f.keywords.get(0).toLowerCase() + "%'";
 		} else {
-			query = f.operator + " lower(keywords) similar to '%(\"";
+			query = f.operator + " lower(keywords) similar to '%(";
 			for (String key : f.keywords) {
 				query += "(" + key.toLowerCase() + ")|";
 			}
@@ -401,14 +526,14 @@ public class DatasetQuery extends Query {
 		String query = f.operator + " lower(link) like '%" + f.reference.toLowerCase() + "%' ";
 		return query;
 	}
-	
+
 	private String manageYear(QueryFilter f) {
 		String query = f.operator + " year = " + f.year.toString();
 		return query;
 	}
 
-	public ArrayList<DatasetBean> queryDatasets(QueryFilter queryFilter, Connection con) throws Exception, DbException {
-		ArrayList<DatasetBean> beans = new ArrayList<DatasetBean>();
+	public ArrayList<QueryFilterItem> queryDatasets(QueryFilter queryFilter, Connection con) throws Exception, DbException {
+		ArrayList<QueryFilterItem> beans = new ArrayList<QueryFilterItem>();
 		if (queryFilter.authors != null || queryFilter.keywords != null || queryFilter.reference != null
 				|| queryFilter.year > 0) {
 			PreparedStatement ps = null;
@@ -462,9 +587,9 @@ public class DatasetQuery extends Query {
 
 				while (rs.next()) {
 					DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
-							rs.getBoolean("processed"));
-					beans.add(bean);
+							rs.getString("keywords"), rs.getString("authors"), rs.getString("link"),
+							rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
+					beans.add(new QueryFilterItem("", bean));
 				}
 			} catch (Exception ex) {
 				throw new DbException(ex);
@@ -481,7 +606,7 @@ public class DatasetQuery extends Query {
 
 	}
 
-	public ArrayList<DatasetBean> queryDatasets(QueryFilter queryFilter) throws Exception, DbException {
+	public ArrayList<QueryFilterItem> queryDatasets(QueryFilter queryFilter) throws Exception, DbException {
 		Connection con = null;
 		try {
 			con = cm.createConnection();
@@ -558,8 +683,8 @@ public class DatasetQuery extends Query {
 
 			while (rs.next()) {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
-						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
-						rs.getBoolean("processed"));
+						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"),
+						rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
 				beans.add(bean);
 			}
 

@@ -1,4 +1,5 @@
 package it.cnr.igg.isotopedb.queries;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,7 @@ import it.cnr.igg.isotopedb.beans.SampleBean;
 import it.cnr.igg.isotopedb.beans.SampleFieldBean;
 import it.cnr.igg.isotopedb.beans.ComponentBean;
 import it.cnr.igg.isotopedb.tools.QueryFilter;
+import it.cnr.igg.isotopedb.tools.QueryFilterItem;
 import it.cnr.igg.isotopedb.beans.DatasetBean;
 import it.cnr.igg.isotopedb.queries.DatasetQuery;
 
@@ -27,14 +29,39 @@ public class MainQuery extends Query {
 	public MainQuery() {
 		super();
 	}
-	
-	public ArrayList<SampleBean> query(ArrayList<QueryFilter> filters) throws Exception, DbException  {
+
+	public ArrayList<SampleBean> query(ArrayList<QueryFilter> filters) throws Exception, DbException {
 		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
 		Connection con = null;
 		try {
 			con = cm.createConnection();
 			QueryFilter queryFilter = new QueryFilter();
-			queryFilter.datasets = (new DatasetQuery()).findDatasets(filters, con);
+			queryFilter.datasets = new ArrayList<QueryFilterItem>();
+//			queryFilter.datasets = (new DatasetQuery()).findDatasets(filters, con);
+			try {
+				queryFilter.datasets.add((new DatasetQuery()).findDatasetByAuthorList(filters, con));
+			} catch (Exception x) {
+				// x.printStackTrace();
+				// do nothing
+			}
+			try {
+				queryFilter.datasets.add((new DatasetQuery()).findDatasetByYear(filters, con));
+			} catch (Exception x) {
+				// x.printStackTrace();
+				// do nothing
+			}		
+			try {
+				queryFilter.datasets.add((new DatasetQuery()).findDatasetByReference(filters, con));
+			} catch (Exception x) {
+				// x.printStackTrace();
+				// do nothing
+			}	
+			try {
+				queryFilter.datasets.add((new DatasetQuery()).findDatasetByKeywords(filters, con));
+			} catch (Exception x) {
+				// x.printStackTrace();
+				// do nothing
+			}			
 			filters = dropDatasetFilters(filters);
 			filters.add(queryFilter);
 			beans = (new SampleQuery()).querySampleInfo(filters, con);
@@ -51,13 +78,13 @@ public class MainQuery extends Query {
 		}
 		return beans;
 	}
-	
-	public ArrayList<SampleBean> query(QueryFilter queryFilter) throws Exception, DbException  {
+
+	public ArrayList<SampleBean> query(QueryFilter queryFilter) throws Exception, DbException {
 		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
 		Connection con = null;
 		try {
 			con = cm.createConnection();
-			queryFilter.datasets = (new DatasetQuery()).queryDatasets(queryFilter, con);	
+			queryFilter.datasets = (new DatasetQuery()).queryDatasets(queryFilter, con);
 			beans = (new SampleQuery()).querySamples(queryFilter, con);
 			return beans;
 		} catch (Exception e) {
@@ -71,7 +98,7 @@ public class MainQuery extends Query {
 	private ArrayList<QueryFilter> dropDatasetFilters(ArrayList<QueryFilter> filters) {
 		ArrayList<QueryFilter> nfilters = new ArrayList<QueryFilter>();
 		for (QueryFilter f : filters) {
-			if (f.authors != null || f.keywords != null || f.reference != null || f.year != null) 
+			if (f.authors != null || f.keywords != null || f.reference != null || f.year != null)
 				continue;
 			nfilters.add(f);
 		}

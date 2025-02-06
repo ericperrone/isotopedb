@@ -18,6 +18,7 @@ import it.cnr.igg.isotopedb.beans.SampleBean;
 import it.cnr.igg.isotopedb.beans.SampleFieldBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
 import it.cnr.igg.isotopedb.tools.QueryFilter;
+import it.cnr.igg.isotopedb.tools.QueryFilterItem;
 
 public class SampleQuery extends Query {
 	public final String TYPE_FIELD = "F";
@@ -194,28 +195,32 @@ public class SampleQuery extends Query {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, sa.um, c.latitude, c.longitude, "
-				+ "m.matrix, m.nodeid, m.parent_nodeid, "
-				+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
-				+ "left join coord c on c.sample_id = sa.sample_id "
+				+ "m.matrix, m.nodeid, m.parent_nodeid, " + "s.name as synonym "
+				+ "from sample_index si, sample_attribute sa " + "left join coord c on c.sample_id = sa.sample_id "
 				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
 				+ "left join sample_matrix sm on sm.sample_id = sa.sample_id "
-				+ "left join matrix m on sm.matrix_id = m.nodeid " 				
-				+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
+				+ "left join matrix m on sm.matrix_id = m.nodeid " + "where type in ('F', 'I', 'C') "
+				+ "and sa.sample_id = si.sample_id ";
+		if (filters.size() > 0)
+			queryData += "and (";
+
+		int nFilter = 1;
+		
 		for (QueryFilter f : filters) {
 			if ((f.datasets != null) && f.datasets.size() > 0) {
-				queryData += " and si.dataset_id in (";
-				for (DatasetBean db : f.datasets) {
-					queryData += db.getId() + ",";
+				for (QueryFilterItem qfi : f.datasets) {
+					queryData += nFilter > 1 ? " " + qfi.operator : " ";
+					queryData += " si.dataset_id in (";
+					queryData += qfi.bean.getId() + ",";
+					queryData = queryData.substring(0, queryData.length() - 1);
+					queryData += ")";
 				}
-				queryData = queryData.substring(0, queryData.length() - 1);
-				queryData += ")";
 			}
 			if (f.coordinates != null) {
-				queryData += " " + f.operator;
-				queryData += " (latitude >= " + f.coordinates.minLat + " and latitude <= "
-						+ f.coordinates.maxLat;
-				queryData += " and longitude >= " + f.coordinates.minLong + " and longitude <= "
-						+ f.coordinates.maxLong + ")";				
+				queryData += nFilter > 1 ? " " + f.operator: " ";
+				queryData += " (latitude >= " + f.coordinates.minLat + " and latitude <= " + f.coordinates.maxLat;
+				queryData += " and longitude >= " + f.coordinates.minLong + " and longitude <= " + f.coordinates.maxLong
+						+ ")";
 			}
 			if (f.matrixId != null) {
 				MatrixQuery mq = new MatrixQuery();
@@ -225,13 +230,19 @@ public class SampleQuery extends Query {
 					in += id + ",";
 				}
 				in = in.substring(0, in.length() - 1);
-				queryData += " " + f.operator;
+				queryData += nFilter > 1 ? " " + f.operator : " ";
 				queryData += " sm.matrix_id in (" + in + ")";
 			}
+			++nFilter;
 		}
+		if (filters.size() > 0)
+			queryData += ")";
+
 		queryData += " order by si.sample_id";
 
-		try {
+		try
+
+		{
 			System.out.println(queryData);
 			// getSubTree
 			HashMap<Long, SampleBean> index = new HashMap<Long, SampleBean>();
@@ -294,16 +305,15 @@ public class SampleQuery extends Query {
 		ResultSet rs = null;
 		try {
 			String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, c.latitude, c.longitude, "
-					+ "m.matrix, "
-					+ "s.name as synonym " + "from sample_index si, sample_attribute sa "
+					+ "m.matrix, " + "s.name as synonym " + "from sample_index si, sample_attribute sa "
 					+ "left join coord c on c.sample_id = sa.sample_id "
 					+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
-					+ "left join matrix m on sm.matrix_id = m.nodeid " 
-					+ "where type in ('F', 'I', 'C') " + "and sa.sample_id = si.sample_id ";
+					+ "left join matrix m on sm.matrix_id = m.nodeid " + "where type in ('F', 'I', 'C') "
+					+ "and sa.sample_id = si.sample_id ";
 			if (filter.datasets.size() > 0) {
 				queryData += " and si.dataset_id in (";
-				for (DatasetBean db : filter.datasets) {
-					queryData += db.getId() + ",";
+				for (QueryFilterItem db : filter.datasets) {
+					queryData += db.bean.getId() + ",";
 				}
 				queryData = queryData.substring(0, queryData.length() - 1);
 				queryData += ")";
@@ -472,7 +482,7 @@ public class SampleQuery extends Query {
 						}
 					}
 				}
-				
+
 				// step 5: set matrix
 				if (sb.getMatrix() != null) {
 					MatrixQuery mq = new MatrixQuery();
@@ -549,7 +559,6 @@ public class SampleQuery extends Query {
 		return "" + gr;
 	}
 
-
 	private String removeSpaces(String s) {
 		s = s.trim();
 		String ss[] = s.split(" ");
@@ -571,8 +580,8 @@ public class SampleQuery extends Query {
 		String ugly2 = "" + in.charAt(9);
 		System.out.println(ugly);
 		System.out.println(ugly2);
-		
-		 sq.parseGps(in);
+
+		sq.parseGps(in);
 //		String[] coord = sq.toEpsg4326(lat, lon);
 //		System.out.println(coord[0]);
 //		System.out.println(coord[1]);

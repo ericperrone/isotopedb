@@ -27,7 +27,7 @@ public class QueryFilter {
 	public ArrayList<String> keywords;
 	public String reference;
 	public GeoCoord coordinates;
-	public ArrayList<DatasetBean> datasets;
+	public ArrayList<QueryFilterItem> datasets;
 	public Integer year;
 	public Integer matrixId;
 	public static final String AND = "AND";
