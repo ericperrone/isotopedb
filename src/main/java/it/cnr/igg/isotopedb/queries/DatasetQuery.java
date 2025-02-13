@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import it.cnr.igg.isotopedb.beans.DatasetBean;
+import it.cnr.igg.isotopedb.beans.DatasetFullLinkBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
 import it.cnr.igg.isotopedb.exceptions.NoDatasetFoundException;
 import it.cnr.igg.isotopedb.tools.QueryFilter;
@@ -104,6 +105,19 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
+	
+	public ArrayList<DatasetFullLinkBean> getFullLinks() throws Exception, DbException {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getFullLinks(con);
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			cm.closeConnection();
+		}
+	}
+
 
 	public ArrayList<String> getLinks(Connection con) throws Exception, DbException {
 		PreparedStatement ps = null;
@@ -115,6 +129,31 @@ public class DatasetQuery extends Query {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(rs.getString(1));
+			}
+			return list;
+		} catch (Exception ex) {
+			throw new DbException(ex);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
+	
+	public ArrayList<DatasetFullLinkBean> getFullLinks(Connection con) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select distinct link, metadata from dataset order by link";
+		try {
+			ArrayList<DatasetFullLinkBean> list = new ArrayList<DatasetFullLinkBean>();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				DatasetFullLinkBean bean = new DatasetFullLinkBean(rs.getString(1), rs.getString(2));
+				list.add(bean);
 			}
 			return list;
 		} catch (Exception ex) {
