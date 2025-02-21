@@ -25,6 +25,7 @@ import it.cnr.igg.isotopedb.beans.DatasetBean;
 import it.cnr.igg.isotopedb.queries.DatasetQuery;
 
 public class MainQuery extends Query {
+	private boolean authors = false, year = false, reference = false, keywords = false;
 
 	public MainQuery() {
 		super();
@@ -37,46 +38,49 @@ public class MainQuery extends Query {
 			con = cm.createConnection();
 			QueryFilter queryFilter = new QueryFilter();
 			queryFilter.datasets = new ArrayList<QueryFilterItem>();
-//			queryFilter.datasets = (new DatasetQuery()).findDatasets(filters, con);
-			try {
-				ArrayList<QueryFilterItem> items = (new DatasetQuery()).findDatasetByAuthorList(filters, con);
-				for (QueryFilterItem item : items)
-					queryFilter.datasets.add(item);
-			} catch (Exception x) {
-				// x.printStackTrace();
-				// do nothing
-			}
-			try {
-				ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByYear(filters, con));
-				for (QueryFilterItem item : items)
-					queryFilter.datasets.add(item);
+			checkDatasetFilters(filters);
+			if (authors == true)
+				try {
+					ArrayList<QueryFilterItem> items = (new DatasetQuery()).findDatasetByAuthorList(filters, con);
+					for (QueryFilterItem item : items)
+						queryFilter.datasets.add(item);
+				} catch (Exception x) {
+					// x.printStackTrace();
+					// do nothing
+				}
+			if (year == true)
+				try {
+					ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByYear(filters, con));
+					for (QueryFilterItem item : items)
+						queryFilter.datasets.add(item);
 
-			} catch (Exception x) {
-				// x.printStackTrace();
-				// do nothing
-			}
-			try {
-				ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByReference(filters, con));
-				for (QueryFilterItem item : items)
-					queryFilter.datasets.add(item);
-			} catch (Exception x) {
-				// x.printStackTrace();
-				// do nothing
-			}
-			try {
-				ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByKeywords(filters, con));
-				for (QueryFilterItem item : items)
-					queryFilter.datasets.add(item);
-			} catch (Exception x) {
-				// x.printStackTrace();
-				// do nothing
-			}
+				} catch (Exception x) {
+					// x.printStackTrace();
+					// do nothing
+				}
+			if (reference == true)
+				try {
+					ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByReference(filters, con));
+					for (QueryFilterItem item : items)
+						queryFilter.datasets.add(item);
+				} catch (Exception x) {
+					// x.printStackTrace();
+					// do nothing
+				}
+			if (keywords == true)
+				try {
+					ArrayList<QueryFilterItem> items = (new DatasetQuery().findDatasetByKeywords(filters, con));
+					for (QueryFilterItem item : items)
+						queryFilter.datasets.add(item);
+				} catch (Exception x) {
+					// x.printStackTrace();
+					// do nothing
+				}
 			filters = dropDatasetFilters(filters);
-			filters.add(queryFilter);
+			if (queryFilter.datasets.size() > 0)
+				filters.add(queryFilter);
 			beans = (new SampleQuery()).querySampleInfo(filters, con);
-//			return beans;
 		} catch (NoDatasetFoundException e) {
-			System.out.println(e.getMessage());
 			filters = dropDatasetFilters(filters);
 			beans = (new SampleQuery()).querySampleInfo(filters, con);
 		} catch (Exception e) {
@@ -101,6 +105,19 @@ public class MainQuery extends Query {
 			throw new DbException(e);
 		} finally {
 			cm.closeConnection();
+		}
+	}
+
+	private void checkDatasetFilters(ArrayList<QueryFilter> filters) {
+		for (QueryFilter f : filters) {
+			if (f.authors != null)
+				authors = true;
+			if (f.keywords != null)
+				keywords = true;
+			if (f.reference != null)
+				reference = true;
+			if (f.year != null)
+				year = true;
 		}
 	}
 

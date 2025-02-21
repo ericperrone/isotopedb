@@ -188,6 +188,7 @@ public class SampleQuery extends Query {
 //	}
 	public ArrayList<SampleBean> querySampleInfo(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, DbException {
+		Boolean isOR = false;
 		ArrayList<SampleBean> beans = new ArrayList<SampleBean>();
 		if (filters.size() < 1) {
 			return beans;
@@ -201,11 +202,17 @@ public class SampleQuery extends Query {
 				+ "left join sample_matrix sm on sm.sample_id = sa.sample_id "
 				+ "left join matrix m on sm.matrix_id = m.nodeid " + "where type in ('F', 'I', 'C') "
 				+ "and sa.sample_id = si.sample_id ";
-//		if (filters.size() > 0)
-//			queryData += "and (";
-
-//		int nFilter = 1;
 		
+		for (QueryFilter f: filters ) {
+			if (f.operator != null && f.operator.equalsIgnoreCase("or"))
+				isOR = true;
+		}
+		
+		if (filters.size() > 0 && isOR == false)
+			queryData += "and ( 1=1 ";
+		if (filters.size() > 0 && isOR == true)
+			queryData += "and ( 1=2 ";
+
 		for (QueryFilter f : filters) {
 			if ((f.datasets != null) && f.datasets.size() > 0) {
 				ArrayList<QueryFilterItem> authors = f.getDatasetItemsByType(QueryFilterItem.TYPE_AUTHOR);
@@ -293,8 +300,8 @@ public class SampleQuery extends Query {
 //				++nFilter;
 			}
 		}
-//		if (filters.size() > 0)
-//			queryData += ")";
+		if (filters.size() > 0)
+			queryData += ")";
 
 		queryData += " order by si.sample_id";
 
