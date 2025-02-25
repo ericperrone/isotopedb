@@ -18,11 +18,54 @@ public class DatasetQuery extends Query {
 		super();
 	}
 
-	public DatasetBean getDatasetById(Long id) throws Exception, DbException {
+	public ArrayList<DatasetBean> getDatasetBySampleId(ArrayList<Long> ids) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = null;
-		String query = "select * from dataset where id = ?";
+		ArrayList<DatasetBean> beans = new ArrayList<DatasetBean>();
+		String query = "select * from dataset where id in(";
+		for (int i = 0; i < ids.size(); i++) {
+			query += ids.get(i) + ",";
+		}
+		query = query.substring(0, query.length() - 1);
+		query += ")";
+		
+		try {
+			con = cm.createConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				beans.add(
+				 new DatasetBean(
+						rs.getLong("id"), 
+						rs.getString("file_name"),
+						rs.getString("keywords"),
+						rs.getString("authors"),
+						rs.getString("link"),
+						rs.getString("metadata"),
+						rs.getInt("year"),
+						rs.getBoolean("processed"))
+				 );
+			}
+			if (beans.size() > 0)
+				return beans;
+			throw new DbException("No dataset found");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (con != null)
+				con.close();
+		}
+	}	
+	
+	public DatasetBean getDatasetBySampleId(Long id) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Connection con = null;
+		String query = "select * from dataset where id = (select dataset_id from sample_index where sample_id = ?)";
 		
 		try {
 			con = cm.createConnection();
