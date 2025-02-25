@@ -18,6 +18,39 @@ public class DatasetQuery extends Query {
 		super();
 	}
 
+	public DatasetBean getDatasetById(Long id) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Connection con = null;
+		String query = "select * from dataset where id = ?";
+		
+		try {
+			con = cm.createConnection();
+			ps = con.prepareStatement(query);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return new DatasetBean(id, 
+						rs.getString("file_name"),
+						rs.getString("keywords"),
+						rs.getString("authors"),
+						rs.getString("link"),
+						rs.getString("metadata"),
+						rs.getInt("year"),
+						rs.getBoolean("processed"));
+			}
+			throw new DbException("No dataset found");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (con != null)
+				con.close();
+		}
+	}
+	
 	public String deleteDataset(Long id) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;

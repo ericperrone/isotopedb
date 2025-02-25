@@ -204,8 +204,18 @@ public class SampleQuery extends Query {
 				+ "and sa.sample_id = si.sample_id ";
 		
 		for (QueryFilter f: filters ) {
-			if (f.operator != null && f.operator.equalsIgnoreCase("or"))
+			if (f.operator != null && f.operator.equalsIgnoreCase("or")) {
 				isOR = true;
+				break;
+			}
+			if (f.datasets != null) {
+				for (QueryFilterItem a: f.datasets) {
+					if (a.operator.equalsIgnoreCase("or")) {
+						isOR = true;
+						break;
+					}
+				}
+			}
 		}
 		
 		if (filters.size() > 0 && isOR == false)
