@@ -9,8 +9,8 @@ import it.cnr.igg.isotopedb.beans.AuthorBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
 import it.cnr.igg.isotopedb.exceptions.NotAuthorizedException;
 
-public class ItinerisAuthors extends ItinerisCommon {	
-	public ItinerisAuthors(String key) {
+public class ItinerisAuthorsDb extends ItinerisCommon {	
+	public ItinerisAuthorsDb(String key) {
 		super(key);
 	}
 	
