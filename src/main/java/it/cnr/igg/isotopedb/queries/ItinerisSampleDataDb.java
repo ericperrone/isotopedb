@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import it.cnr.igg.isotopedb.beans.SampleDataBean;
+import it.cnr.igg.isotopedb.beans.FullSampleDataBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
 import it.cnr.igg.isotopedb.exceptions.NotAuthorizedException;
 
@@ -15,12 +16,14 @@ public class ItinerisSampleDataDb extends ItinerisCommon {
 		super(key);
 	}
 	
-	public ArrayList<SampleDataBean> getSampleData(Integer sampleId) throws DbException, NotAuthorizedException {
+	public FullSampleDataBean getSampleData(Integer sampleId) throws DbException, NotAuthorizedException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String query = "select sa.type, sa.name, sa.svalue, sa.nvalue, um from sample_attribute sa "
 				+ "where sa.sample_id = ?";
+		String query2 = "select d.metadata from dataset d where d.id = (select dataset_id from sample_index where sample_id = ?)";
 		ArrayList<SampleDataBean> list = new ArrayList<SampleDataBean>();
+		String metadata = ""; 
 		try {
 			con = checkItinerisKey();
 			ps = con.prepareStatement(query);
@@ -34,7 +37,15 @@ public class ItinerisSampleDataDb extends ItinerisCommon {
 						rs.getString("um"));
 				list.add(sdb);
 			}
-			return list;
+			rs.close();
+			ps.close();
+			ps = con.prepareStatement(query2);
+			ps.setInt(1, sampleId);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				metadata = rs.getString("metadata");
+			}
+			return new FullSampleDataBean(list, metadata);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new DbException(ex);
