@@ -26,6 +26,11 @@ public class FullSampleDataBean {
 			if (sdb.getName().equalsIgnoreCase("GEOROC_ID"))
 				continue;
 
+			if (sdb.getSynonym() != null) {
+				sdb.setName(sdb.getSynonym());
+				sdb.setSynonym(null);
+			}
+			
 			switch (type) {
 			case "C":
 				sdb.setType("Chemical element");

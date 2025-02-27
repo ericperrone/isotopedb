@@ -19,7 +19,8 @@ public class ItinerisSampleDataDb extends ItinerisCommon {
 	public FullSampleDataBean getSampleData(Integer sampleId) throws DbException, NotAuthorizedException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String query = "select sa.type, sa.name, sa.svalue, sa.nvalue, um from sample_attribute sa "
+		String query = "select sa.type, sa.name, sa.svalue, sa.nvalue, um, s.name as synonym from sample_attribute sa "
+				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\\\[.*\\\\]', '') "
 				+ "where sa.sample_id = ?";
 		String query2 = "select d.metadata from dataset d where d.id = (select dataset_id from sample_index where sample_id = ?)";
 		ArrayList<SampleDataBean> list = new ArrayList<SampleDataBean>();
@@ -34,7 +35,9 @@ public class ItinerisSampleDataDb extends ItinerisCommon {
 						rs.getString("name"),
 						rs.getString("svalue"),
 						rs.getFloat("nvalue"),
-						rs.getString("um"));
+						rs.getString("um"),
+						rs.getString("synonym")
+						);
 				list.add(sdb);
 			}
 			rs.close();
