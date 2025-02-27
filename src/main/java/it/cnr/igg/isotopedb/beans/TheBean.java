@@ -20,11 +20,4 @@ public class TheBean {
 		Set<String> keys = o.keySet();
 		return keys;
 	}
-	
-//	public static void main(String[] args) {
-//		TheBean bean = new TheBean();
-//		LinkedTreeMap o = bean.fromJson("{ \"id\": \"12367\"; \"name\": \"Gaetano\"; \"Note\": \"Merdaccia\"; \"values\": [{\"uno\": \"qwerty\"}] }");
-//		System.out.println();
-//		bean.parseObject(o);
-//	}
 }
