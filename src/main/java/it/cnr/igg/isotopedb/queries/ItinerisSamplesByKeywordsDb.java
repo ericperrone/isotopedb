@@ -13,7 +13,7 @@ public class ItinerisSamplesByKeywordsDb extends ItinerisCommon {
 		super(key);
 	}
 	
-	public ArrayList<Integer> getSamples(String keywords) throws DbException, NotAuthorizedException {
+	public ArrayList<Integer> getSamples(String keywords) throws DbException, NotAuthorizedException, Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		keywords = keywords.toLowerCase();
@@ -35,6 +35,9 @@ public class ItinerisSamplesByKeywordsDb extends ItinerisCommon {
 			ex.printStackTrace();
 			throw new DbException(ex);
 		} finally {
+			if (ps != null) {
+				ps.close();
+			}
 			if (con != null) {
 				cm.closeConnection();
 			}

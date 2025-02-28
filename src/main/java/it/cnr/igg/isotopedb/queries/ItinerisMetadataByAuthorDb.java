@@ -14,7 +14,7 @@ public class ItinerisMetadataByAuthorDb extends ItinerisCommon {
 		super(key);
 	}
 	
-	public ArrayList<String> getMetadata(Long authorId) throws DbException, NotAuthorizedException {
+	public ArrayList<String> getMetadata(Long authorId) throws DbException, NotAuthorizedException, Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String query = "select d.metadata from dataset d "
@@ -34,6 +34,9 @@ public class ItinerisMetadataByAuthorDb extends ItinerisCommon {
 			ex.printStackTrace();
 			throw new DbException(ex);
 		} finally {
+			if (ps != null) {
+				ps.close();
+			}
 			if (con != null) {
 				cm.closeConnection();
 			}

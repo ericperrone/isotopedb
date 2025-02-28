@@ -15,7 +15,7 @@ public class ItinerisSamplesByAreaDb extends ItinerisCommon {
 		super(key);
 	}
 	
-	public ArrayList<Integer> getSamples(GeoAreaBean area) throws DbException, NotAuthorizedException {
+	public ArrayList<Integer> getSamples(GeoAreaBean area) throws DbException, NotAuthorizedException, Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String query = "select distinct si.sample_id from sample_index si, sample_attribute sa  "
@@ -41,6 +41,9 @@ public class ItinerisSamplesByAreaDb extends ItinerisCommon {
 			ex.printStackTrace();
 			throw new DbException(ex);
 		} finally {
+			if (ps != null) {
+				ps.close();
+			}
 			if (con != null) {
 				cm.closeConnection();
 			}

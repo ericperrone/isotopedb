@@ -16,7 +16,7 @@ public class ItinerisSampleDataDb extends ItinerisCommon {
 		super(key);
 	}
 	
-	public FullSampleDataBean getSampleData(Integer sampleId) throws DbException, NotAuthorizedException {
+	public FullSampleDataBean getSampleData(Integer sampleId) throws DbException, NotAuthorizedException, Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String query = "select sa.type, sa.name, sa.svalue, sa.nvalue, um, s.name as synonym from sample_attribute sa "
@@ -53,6 +53,9 @@ public class ItinerisSampleDataDb extends ItinerisCommon {
 			ex.printStackTrace();
 			throw new DbException(ex);
 		} finally {
+			if (ps != null) {
+				ps.close();
+			}
 			if (con != null) {
 				cm.closeConnection();
 			}

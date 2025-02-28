@@ -14,7 +14,7 @@ public class ItinerisAuthorsDb extends ItinerisCommon {
 		super(key);
 	}
 	
-	public ArrayList<AuthorBean> getItinerisAuthors() throws DbException, NotAuthorizedException {
+	public ArrayList<AuthorBean> getItinerisAuthors() throws DbException, NotAuthorizedException, Exception {
 		Connection con = null;
 		String query = "select * from authors";
 		PreparedStatement ps = null;
@@ -33,6 +33,9 @@ public class ItinerisAuthorsDb extends ItinerisCommon {
 			ex.printStackTrace();
 			throw new DbException(ex);
 		} finally {
+			if (ps != null) {
+				ps.close();
+			}
 			if (con != null) {
 				cm.closeConnection();
 			}

@@ -14,7 +14,7 @@ public class ItinerisSampleByReferenceDb extends ItinerisCommon {
 		super(key);
 	}
 
-	public ArrayList<Integer> getSamples(String reference) throws DbException, NotAuthorizedException {
+	public ArrayList<Integer> getSamples(String reference) throws DbException, NotAuthorizedException, Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String query = "select distinct si.sample_id from sample_index si "
@@ -33,6 +33,9 @@ public class ItinerisSampleByReferenceDb extends ItinerisCommon {
 			ex.printStackTrace();
 			throw new DbException(ex);
 		} finally {
+			if (ps != null) {
+				ps.close();
+			}
 			if (con != null) {
 				cm.closeConnection();
 			}
