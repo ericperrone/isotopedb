@@ -9,9 +9,29 @@ import it.cnr.igg.isotopedb.exceptions.NotAuthorizedException;
 public class ItinerisCommon extends Query {
 	private String key = null;
 	
+	public ItinerisCommon() {
+		super();
+	}
+	
 	public ItinerisCommon(String key) {
 		super();
 		this.key = key;
+	}
+	
+	public void checkItinerisKey(String key) throws DbException, NotAuthorizedException, Exception  {
+		Connection con = null;
+		try {
+			this.key = key;
+			con = cm.createConnection();
+			if (checkItinerisKey(con) == false)
+				throw new NotAuthorizedException();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (con != null)
+				con.close();
+		}
 	}
 	
 	public Connection checkItinerisKey() throws DbException, NotAuthorizedException  {
