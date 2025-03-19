@@ -9,8 +9,14 @@ public class CommonTools {
 
 	}
 
+	public static String md5(String in) throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		return doDigest(in, md);
+	}
+	
+	
 	public static String Sha1(String in) throws NoSuchAlgorithmException {
-		MessageDigest md = MessageDigest.getInstance("SHA-256");
+		MessageDigest md = MessageDigest.getInstance("SHA-1");
 		return doDigest(in, md);
 	}
 	

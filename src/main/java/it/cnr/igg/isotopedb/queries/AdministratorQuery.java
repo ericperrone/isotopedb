@@ -14,6 +14,37 @@ public class AdministratorQuery extends Query {
 	public AdministratorQuery() {
 		super();
 	}
+	
+	public String generateItinerisAccessKey(String partner) throws DbException, Exception {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String partnerDigest = partner +  ".." + System.currentTimeMillis();
+		String key = CommonTools.md5(partnerDigest);
+		try {
+			con = cm.createConnection();
+			ps = con.prepareStatement("delete from itineris_keys where partner = ?");
+			ps.setString(1,  partner);
+			ps.execute();
+			ps.close();
+			
+			ps = con.prepareStatement("insert into itineris_keys (itineris_key, partner) values (?, ?)");
+			ps.setString(1,  key);
+			ps.setString(2,  partner);
+			ps.execute();
+			
+			return key;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (ps != null) {
+				ps.close();
+			}
+			if (con != null) {
+				cm.closeConnection();
+			}
+		}
+	}		
 
 	public AdministratorBean putAdministrator(AdministratorBean bean) throws DbException, Exception {
 		Connection con = null;
@@ -382,7 +413,10 @@ public class AdministratorQuery extends Query {
 			System.out.println(p);
 			p = query.generateToken("ericperrone");
 			System.out.println(p);
-
+			String z = CommonTools.Sha1("cippalippa00");
+			System.out.println(z);
+			z = CommonTools.md5("cippalippa00");
+			System.out.println(z);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
