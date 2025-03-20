@@ -214,14 +214,14 @@ public class MatrixQuery extends Query {
 			}
 		}
 	}
-	
-	public ArrayList<Integer> getSubTree(Connection con, Integer nodeId) throws Exception, DbException  {
+
+	public ArrayList<Integer> getSubTree(Connection con, Integer nodeId) throws Exception, DbException {
 		ArrayList<Integer> subTree = new ArrayList<Integer>();
 		getSubTreeRc(con, subTree, nodeId);
 		return subTree;
 	}
-	
-	public void getSubTreeRc(Connection con, ArrayList<Integer> subTree, Integer nodeId) throws Exception, DbException  {
+
+	public void getSubTreeRc(Connection con, ArrayList<Integer> subTree, Integer nodeId) throws Exception, DbException {
 		subTree.add(nodeId);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -347,6 +347,31 @@ public class MatrixQuery extends Query {
 		}
 	}
 
+	public MatrixBean getMatrixByName(Connection con, String name) throws Exception, DbException {
+		String query = "select * from matrix where lower(matrix) = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement(query);
+			ps.setString(1, name);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return new MatrixBean(rs.getLong("nodeid"), rs.getLong("parent_nodeid"), rs.getString("matrix"));
+			}
+			return null;
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
+
 	public void insertSampleMatrix(Long sampleId, ArrayList<MatrixBean> beans) throws Exception, DbException {
 		Connection con = null;
 		try {
@@ -383,4 +408,24 @@ public class MatrixQuery extends Query {
 		}
 	}
 
+	public void insertSampleMatrix(Connection con, Long sampleId, Long matrixId) throws Exception, DbException {
+		String insert = "insert into sample_matrix (sample_id, matrix_id) values (?, ?)";
+		PreparedStatement ps = null;
+		try 
+		{
+				ps = con.prepareStatement(insert);
+				ps.setLong(1, sampleId);
+				ps.setLong(2, matrixId);
+				ps.execute();
+				ps.close();
+				ps = null;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
 }

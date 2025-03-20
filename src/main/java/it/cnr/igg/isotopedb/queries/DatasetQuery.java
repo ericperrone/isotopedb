@@ -29,23 +29,15 @@ public class DatasetQuery extends Query {
 		}
 		query = query.substring(0, query.length() - 1);
 		query += ")";
-		
+
 		try {
 			con = cm.createConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				beans.add(
-				 new DatasetBean(
-						rs.getLong("id"), 
-						rs.getString("file_name"),
-						rs.getString("keywords"),
-						rs.getString("authors"),
-						rs.getString("link"),
-						rs.getString("metadata"),
-						rs.getInt("year"),
-						rs.getBoolean("processed"))
-				 );
+				beans.add(new DatasetBean(rs.getLong("id"), rs.getString("file_name"), rs.getString("keywords"),
+						rs.getString("authors"), rs.getString("link"), rs.getString("metadata"), rs.getInt("year"),
+						rs.getBoolean("processed")));
 			}
 			if (beans.size() > 0)
 				return beans;
@@ -59,28 +51,22 @@ public class DatasetQuery extends Query {
 			if (con != null)
 				con.close();
 		}
-	}	
-	
+	}
+
 	public DatasetBean getDatasetBySampleId(Long id) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = null;
 		String query = "select * from dataset where id = (select dataset_id from sample_index where sample_id = ?)";
-		
+
 		try {
 			con = cm.createConnection();
 			ps = con.prepareStatement(query);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				return new DatasetBean(id, 
-						rs.getString("file_name"),
-						rs.getString("keywords"),
-						rs.getString("authors"),
-						rs.getString("link"),
-						rs.getString("metadata"),
-						rs.getInt("year"),
-						rs.getBoolean("processed"));
+				return new DatasetBean(id, rs.getString("file_name"), rs.getString("keywords"), rs.getString("authors"),
+						rs.getString("link"), rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
 			}
 			throw new DbException("No dataset found");
 		} catch (Exception e) {
@@ -93,7 +79,7 @@ public class DatasetQuery extends Query {
 				con.close();
 		}
 	}
-	
+
 	public String deleteDataset(Long id) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -181,7 +167,7 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
-	
+
 	public ArrayList<DatasetFullLinkBean> getFullLinks() throws Exception, DbException {
 		Connection con = null;
 		try {
@@ -193,7 +179,6 @@ public class DatasetQuery extends Query {
 			cm.closeConnection();
 		}
 	}
-
 
 	public ArrayList<String> getLinks(Connection con) throws Exception, DbException {
 		PreparedStatement ps = null;
@@ -218,7 +203,7 @@ public class DatasetQuery extends Query {
 			}
 		}
 	}
-	
+
 	public ArrayList<DatasetFullLinkBean> getFullLinks(Connection con) throws Exception, DbException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -310,40 +295,60 @@ public class DatasetQuery extends Query {
 			return;
 		String[] auths = authors.split(";");
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		for (int i = 0; i < auths.length; i++) {
 			String insert = "insert into dataset_authors (dataset_id, author_id) values (?, ?)";
-			String query = "select id from authors where lower(surname) = ? and lower(name) = ?";
+			String auth = "insert into authors (surname, name) values (?, ?)";
 			String[] a = auths[i].split(",");
 			String surname = a[0].toLowerCase().trim();
 			String name = a[1].toLowerCase().trim();
 			Long authorId = -1L;
 			try {
-				ps = con.prepareStatement(query);
-				ps.setString(1, surname);
-				ps.setString(2, name);
-				rs = ps.executeQuery();
-				if (rs.next()) {
-					authorId = rs.getLong("id");
+				authorId = getAuthorId(con, surname, name);
+				if (authorId == -1L) {
+					// autore non trovato: prova ad inserirlo
+					ps = con.prepareStatement(auth);
+					ps.setString(1, a[0].trim());
+					ps.setString(2, a[1].trim());
+					ps.execute();
+					ps.close();
+					authorId = getAuthorId(con, surname, name);
+					if (authorId == -1L)
+						throw new DbException("Author not found: " + surname + " " + name);
 				}
-				rs.close();
-				ps.close();
-				if (authorId == -1L)
-					throw new DbException("Author not found: " + surname + " " + name);
 				ps = con.prepareStatement(insert);
 				ps.setLong(1, datasetId);
 				ps.setLong(2, authorId);
 				ps.execute();
-				ps.close();
 			} catch (Exception x) {
 				x.printStackTrace();
 				throw x;
 			} finally {
-				if (rs != null)
-					rs.close();
 				if (ps != null)
-					rs.close();
+					ps.close();
 			}
+		}
+	}
+
+	private Long getAuthorId(Connection con, String surname, String name) throws Exception {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = "select id from authors where lower(surname) = ? and lower(name) = ?";
+			ps = con.prepareStatement(query);
+			ps.setString(1, surname);
+			ps.setString(2, name);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getLong("id");
+			}
+			return -1L;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (ps != null)
+				ps.close();
 		}
 	}
 
@@ -454,7 +459,7 @@ public class DatasetQuery extends Query {
 		}
 		throw new NoDatasetFoundException("No author filter");
 	}
-	
+
 	public ArrayList<QueryFilterItem> findDatasetByYear(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
 		if (filters.size() == 0)
@@ -482,7 +487,7 @@ public class DatasetQuery extends Query {
 		}
 		throw new NoDatasetFoundException("No year filter");
 	}
-	
+
 	public ArrayList<QueryFilterItem> findDatasetByReference(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
 		if (filters.size() == 0)
@@ -509,8 +514,8 @@ public class DatasetQuery extends Query {
 			}
 		}
 		throw new NoDatasetFoundException("No reference filter");
-	}	
-	
+	}
+
 	public ArrayList<QueryFilterItem> findDatasetByKeywords(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
 		if (filters.size() == 0)
@@ -540,9 +545,10 @@ public class DatasetQuery extends Query {
 			}
 		}
 		throw new NoDatasetFoundException("No keywords filter");
-	}	
-	
-	private ArrayList<DatasetBean> executeDatasetQuery(String query, Connection con) throws NoDatasetFoundException, Exception {
+	}
+
+	private ArrayList<DatasetBean> executeDatasetQuery(String query, Connection con)
+			throws NoDatasetFoundException, Exception {
 		System.out.println(query);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -555,14 +561,13 @@ public class DatasetQuery extends Query {
 				DatasetBean bean = new DatasetBean(rs.getLong("id"), rs.getString("file_name"),
 						rs.getString("keywords"), rs.getString("authors"), rs.getString("link"),
 						rs.getString("metadata"), rs.getInt("year"), rs.getBoolean("processed"));
-				
+
 				list.add(bean);
-			} 
-			
+			}
+
 			if (list.size() > 0) {
 				return list;
-			}
-			else {
+			} else {
 				throw new NoDatasetFoundException("No dataset for query:\n" + query);
 			}
 		} catch (NoDatasetFoundException ex) {
@@ -576,10 +581,8 @@ public class DatasetQuery extends Query {
 			if (ps != null) {
 				ps.close();
 			}
-		}	
+		}
 	}
-	
-	
 
 	public ArrayList<DatasetBean> findDatasets(ArrayList<QueryFilter> filters, Connection con)
 			throws Exception, NoDatasetFoundException, DbException {
@@ -680,7 +683,8 @@ public class DatasetQuery extends Query {
 		return query;
 	}
 
-	public ArrayList<QueryFilterItem> queryDatasets(QueryFilter queryFilter, Connection con) throws Exception, DbException {
+	public ArrayList<QueryFilterItem> queryDatasets(QueryFilter queryFilter, Connection con)
+			throws Exception, DbException {
 		ArrayList<QueryFilterItem> beans = new ArrayList<QueryFilterItem>();
 		if (queryFilter.authors != null || queryFilter.keywords != null || queryFilter.reference != null
 				|| queryFilter.year > 0) {

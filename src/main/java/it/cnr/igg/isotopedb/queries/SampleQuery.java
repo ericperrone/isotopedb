@@ -493,6 +493,7 @@ public class SampleQuery extends Query {
 				ps = null;
 
 				Double[] coord = { null, null };
+				Long matrixId = -1L;
 
 				// step 3: insert attributes
 				List<SampleFieldBean> fields = sb.getFields();
@@ -532,7 +533,24 @@ public class SampleQuery extends Query {
 							ps.close();
 							ps = null;
 						}
+						if (name.equals("matrix") && matrixId < 0L) {
+							MatrixBean mb = new MatrixQuery().getMatrixByName(con, value.toLowerCase());
+							if (mb != null) {
+								matrixId = mb.getNodeId();
+							}
+						}
+						if (name.equals("matrix_details")) {
+							MatrixBean mb = new MatrixQuery().getMatrixByName(con, value.toLowerCase());
+							if (mb != null) {
+								matrixId = mb.getNodeId();
+							}
+						}
 					}
+				}
+				
+				// step 3bis: insert matrix
+				if (matrixId > 0) {
+					new MatrixQuery().insertSampleMatrix(con, sampleId, matrixId);
 				}
 
 				// step 4: insert chemical components
