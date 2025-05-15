@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import it.cnr.igg.isotopedb.beans.AttributeBean;
 import it.cnr.igg.isotopedb.beans.AuthorBean;
 import it.cnr.igg.isotopedb.beans.ComponentBean;
 import it.cnr.igg.isotopedb.beans.DatasetBean;
@@ -28,6 +29,30 @@ public class SampleQuery extends Query {
 
 	public SampleQuery() {
 		super();
+	}
+
+	public AttributeBean getSampleAttribute(Long id, String name) throws Exception, DbException {
+		try {
+			Connection con = null;
+			con = cm.createConnection();
+			String query = "select * from sample_attribute sa where sa.sample_id = ? and sa.name = ?";
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setLong(1, id);
+			ps.setString(2, name);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return new AttributeBean(rs.getLong("sample_id"), rs.getString("type"), rs.getString("name"),
+						rs.getString("svalue"), rs.getString("um"), rs.getString("technique"),
+						rs.getString("uncertainty"), rs.getString("uncertainty_type"), rs.getString("jvalue"),
+						rs.getFloat("nvalue"));
+			}
+			return new AttributeBean(-1L, "", "", "", "", "", "", "", "", 0F);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			cm.closeConnection();
+		}
 	}
 
 	public int insertExternalSample(ArrayList<AuthorBean> authors, DatasetBean dataset, SampleBean sample)
@@ -195,21 +220,21 @@ public class SampleQuery extends Query {
 		}
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, sa.um, c.latitude, c.longitude, "
-				+ "m.matrix, m.nodeid, m.parent_nodeid, " + "s.name as synonym "
+		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, sa.um, sa.technique, sa.uncertainty, sa.uncertainty_type, "
+				+ "c.latitude, c.longitude, " + "m.matrix, m.nodeid, m.parent_nodeid, " + "s.name as synonym "
 				+ "from sample_index si, sample_attribute sa " + "left join coord c on c.sample_id = sa.sample_id "
 				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
 				+ "left join sample_matrix sm on sm.sample_id = sa.sample_id "
 				+ "left join matrix m on sm.matrix_id = m.nodeid " + "where type in ('F', 'I', 'C') "
 				+ "and sa.sample_id = si.sample_id ";
-		
-		for (QueryFilter f: filters ) {
+
+		for (QueryFilter f : filters) {
 			if (f.operator != null && f.operator.equalsIgnoreCase("or")) {
 				isOR = true;
 				break;
 			}
 			if (f.datasets != null) {
-				for (QueryFilterItem a: f.datasets) {
+				for (QueryFilterItem a : f.datasets) {
 					if (a.operator.equalsIgnoreCase("or")) {
 						isOR = true;
 						break;
@@ -217,7 +242,7 @@ public class SampleQuery extends Query {
 				}
 			}
 		}
-		
+
 		if (filters.size() > 0 && isOR == false)
 			queryData += "and ( 1=1 ";
 		if (filters.size() > 0 && isOR == true)
@@ -242,7 +267,7 @@ public class SampleQuery extends Query {
 					}
 					queryData += ") ";
 				}
-					
+
 				if (keywords.size() > 0) {
 					queryData += keywords.get(0).operator + " (";
 					int n = 1;
@@ -250,12 +275,12 @@ public class SampleQuery extends Query {
 						queryData += n > 1 ? " or si.dataset_id in (" : "si.dataset_id in (";
 						queryData += qfi.bean.getId() + ",";
 						queryData = queryData.substring(0, queryData.length() - 1);
-						queryData += ")";	
+						queryData += ")";
 						n++;
 					}
 					queryData += ") ";
-				}					
-					
+				}
+
 				if (references.size() > 0) {
 					queryData += references.get(0).operator + " (";
 					int n = 1;
@@ -263,12 +288,12 @@ public class SampleQuery extends Query {
 						queryData += n > 1 ? " or si.dataset_id in (" : " si.dataset_id in (";
 						queryData += qfi.bean.getId() + ",";
 						queryData = queryData.substring(0, queryData.length() - 1);
-						queryData += ")";	
+						queryData += ")";
 						n++;
 					}
 					queryData += ") ";
-				}					
-										
+				}
+
 				if (years.size() > 0) {
 					queryData += years.get(0).operator + " (";
 					int n = 1;
@@ -276,11 +301,11 @@ public class SampleQuery extends Query {
 						queryData += n > 1 ? " or si.dataset_id in (" : " si.dataset_id in (";
 						queryData += qfi.bean.getId() + ",";
 						queryData = queryData.substring(0, queryData.length() - 1);
-						queryData += ")";						
+						queryData += ")";
 					}
 					queryData += ") ";
 				}
-				
+
 //				for (QueryFilterItem qfi : authors) {
 //					queryData += nFilter > 1 ? " " + qfi.operator : " ";
 //					queryData += " si.dataset_id in (";
@@ -292,7 +317,8 @@ public class SampleQuery extends Query {
 			}
 			if (f.coordinates != null) {
 //				queryData += nFilter > 1 ? " " + f.operator: " ";
-				queryData += f.operator + " (latitude >= " + f.coordinates.minLat + " and latitude <= " + f.coordinates.maxLat;
+				queryData += f.operator + " (latitude >= " + f.coordinates.minLat + " and latitude <= "
+						+ f.coordinates.maxLat;
 				queryData += " and longitude >= " + f.coordinates.minLong + " and longitude <= " + f.coordinates.maxLong
 						+ ") ";
 //				++nFilter;
@@ -467,7 +493,7 @@ public class SampleQuery extends Query {
 		String insertSample = "insert into sample_index (ts, dataset_id) values(now(), ?);";
 		String getSampleId = "SELECT currval(pg_get_serial_sequence(\'sample_index\',\'sample_id\')) as sample_id";
 		String insertField = "insert into sample_attribute (sample_id, type, name, svalue) values (?, ?, ?, ?)";
-		String insertChem = "insert into sample_attribute (sample_id, type, name, nvalue, um) values (?, ?, ?, ?, ?)";
+		String insertChem = "insert into sample_attribute (sample_id, type, name, nvalue, um, technique, uncertainty, uncertainty_type) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		String insertCoord = "insert into coordinates (sample_id, latitude, longitude) values (?, ?, ?)";
 		try {
 			ElementQuery eq = new ElementQuery();
@@ -547,7 +573,7 @@ public class SampleQuery extends Query {
 						}
 					}
 				}
-				
+
 				// step 3bis: insert matrix
 				if (matrixId > 0) {
 					new MatrixQuery().insertSampleMatrix(con, sampleId, matrixId);
@@ -567,6 +593,19 @@ public class SampleQuery extends Query {
 							ps.setString(5, cb.getUm());
 						else
 							ps.setNull(5, Types.VARCHAR);
+						if (cb.getTechnique() != null)
+							ps.setString(6, cb.getTechnique());
+						else
+							ps.setNull(6, Types.VARCHAR);
+						if (cb.getUncertainty() != null)
+							ps.setString(7, cb.getUncertainty());
+						else
+							ps.setNull(7, Types.VARCHAR);
+						if (cb.getUncertaintyType() != null)
+							ps.setString(8, cb.getUncertaintyType());
+						else
+							ps.setNull(8, Types.VARCHAR);
+
 						ps.execute();
 						ps.close();
 						ps = null;

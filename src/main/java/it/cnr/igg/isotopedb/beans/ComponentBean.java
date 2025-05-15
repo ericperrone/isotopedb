@@ -5,6 +5,13 @@ public class ComponentBean extends TheBean {
 	private String component;
 	private Double value;
 	private String um;
+	private String technique;
+	private String uncertainty;
+	private String uncertaintyType;
+	public Long getComponentId() {
+		return componentId;
+	}
+
 	private boolean isIsotope;
 	
 	public ComponentBean(Long id, String component, Double value, String um) {
@@ -33,6 +40,16 @@ public class ComponentBean extends TheBean {
 		this.um = um;
 	}
 	
+	public ComponentBean(String component, Double value, boolean isIsotope, String um, String techinque, String uncertainty, String uncertaintyType) {
+		this.component = component;
+		this.value = value;
+		this.isIsotope = isIsotope;
+		this.um = um;
+		this.technique = techinque;
+		this.uncertainty = uncertainty;
+		this.uncertaintyType = uncertaintyType;
+	}
+	
 	public ComponentBean() {
 		
 	}
@@ -53,6 +70,18 @@ public class ComponentBean extends TheBean {
 		return um;
 	}
 	
+	public String getTechnique() {
+		return technique;
+	}
+
+	public String getUncertainty() {
+		return uncertainty;
+	}
+
+	public String getUncertaintyType() {
+		return uncertaintyType;
+	}	
+	
 	public boolean getIsIsotope() {
 		return isIsotope;
 	}
@@ -72,7 +101,27 @@ public class ComponentBean extends TheBean {
 	public void setUm(String um) {
 		this.um = um;
 	}
-	
+		
+	public void setComponentId(Long componentId) {
+		this.componentId = componentId;
+	}
+
+	public void setTechnique(String technique) {
+		this.technique = technique;
+	}
+
+	public void setUncertainty(String uncertainty) {
+		this.uncertainty = uncertainty;
+	}
+
+	public void setUncertaintyType(String ucertaintyType) {
+		this.uncertaintyType = ucertaintyType;
+	}
+
+	public void setIsotope(boolean isIsotope) {
+		this.isIsotope = isIsotope;
+	}
+
 	public void setIsIsotope(boolean isIsotope) {
 		this.isIsotope = isIsotope;
 	}
