@@ -57,5 +57,48 @@ public class MeasureUnitQuery extends Query {
 			}
 		}
 	}
+	
+	public ArrayList<String> getUncertaintyTypes() throws Exception {
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			return getUncertaintyTypes(con);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (con != null) {
+				cm.closeConnection();
+			}
+		}		
+	}
+	
+	public ArrayList<String> getUncertaintyTypes(Connection con) throws Exception {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement("select utype from uncertainty_type");
+			rs = ps.executeQuery();
+			
+			ArrayList<String> beans = new ArrayList<String>();
+			
+			while (rs.next()) {
+				beans.add(rs.getString(1));
+			}
+			
+			return beans;
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex.getMessage());
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}		
+	}
 
 }
