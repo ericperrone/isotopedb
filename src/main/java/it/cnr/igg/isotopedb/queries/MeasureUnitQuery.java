@@ -34,7 +34,7 @@ public class MeasureUnitQuery extends Query {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = conn.prepareStatement("select * from measure_unit");
+			ps = conn.prepareStatement("select * from measure_unit order by um");
 			rs = ps.executeQuery();
 			
 			ArrayList<MeasureUnitBean> beans = new ArrayList<MeasureUnitBean>();
