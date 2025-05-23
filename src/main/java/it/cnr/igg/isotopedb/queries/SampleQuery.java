@@ -35,10 +35,14 @@ public class SampleQuery extends Query {
 		try {
 			Connection con = null;
 			con = cm.createConnection();
-			String query = "select * from sample_attribute sa where sa.sample_id = ? and sa.name = ?";
+//			String query = "select * from sample_attribute sa where sa.sample_id = ? and sa.name = ?";
+			
+			String query = "select * from sample_attribute sa where sa.sample_id = ? and (lower(sa.name) = lower(?) or lower(sa.name) in (select distinct lower(s.synonym) as alias from synonyms s where lower(s.name) = lower(?)))";
+			
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setLong(1, id);
 			ps.setString(2, name);
+			ps.setString(3, name);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				return new AttributeBean(rs.getLong("sample_id"), rs.getString("type"), rs.getString("name"),
