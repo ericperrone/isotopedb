@@ -3,8 +3,10 @@ package it.cnr.igg.isotopedb.queries;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLType;
 import java.util.ArrayList;
 
+import it.cnr.igg.isotopedb.beans.CacheBean;
 import it.cnr.igg.isotopedb.beans.DatasetBean;
 import it.cnr.igg.isotopedb.beans.DatasetFullLinkBean;
 import it.cnr.igg.isotopedb.exceptions.DbException;
@@ -16,6 +18,95 @@ public class DatasetQuery extends Query {
 
 	public DatasetQuery() {
 		super();
+	}
+
+	public ArrayList<CacheBean> getCachedData(Long datasetId) throws Exception, DbException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			ArrayList<CacheBean> beans = new ArrayList<CacheBean>();
+			String query = "select * from dataset_cache where dataset_id = ?";
+			ps = con.prepareStatement(query);
+			ps.setLong(1, datasetId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				beans.add(new CacheBean(datasetId, rs.getString("field_name"), rs.getString("field_type"),
+						rs.getString("um"), rs.getString("technique"), rs.getString("error_type"),
+						rs.getFloat("error")));
+			}
+			return beans;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (ps != null)
+				ps.close();
+			if (con != null)
+				con.close();
+		}
+	}
+	
+	public void insertCachedData(ArrayList<CacheBean> beans)throws Exception, DbException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			Long datasetId = beans.get(0).datasetId;
+			String del = "delete from dataset_cache where dataset_id = ?";
+			ps = con.prepareStatement(del);
+			ps.setLong(1, datasetId);
+			ps.execute();
+			ps.close();
+			
+			String insert = "insert into dataset_cache (dataset_id, field_name, field_type, um, technique, error, error_type) values (?, ?, ?, ?, ?, ?, ?)";
+			ps = con.prepareStatement(insert);
+			for (CacheBean bean : beans) {
+				ps.setLong(1, bean.datasetId);
+				ps.setString(2, bean.fieldName);
+				ps.setString(3, bean.fieldType);
+				ps.setString(4, bean.um);
+				ps.setString(5, bean.technique);
+				if (bean.error != null)
+					ps.setFloat(6, bean.error);
+				else
+					ps.setNull(6, java.sql.Types.FLOAT);
+				ps.setString(7, bean.errorType);
+				ps.execute();
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (ps != null)
+				ps.close();
+			if (con != null)
+				con.close();			
+		}
+	}
+	
+	public void deleteCachedData(Long datasetId) throws Exception, DbException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		try {
+			con = cm.createConnection();
+			String del = "delete from dataset_cache where dataset_id = ?";
+			ps = con.prepareStatement(del);
+			ps.setLong(1, datasetId);
+			ps.execute();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DbException(ex);
+		} finally {
+			if (ps != null)
+				ps.close();
+			if (con != null)
+				con.close();			
+		}
 	}
 
 	public ArrayList<DatasetBean> getDatasetBySampleId(ArrayList<Long> ids) throws Exception, DbException {
@@ -247,6 +338,58 @@ public class DatasetQuery extends Query {
 		}
 	}
 
+	public void updateDataset(DatasetBean bean) throws Exception, DbException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String update = "update dataset set keywords=?, link=?, authors=?, year=?, metadata=? where id=?";
+		try {
+			con = cm.createConnection();
+			ps = con.prepareStatement(update);
+			
+			String keywords = bean.getKeywords();
+			if (keywords != null && keywords.length() > 0)
+				ps.setString(1,  keywords);
+			else
+				ps.setNull(1, java.sql.Types.VARCHAR);
+			
+			String link = bean.getLink();
+			if (link != null && link.length() > 0) 
+				ps.setString(2,  link);
+			else
+				ps.setNull(2, java.sql.Types.VARCHAR);
+			
+			String authors = bean.getAuthors();
+			if (authors != null && authors.length() > 0)
+				ps.setString(3,  authors);
+			else
+				ps.setNull(3, java.sql.Types.VARCHAR);
+			
+			if (bean.getYear() > 0)
+				ps.setInt(4, bean.getYear());
+			else
+				ps.setNull(4, java.sql.Types.INTEGER);
+			
+			String metadata = bean.getMetadata();
+			if (metadata != null && metadata.length() > 0)
+				ps.setString(5,  metadata);
+			else
+				ps.setNull(5, java.sql.Types.VARCHAR);			
+			
+			ps.setLong(6, bean.getId());
+			
+			ps.execute();
+			
+		} catch (Exception ex) {
+			
+		} finally {
+			if (ps != null)
+				ps.close();
+			if (con != null)
+				con.close();
+		}
+		
+	}
+	
 	public DatasetBean insertDataset(DatasetBean bean, boolean processed, Connection con)
 			throws Exception, DbException {
 		PreparedStatement ps = null;
