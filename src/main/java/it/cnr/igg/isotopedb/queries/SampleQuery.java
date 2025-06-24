@@ -47,10 +47,10 @@ public class SampleQuery extends Query {
 			if (rs.next()) {
 				return new AttributeBean(rs.getLong("sample_id"), rs.getString("type"), rs.getString("name"),
 						rs.getString("svalue"), rs.getString("um"), rs.getString("technique"),
-						rs.getString("uncertainty"), rs.getString("uncertainty_type"), rs.getString("jvalue"),
+						rs.getString("uncertainty"), rs.getString("uncertainty_type"), rs.getString("refstd"), rs.getString("jvalue"),
 						rs.getFloat("nvalue"));
 			}
-			return new AttributeBean(-1L, "", "", "", "", "", "", "", "", 0F);
+			return new AttributeBean(-1L, "", "", "", "", "", "", "", "", "", 0F);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new DbException(ex);
@@ -224,7 +224,7 @@ public class SampleQuery extends Query {
 		}
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, sa.um, sa.technique, sa.uncertainty, sa.uncertainty_type, "
+		String queryData = "select distinct si.sample_id, si.dataset_id, sa.type, sa.name, sa.svalue, sa.nvalue, sa.um, sa.technique, sa.uncertainty, sa.uncertainty_type, sa.refstd, "
 				+ "c.latitude, c.longitude, " + "m.matrix, m.nodeid, m.parent_nodeid, " + "s.name as synonym "
 				+ "from sample_index si, sample_attribute sa " + "left join coord c on c.sample_id = sa.sample_id "
 				+ "left join synonyms s on s.synonym = regexp_replace(sa.name, ' \\[.*\\]', '') "
@@ -497,7 +497,7 @@ public class SampleQuery extends Query {
 		String insertSample = "insert into sample_index (ts, dataset_id) values(now(), ?);";
 		String getSampleId = "SELECT currval(pg_get_serial_sequence(\'sample_index\',\'sample_id\')) as sample_id";
 		String insertField = "insert into sample_attribute (sample_id, type, name, svalue) values (?, ?, ?, ?)";
-		String insertChem = "insert into sample_attribute (sample_id, type, name, nvalue, um, technique, uncertainty, uncertainty_type) values (?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertChem = "insert into sample_attribute (sample_id, type, name, nvalue, um, technique, uncertainty, uncertainty_type, refstd) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String insertCoord = "insert into coordinates (sample_id, latitude, longitude) values (?, ?, ?)";
 		try {
 			ElementQuery eq = new ElementQuery();
@@ -591,7 +591,7 @@ public class SampleQuery extends Query {
 						ps = con.prepareStatement(insertChem);
 						ps.setLong(1, sampleId);
 						ps.setString(2, cb.getIsIsotope() == true ? TYPE_ISOTOPE : TYPE_CHEM);
-						ps.setString(3, cb.getComponent());
+						ps.setString(3, cb.getComponent().trim());
 						ps.setDouble(4, value);
 						if (cb.getIsIsotope() == false)
 							ps.setString(5, cb.getUm());
@@ -609,6 +609,10 @@ public class SampleQuery extends Query {
 							ps.setString(8, cb.getUncertaintyType());
 						else
 							ps.setNull(8, Types.VARCHAR);
+						if (cb.getRefstd() != null)
+							ps.setString(9, cb.getRefstd());
+						else
+							ps.setNull(9, Types.VARCHAR);
 
 						ps.execute();
 						ps.close();

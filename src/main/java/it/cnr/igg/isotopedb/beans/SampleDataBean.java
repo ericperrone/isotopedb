@@ -11,7 +11,7 @@ public class SampleDataBean {
 	public SampleDataBean(String type, String name, String sValue, Float nValue, String um, String synonym) {
 		super();
 		this.type = type;
-		this.name = name;
+		this.name = name != null ? name.trim() : null;
 		this.sValue = sValue;
 		this.nValue = sValue != null && nValue == 0f ? null : nValue;
 		this.um = um;

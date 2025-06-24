@@ -8,6 +8,8 @@ public class ComponentBean extends TheBean {
 	private String technique;
 	private String uncertainty;
 	private String uncertaintyType;
+	private String refstd;
+	
 	public Long getComponentId() {
 		return componentId;
 	}
@@ -40,7 +42,7 @@ public class ComponentBean extends TheBean {
 		this.um = um;
 	}
 	
-	public ComponentBean(String component, Double value, boolean isIsotope, String um, String techinque, String uncertainty, String uncertaintyType) {
+	public ComponentBean(String component, Double value, boolean isIsotope, String um, String techinque, String uncertainty, String uncertaintyType, String refstd) {
 		this.component = component;
 		this.value = value;
 		this.isIsotope = isIsotope;
@@ -48,10 +50,19 @@ public class ComponentBean extends TheBean {
 		this.technique = techinque;
 		this.uncertainty = uncertainty;
 		this.uncertaintyType = uncertaintyType;
+		this.refstd = refstd;
 	}
 	
 	public ComponentBean() {
 		
+	}
+	
+	public void setRefstd(String refstd) {
+		this.refstd = refstd;
+	}
+
+	public String getRefstd() {
+		return refstd;
 	}
 
 	public Long getId() {
