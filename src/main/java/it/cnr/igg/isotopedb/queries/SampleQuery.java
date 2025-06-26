@@ -358,6 +358,7 @@ public class SampleQuery extends Query {
 				Long id = rs.getLong("sample_id");
 				if (index.get(id) == null) {
 					SampleBean bean = new SampleBean();
+					bean.setId(id);
 					Long datasetId = rs.getLong("dataset_id");
 					if (datasetId > 0)
 						bean.setDatasetId(datasetId);
@@ -390,6 +391,7 @@ public class SampleQuery extends Query {
 
 			index.forEach((id, bean) -> beans.add(bean));
 
+			beans.sort((a, b) -> {return (int)(a.getId() - b.getId()); });
 			return beans;
 		} catch (Exception ex) {
 			ex.printStackTrace();
